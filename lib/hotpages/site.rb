@@ -1,17 +1,19 @@
 class Hotpages::Site
   class << self
     def instance = @instance ||= new
-    def config = @config ||= Hotpages.config
+    def config = @config ||= Configuration.new(Hotpages.config)
   end
 
   attr_reader :config, :dev_server
 
-  def setup
+  def initialize
     @config = self.class.config
-    @loader = Hotpages::SiteLoader.new
-    @generator = Hotpages::SiteGenerator.new
-    @dev_server = Hotpages::DevServer.new
+    @loader = Loader.new(config:)
+    @generator = Generator.new(config:)
+    @dev_server = DevServer.new(site: self, port: Hotpages.config.dev_server.port)
+  end
 
+  def setup
     loader.setup
   end
 
@@ -22,6 +24,7 @@ class Hotpages::Site
   ensure
     loader.reload
   end
+
   def generate = generator.generate
 
   private

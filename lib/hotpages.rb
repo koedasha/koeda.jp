@@ -14,7 +14,7 @@ module Hotpages
     end
 
     attr_accessor :site
-    def config = @config ||= Configuration.new.tap { _1.extend(ConfigurationExt) }
+    def config = @config ||= Configuration.new
 
     def setup_site(site_class)
       self.site = site_class.instance

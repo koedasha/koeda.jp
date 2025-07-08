@@ -1,17 +1,13 @@
 class Hotpages::Configuration
   DEFAULTS = {
     root: nil,
-    dist_path: "dist",
-    site_path: "site",
-    pages_namespace: "Pages",
-    models_path:"models",
-    pages_path: "pages",
-    # site: {
-    #   root: "site",
-    #   models_path:"models",
-    #   pages_path: "pages",
-    #   pages_namespace: "Pages",
-    # },
+    site: {
+      root: "site",
+      models_path:"models",
+      pages_path: "pages",
+      pages_namespace: "Pages",
+      dist_path: "dist",
+    },
     dev_server: {
       port: 8080
     }

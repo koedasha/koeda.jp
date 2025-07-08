@@ -1,5 +1,5 @@
-class Hotpages::SiteGenerator
-  def initialize(config: Hotpages.config)
+class Hotpages::Site::Generator
+  def initialize(config:)
     @config = config
   end
 
@@ -13,7 +13,7 @@ class Hotpages::SiteGenerator
       puts "Generating page: #{page_path}"
 
       # Instantiate the page class
-      page_instance = Hotpages::Page.instance_for(page_path, config: config)
+      page_instance = Hotpages::Page.instance_for(page_path, config:)
 
       # Render the page
       content = page_instance.render

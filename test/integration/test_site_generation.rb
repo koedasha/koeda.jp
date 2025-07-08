@@ -3,8 +3,8 @@ require "test_helper"
 class TestSiteGeneration < Minitest::Test
   class TestSite < Hotpages::Site
     config.root = File.join(__dir__, "..")
-    config.site_path = "test_site"
-    config.dist_path = "dist/actual"
+    config.site.root = "test_site"
+    config.site.dist_path = "dist/actual"
   end
 
   def setup

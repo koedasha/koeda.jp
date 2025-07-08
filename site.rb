@@ -1,6 +1,6 @@
 require_relative "lib/hotpages"
 
-Hotpages.loader.setup
+Hotpages.setup
 
 module Koeda
   class Site < Hotpages::Site

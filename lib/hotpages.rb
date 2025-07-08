@@ -13,6 +13,15 @@ module Hotpages
       loader.reload
     end
 
+    def setup
+      loader.setup
+    end
+
+    def teardown
+      loader.unload
+      loader.unregister
+    end
+
     attr_accessor :site
     def config = @config ||= Configuration.new
 

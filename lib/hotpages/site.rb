@@ -17,6 +17,11 @@ class Hotpages::Site
     loader.setup
   end
 
+  def teardown
+    loader.unload
+    loader.unregister
+  end
+
   def reload
     loader.reload
   rescue Zeitwerk::SetupRequired

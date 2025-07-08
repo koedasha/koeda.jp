@@ -20,6 +20,7 @@ class TestSiteDevServing < Minitest::Test
   def teardown
     Hotpages.site.dev_server.stop
     @server_thread.join
+    Hotpages.site.teardown
     sleep 0.1
   end
 

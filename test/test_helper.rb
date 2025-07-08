@@ -1,4 +1,4 @@
 require "minitest/autorun"
 require "hotpages"
 
-Hotpages.loader.setup
+Hotpages.setup

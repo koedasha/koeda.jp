@@ -11,6 +11,10 @@ class TestSiteGeneration < Minitest::Test
     Hotpages.setup_site(TestSite)
   end
 
+  def teardown
+    Hotpages.site.teardown
+  end
+
   def test_site_generation
     Hotpages.site.generate
 

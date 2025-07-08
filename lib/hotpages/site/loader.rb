@@ -12,7 +12,7 @@ class Hotpages::Site::Loader
     end
   end
 
-  delegate [:setup, :reload] => :loader
+  delegate [:setup, :reload, :unload, :unregister] => :loader
 
   private
 

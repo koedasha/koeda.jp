@@ -1,15 +1,19 @@
 class Pages::Products
   include Hotpages::Page
 
-  def render
-    <<~HTML
+  def body
+    <<~ERB
       <h1>Products</h1>
       <p>Here are some of our products:</p>
       <ul>
-        <li>Product 1</li>
-        <li>Product 2</li>
-        <li>Product 3</li>
+        <% products.each do |product| -%>
+          <li><%= product -%></li>
+        <% end %>
       </ul>
-    HTML
+    ERB
   end
+
+  private
+
+  def products = ["Product 1", "Product 2", "Product 3"]
 end

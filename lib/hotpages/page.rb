@@ -22,13 +22,13 @@ module Hotpages::Page
     @config = config
   end
 
+  def body = File.read(File.join(config.pages_full_path, "#{base_path}.html.erb"))
+
   def render
-    ERB.new(template, trim_mode: "-").result(binding)
+    ERB.new(body, trim_mode: "-").result(binding)
   end
 
   private
 
   attr_reader :base_path, :config
-
-  def template = File.read(File.join(config.pages_full_path, "#{base_path}.html.erb"))
 end

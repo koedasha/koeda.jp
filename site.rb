@@ -2,8 +2,8 @@ require_relative "lib/hotpages"
 
 module Koeda
   class Site < Hotpages::Site
-    configure do |config|
-      config.root = __dir__
-    end
+    config.root = __dir__
   end
+
+  Site.instance.setup
 end

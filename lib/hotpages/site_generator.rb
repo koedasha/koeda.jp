@@ -1,5 +1,5 @@
 class Hotpages::SiteGenerator
-  def initialize(config:)
+  def initialize(config: Hotpages.config)
     @config = config
   end
 

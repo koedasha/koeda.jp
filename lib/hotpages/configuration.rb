@@ -6,6 +6,9 @@ class Hotpages::Configuration
     pages_path: "pages",
     dist_path: "dist",
     pages_namespace: "Pages",
+    dev_server: {
+      port: 8080
+    }
   }.freeze
 
   def initialize(defaults = DEFAULTS)

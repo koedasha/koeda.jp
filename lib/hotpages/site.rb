@@ -7,8 +7,6 @@ class Hotpages::Site
   attr_reader :config, :dev_server
 
   def setup
-    Hotpages.site = self
-
     @config = self.class.config
     @loader = Hotpages::SiteLoader.new
     @generator = Hotpages::SiteGenerator.new

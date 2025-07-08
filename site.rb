@@ -1,9 +1,11 @@
 require_relative "lib/hotpages"
 
+Hotpages.loader.setup
+
 module Koeda
   class Site < Hotpages::Site
     config.root = __dir__
   end
-
-  Site.instance.setup
 end
+
+Hotpages.setup_site(Koeda::Site)

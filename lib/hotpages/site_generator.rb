@@ -11,8 +11,7 @@ class Hotpages::SiteGenerator
       puts "Generating page: #{page_path}"
 
       # Instantiate the page class
-      page_class = Object.const_get("#{config.pages_namespace}::#{page_path.split('/').map(&:capitalize).join('::')}")
-      page_instance = page_class.new(base_path: page_path, config:)
+      page_instance = Hotpages::Page.instance_for(page_path, config: config)
 
       # Render the page
       content = page_instance.render

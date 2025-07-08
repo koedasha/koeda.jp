@@ -5,6 +5,13 @@ module Hotpages::Page
     def included(base)
       base.extend(Forwardable)
     end
+
+    # TODO: Handle case where page_class is not defined
+    def instance_for(page_path, config:)
+      namespace = config.pages_namespace_module
+      page_class = namespace.const_get(page_path.split('/').map(&:capitalize).join('::'))
+      page_class.new(base_path: page_path, config:)
+    end
   end
 
   def initialize(base_path: nil, config: nil)

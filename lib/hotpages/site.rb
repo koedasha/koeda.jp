@@ -1,6 +1,6 @@
 class Hotpages::Site
   class << self
-    def config = @config ||= Hotpages::Configuration.new
+    def config = @config ||= Hotpages.config
     def configure
       yield(config) if block_given?
       loader.setup

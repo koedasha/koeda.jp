@@ -1,9 +1,10 @@
 require "webrick"
 
 class Hotpages::Site::DevServer
-  def initialize(site:, port:)
+  def initialize(site:)
     @site = site
-    @port = port
+    @config = site.config
+    @port = @config.site.dev_server.port
   end
 
   def start(gem_development: false)
@@ -20,7 +21,7 @@ class Hotpages::Site::DevServer
 
   private
 
-  attr_reader :site, :port
+  attr_reader :site, :config, :port
 
   def server
     @server ||= WEBrick::HTTPServer.new(
@@ -36,7 +37,7 @@ class Hotpages::Site::DevServer
       site.reload
 
       # TODO: Error handling for page not found
-      page = Hotpages::Page.instance_for(req.path, config: site.config)
+      page = Hotpages::Page.instance_for(req.path, config:)
 
       res["Content-Type"] = "text/html"
       res.body = page.render

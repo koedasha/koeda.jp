@@ -1,7 +1,7 @@
 class Hotpages::Site
   class << self
     def instance = @instance ||= new
-    def config = @config ||= Configuration.new(Hotpages.config)
+    def config = @config ||= Hotpages.config.tap { _1.extend(ConfigurationExt) }
   end
 
   attr_reader :config, :dev_server
@@ -10,7 +10,7 @@ class Hotpages::Site
     @config = self.class.config
     @loader = Loader.new(config:)
     @generator = Generator.new(config:)
-    @dev_server = DevServer.new(site: self, port: Hotpages.config.dev_server.port)
+    @dev_server = DevServer.new(site: self)
   end
 
   def setup

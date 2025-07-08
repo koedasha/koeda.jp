@@ -1,12 +1,6 @@
 require "forwardable"
 
-class Hotpages::Site::Configuration
-  extend Forwardable
-
-  def initialize(config)
-    @config = config
-  end
-
+module Hotpages::Site::ConfigurationExt
   def site_full_path
     File.join(root, site.root)
   end
@@ -28,9 +22,4 @@ class Hotpages::Site::Configuration
 
     Object.const_set(ns_name, Module.new)
   end
-
-  private
-
-  attr_reader :config
-  delegate [:root, :root=, :site] => :config
 end

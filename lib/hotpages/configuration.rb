@@ -7,9 +7,9 @@ class Hotpages::Configuration
       pages_path: "pages",
       pages_namespace: "Pages",
       dist_path: "dist",
-    },
-    dev_server: {
-      port: 8080
+      dev_server: {
+        port: 8080
+      }
     }
   }.freeze
 

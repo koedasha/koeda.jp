@@ -17,7 +17,13 @@ class Hotpages::Site
     loader.setup
   end
 
-  def reload = loader.reload
+  def reload
+    loader.reload
+  rescue Zeitwerk::SetupRequired
+    loader.setup
+  ensure
+    loader.reload
+  end
   def generate = generator.generate
 
   private

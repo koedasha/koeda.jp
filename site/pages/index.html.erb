@@ -15,7 +15,9 @@
   <header>
     <nav>
       <ul>
-        <li>hi</li>
+        <% greetings.each do |greeting| %>
+          <li><%= greeting %></li>
+        <% end %>
       </ul>
     </nav>
   </header>

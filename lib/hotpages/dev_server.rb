@@ -35,6 +35,7 @@ class Hotpages::DevServer
       Hotpages.reload if gem_development?
       site.reload
 
+      # TODO: Error handling for page not found
       page = Hotpages::Page.instance_for(req.path, config:)
 
       res["Content-Type"] = "text/html"

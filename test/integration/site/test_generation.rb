@@ -2,7 +2,7 @@ require "test_helper"
 
 class TestSiteGeneration < Minitest::Test
   class TestSite < Hotpages::Site
-    config.root = File.join(__dir__, "..")
+    config.root = File.join(__dir__, "../..")
     config.site.root = "test_site"
     config.site.dist_path = "dist/actual"
   end
@@ -14,7 +14,7 @@ class TestSiteGeneration < Minitest::Test
   def test_site_generation
     Hotpages.site.generate
 
-    expected_dist = File.join(__dir__, "../dist/expected")
+    expected_dist = File.join(__dir__, "../../dist/expected")
     actual_dist = Hotpages.site.config.dist_full_path
 
     expected_files = Dir.glob("#{expected_dist}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }

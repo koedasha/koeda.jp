@@ -5,7 +5,7 @@ class TestSiteDevServing < Minitest::Test
   TEST_PORT = 12345
 
   class TestSite < Hotpages::Site
-    config.root = File.join(__dir__, "..")
+    config.root = File.join(__dir__, "../..")
     config.site.root = "test_site"
     config.site.dist_path = "dist/actual"
     config.site.dev_server.port = TEST_PORT

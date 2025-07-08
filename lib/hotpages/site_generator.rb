@@ -4,6 +4,8 @@ class Hotpages::SiteGenerator
   end
 
   def generate
+    FileUtils.rm_rf(config.dist_full_path) if Dir.exist?(config.dist_full_path)
+
     page_ruby_files = Dir.glob(File.join(config.pages_full_path, "**", "*.rb"))
     page_ruby_files.each do |file|
       relative_path = file.sub(config.pages_full_path + "/", "")

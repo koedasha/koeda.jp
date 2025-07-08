@@ -4,6 +4,7 @@ class Hotpages::Configuration
     models_path:"models",
     site_path: "site",
     pages_path: "pages",
+    dist_path: "dist",
     pages_namespace: "Pages",
   }.freeze
 
@@ -33,6 +34,10 @@ class Hotpages::Configuration
 
   def pages_full_path
     File.join(site_full_path, pages_path)
+  end
+
+  def dist_full_path
+    File.join(root, dist_path)
   end
 
   def pages_namespace_module(ns_name = pages_namespace)

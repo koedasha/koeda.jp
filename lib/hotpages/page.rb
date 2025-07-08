@@ -23,7 +23,7 @@ module Hotpages::Page
   end
 
   def render
-    ERB.new(template).result(binding)
+    ERB.new(template, trim_mode: "-").result(binding)
   end
 
   private

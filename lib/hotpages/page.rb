@@ -3,6 +3,7 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable
+  include Hotpages::Helpers
 
   class << self
     def inherited(subclass)

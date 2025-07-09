@@ -5,6 +5,7 @@ class Hotpages::Configuration
       root: "site",
       models_path:"models",
       layouts_path: "layouts",
+      assets_path: "assets",
       pages_path: "pages",
       pages_namespace: "Pages",
       dist_path: "dist",

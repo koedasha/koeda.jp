@@ -13,6 +13,10 @@ module Hotpages::Site::ConfigurationExt
     File.join(site_full_path, site.layouts_path)
   end
 
+  def assets_full_path
+    File.join(site_full_path, site.assets_path)
+  end
+
   def pages_full_path
     File.join(site_full_path, site.pages_path)
   end

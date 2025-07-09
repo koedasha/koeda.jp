@@ -39,5 +39,10 @@ class TestSiteDevServing < Minitest::Test
     res = Net::HTTP.get_response(uri)
     assert_equal "200", res.code
     assert_match %r{<h1>Products</h1>}, res.body
+
+    uri = URI("http://localhost:#{TEST_PORT}/assets/site.css")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "200", res.code
+    assert_match %r{body \{}, res.body
   end
 end

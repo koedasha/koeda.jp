@@ -36,11 +36,43 @@ class Hotpages::Site::DevServer
       Hotpages.reload if gem_development?
       site.reload
 
-      # TODO: Error handling for page not found
-      page = Hotpages::Page.instance_for(req.path, config:)
-
-      res["Content-Type"] = "text/html"
-      res.body = page.render
+      if req.path.start_with?("/#{config.site.assets_path}/")
+        handle_assets_request(req, res)
+      else
+        handle_page_request(req, res)
+      end
     end
+  end
+
+  private
+
+  def handle_assets_request(req, res)
+    ext = File.extname(req.path)
+    asset_file_path = File.join(config.site_full_path, req.path)
+    content = File.read(asset_file_path)
+    mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, '')] || "application/octet-stream"
+    res["Content-Type"] = mime_type
+    res.body = content
+  rescue Errno::ENOENT
+    respond_with_not_found(res)
+  end
+
+  def handle_page_request(req, res)
+    # TODO: Error handling for page not found
+    page = Hotpages::Page.instance_for(req.path, config:)
+    res["Content-Type"] = "text/html"
+    res.body = page.render
+  rescue NameError => e
+    if e.class == NameError
+      respond_with_not_found(res)
+    else
+      raise e
+    end
+  end
+
+  def respond_with_not_found(res)
+    res.status = 404
+    res.body = "<h1>404 Not Found</h1><p>The requested page was not found.</p>"
+    res["Content-Type"] = "text/html"
   end
 end

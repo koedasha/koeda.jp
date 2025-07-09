@@ -23,6 +23,11 @@ class Hotpages::Site::Generator
 
       puts "Generated #{page_path}.html"
     end
+
+    # Copy assets
+    assets_src = config.assets_full_path
+    assets_dest = config.dist_full_path
+    FileUtils.cp_r(assets_src, assets_dest)
   end
 
   private

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "../site"
+require "#{__dir__}/../site"
 dev_server = Hotpages.site.dev_server
 trap("INT") { dev_server.stop }
 dev_server.start(gem_development: true)

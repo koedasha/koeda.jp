@@ -33,7 +33,9 @@ class Hotpages::Site::DevServer
 
   def setup_routes
     server.mount_proc "/" do |req, res|
-      Hotpages.reload if gem_development?
+      if gem_development?
+        puts "Gem development mode enabled. Reloading Hotpages: #{Hotpages.reload}"
+      end
       site.reload
 
       if req.path.start_with?("/#{config.site.assets_path}/")
@@ -41,6 +43,8 @@ class Hotpages::Site::DevServer
       else
         handle_page_request(req, res)
       end
+
+      res["Cache-Control"] = "no-store"
     end
   end
 

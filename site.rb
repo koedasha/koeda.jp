@@ -1,6 +1,4 @@
-require_relative "lib/hotpages"
-
-Hotpages.setup
+require "#{__dir__}/lib/hotpages"
 
 module Koeda
   class Site < Hotpages::Site

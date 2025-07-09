@@ -24,11 +24,15 @@ module Hotpages::Helpers::AssetsHelper
         **config.site.importmaps.to_h
       }
     }
+    preloads = map[:imports].map do |_key, path|
+      path.end_with?("/") ? nil : "<link rel='modulepreload' href='#{path}'>"
+    end.compact
 
     <<~TAG
     <script type="importmap">
       #{JSON.pretty_generate(map)}
     </script>
+    #{preloads.join("\n")}
     <script type="module" src="#{asset_path(entrypoint)}"></script>
     TAG
   end

@@ -1,35 +1,32 @@
 class Hotpages::Configuration
-  DEFAULTS = {
-    root: nil,
-    site: {
-      root: "site",
-      models_path:"models",
-      layouts_path: "layouts",
-      assets_path: "assets",
-      pages_path: "pages",
-      pages_namespace: "Pages",
-      dist_path: "dist",
-      dev_server: {
-        port: 8080
-      }
-    }
-  }.freeze
-
-  def initialize(defaults = DEFAULTS)
+  def initialize(defaults)
     defaults.each do |key, value|
       self.define_singleton_method(key) do
         instance_variable_get("@#{key}")
       end
 
-      if value.is_a?(Hash)
-        instance_variable_set("@#{key}", self.class.new(value))
-      else
-        instance_variable_set("@#{key}", value)
+      instance_variable_set("@#{key}", value)
 
-        self.define_singleton_method("#{key}=") do |new_value|
-          instance_variable_set("@#{key}", new_value)
-        end
+      self.define_singleton_method("#{key}=") do |new_value|
+        instance_variable_set("@#{key}", new_value)
       end
     end
+  end
+
+  def to_h
+    hash = {}
+
+    instance_variables.each do |var|
+      key = var.to_s.delete("@").to_sym
+      value = instance_variable_get(var)
+
+      if value.is_a?(self.class)
+        hash[key] = value.to_h
+      else
+        hash[key] = value
+      end
+    end
+
+    hash
   end
 end

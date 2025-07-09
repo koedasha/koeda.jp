@@ -1,12 +1,15 @@
 require "test_helper"
 
 class TestConfiguration < Minitest::Test
+  Config = Hotpages::Configuration
+
   def setup
     @defaults = {
       foo: "foo",
-      nested: {
+      hash_value: { key: "value" },
+      nested: Config.new(
         bar: "bar"
-      }
+      )
     }
     @config = Hotpages::Configuration.new(@defaults)
   end
@@ -17,6 +20,8 @@ class TestConfiguration < Minitest::Test
     assert_respond_to @config, :foo=
     @config.foo = "bar"
     assert_equal "bar", @config.foo
+
+    assert_equal({ key: "value" }, @config.hash_value)
 
     assert_respond_to @config, :nested
     assert_equal "bar", @config.nested.bar

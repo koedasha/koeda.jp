@@ -1,8 +1,6 @@
-class Pages::Products
-  include Hotpages::Page
-
+class Pages::Products < Koeda::Page
   def body
-    <<~ERB
+    <<~HTML
       <h1>Products</h1>
       <p>Here are some of our products:</p>
       <ul>
@@ -10,7 +8,7 @@ class Pages::Products
           <li><%= product -%></li>
         <% end %>
       </ul>
-    ERB
+    HTML
   end
 
   private

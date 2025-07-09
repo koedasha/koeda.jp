@@ -5,28 +5,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
-  <meta name="description" content="This is a sample site description." />
-  <title>My Site</title>
+  <meta name="description" content="<%= description %>" />
+  <title><%= title %></title>
   <link rel="stylesheet" href="example.css" />
   <style></style>
 </head>
 
 <body>
   <header>
-    <h1>My Site</h1>
+    <h1><%= title %></h1>
     <nav>
     </nav>
   </header>
   <main>
-    <h1>Products</h1>
-<p>Here are some of our products:</p>
-<ul>
-      <li>Product 1</li>
-      <li>Product 2</li>
-      <li>Product 3</li>
-  
-</ul>
-
+    <%= yield %>
   </main>
 </body>
 

@@ -1,6 +1,3 @@
-class Pages::Index
-  include Hotpages::Page
-
-  def site = @site ||= SiteInformation.new
-  delegate [:title, :description, :greetings] => :site
+class Pages::Index < SitePage
+  def greetings = ["Hello", "Welcome", "Greetings", "こんにちは"]
 end

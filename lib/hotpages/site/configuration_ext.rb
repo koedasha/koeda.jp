@@ -9,6 +9,10 @@ module Hotpages::Site::ConfigurationExt
     File.join(site_full_path, site.models_path)
   end
 
+  def layouts_full_path
+    File.join(site_full_path, site.layouts_path)
+  end
+
   def pages_full_path
     File.join(site_full_path, site.pages_path)
   end

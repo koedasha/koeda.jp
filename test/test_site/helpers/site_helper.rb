@@ -1,5 +1,5 @@
 module SiteHelper
   def foo(&block)
-    "<div id='foo'>#{@buf.capture(&block)}</div>"
+    "<div id='foo'>#{capture(&block)}</div>"
   end
 end

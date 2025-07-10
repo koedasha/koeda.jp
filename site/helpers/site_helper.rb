@@ -5,7 +5,7 @@ module SiteHelper
 
   def tag(name, **options, &block)
     attributes = attributes_string(options)
-    content = block_given? ? @buf.capture(&block) : ""
+    content = block_given? ? capture(&block) : ""
     normalized_name = name.to_s.tr("_", "-")
 
     "<#{normalized_name} #{attributes}>#{content}</#{name}>"

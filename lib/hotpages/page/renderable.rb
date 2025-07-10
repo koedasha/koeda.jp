@@ -27,6 +27,8 @@ module Hotpages::Page::Renderable
       new_tilt(partial_full_path).render(self, locals)
     end
 
+    def capture(&block) = @buf.capture(&block)
+
     def method_missing(method_name, *args, &block)
       if page.respond_to?(method_name, true)
         page.send(method_name, *args, &block)

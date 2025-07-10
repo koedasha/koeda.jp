@@ -27,9 +27,13 @@ class Hotpages::Page
 
   def body = File.read(File.join(config.pages_full_path, "#{base_path}.html.erb"))
 
-  def render
-    render_layout do
-      ERB.new(body, trim_mode: "-").result(binding)
+  def render(partial_path = nil, **locals)
+    if partial_path # TODO: Refactor erb rendering methods
+      render_partial(partial_path, **locals)
+    else
+      render_layout do
+        ERB.new(body, trim_mode: "-").result(binding)
+      end
     end
   end
 
@@ -45,5 +49,12 @@ class Hotpages::Page
 
   def render_layout
     ERB.new(layout_body, trim_mode: "-").result(binding)
+  end
+
+  def render_partial(partial_path, **locals)
+    partial_full_path = File.join(config.partials_full_path, "#{partial_path}.html.erb")
+    partial_body = File.read(partial_full_path)
+
+    ERB.new(partial_body, trim_mode: "-").result_with_hash(locals.merge(page: self))
   end
 end

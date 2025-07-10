@@ -21,6 +21,10 @@ module Hotpages::Site::ConfigurationExt
     File.join(site_full_path, site.pages_path)
   end
 
+  def partials_full_path
+    File.join(site_full_path, site.partials_path)
+  end
+
   def dist_full_path
     File.join(root, site.dist_path)
   end

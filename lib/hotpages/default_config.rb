@@ -13,6 +13,7 @@ module Hotpages
       },
       pages_path: "pages",
       pages_namespace: "Pages",
+      partials_path: "partials",
       dist_path: "dist",
       dev_server: Configuration.new(
         port: 8080

@@ -1,11 +1,3 @@
 <article>
-  <section>
-    <ul>
-      <% greetings.each do |greeting| -%>
-        <li>
-          <%= greeting %>
-        </li>
-      <% end -%>
-    </ul>
-  </section>
+  <%= render "greetings", greetings: %>
 </article>

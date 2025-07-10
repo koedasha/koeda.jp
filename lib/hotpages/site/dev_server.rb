@@ -57,7 +57,8 @@ class Hotpages::Site::DevServer
     mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, '')] || "application/octet-stream"
     res["Content-Type"] = mime_type
     res.body = content
-  rescue Errno::ENOENT
+  rescue Errno::ENOENT => e
+    puts "Error: #{e.message}"
     respond_with_not_found(res)
   end
 
@@ -70,12 +71,6 @@ class Hotpages::Site::DevServer
 
     res["Content-Type"] = "text/html"
     res.body = page.render
-  rescue NameError => e
-    if e.class == NameError
-      respond_with_not_found(res)
-    else
-      raise e
-    end
   end
 
   def respond_with_not_found(res)

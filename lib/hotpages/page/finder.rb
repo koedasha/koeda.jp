@@ -1,11 +1,11 @@
-class Hotpages::Site::PageFetcher
+class Hotpages::Page::Finder
   attr_reader :config
 
   def initialize(config)
     @config = config
   end
 
-  def fetch_for(requested_path)
+  def find_for(requested_path)
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)
     page_class = constantize_path(page_path)

@@ -29,11 +29,11 @@ module Hotpages::Helpers::AssetsHelper
     end.compact
 
     <<~TAG
-    <script type="importmap">
-      #{JSON.pretty_generate(map)}
-    </script>
-    #{preloads.join("\n")}
-    <script type="module" src="#{asset_path(entrypoint)}"></script>
+      <script type="importmap">
+      #{JSON.pretty_generate(map, indent: "  ")}
+      </script>
+      #{preloads.join("\n")}
+      <script type="module" src="#{asset_path(entrypoint)}"></script>
     TAG
   end
 end

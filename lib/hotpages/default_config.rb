@@ -5,6 +5,7 @@ module Hotpages
     site: Configuration.new(
       root: "site",
       models_path:"models",
+      helpers_path:"helpers",
       layouts_path: "layouts",
       assets_path: "assets",
       importmaps: {

@@ -1,4 +1,4 @@
-module Hotpages::Page::Instantizable
+module Hotpages::Page::Instantiation
   include Hotpages::Page::Expandable
 
   class << self

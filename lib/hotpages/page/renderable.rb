@@ -1,10 +1,11 @@
-require "erubi"
 require "tilt"
+require "erubi"
+require "erubi/capture_block"
 
 module Hotpages::Page::Renderable
   def render
     render_layout do
-      Tilt.new("erb") { body }.render(render_context)
+      new_tilt("erb") { body }.render(render_context)
     end
   end
 
@@ -23,7 +24,7 @@ module Hotpages::Page::Renderable
     def render(partial_path, **locals)
       partial_full_path = File.join(page.config.partials_full_path, "#{partial_path}.html.erb")
 
-      Tilt.new(partial_full_path).render(self, locals)
+      new_tilt(partial_full_path).render(self, locals)
     end
 
     def method_missing(method_name, *args, &block)
@@ -33,14 +34,24 @@ module Hotpages::Page::Renderable
         super
       end
     rescue NameError => e
-      raise NameError, "Undefined method or local variable '#{method_name}' for #{page.class.name} (#{e.message})"
+      raise NameError, "Error while sending '#{method_name}' to #{page.class.name} (#{e.message})"
     end
   end
-  def render_context = @render_context ||= RenderContext.new(self)
+  def render_context
+    @render_context ||= RenderContext.new(self).tap do |context|
+      self.class.helpers&.each do |helper_module|
+        context.extend(helper_module)
+      end
+    end
+  end
+
+  def new_tilt(template_path, &block)
+    Tilt.new(template_path, engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf", &block)
+  end
 
   def layout_template
     @layout_template ||=
-      Tilt.new(File.join(config.layouts_full_path, "#{self.class.layout_path}.html.erb"))
+      new_tilt(File.join(config.layouts_full_path, "#{self.class.layout_path}.html.erb"))
   end
   def render_layout(&block)
     layout_template.render(render_context, &block)

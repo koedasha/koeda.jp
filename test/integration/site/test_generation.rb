@@ -9,6 +9,7 @@ class TestSiteGeneration < Minitest::Test
 
   def setup
     Hotpages.setup_site(TestSite)
+    Hotpages.config.page_base_class = SitePage
   end
 
   def teardown

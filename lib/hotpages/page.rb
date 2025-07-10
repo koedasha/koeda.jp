@@ -2,21 +2,28 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable
-  include Hotpages::Helpers
   include Expandable, Instantiation, Renderable
 
   class << self
     def inherited(subclass)
       subclass.layout_path = self.layout_path.dup if self.layout_path
+      subclass.helpers = self.helpers.dup if self.helpers
     end
 
     def layout(layout_path)
       @layout_path = layout_path
     end
     attr_accessor :layout_path
+
+    def helper(helper_module)
+      @helpers ||= []
+      @helpers << helper_module
+    end
+    attr_accessor :helpers
   end
 
   layout :site # Default layout path, can be overridden by individual pages
+  helper Hotpages::Helpers
 
   attr_reader :base_path, :id, :config
 

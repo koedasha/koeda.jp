@@ -1,8 +1,12 @@
 <section class="products">
   <ul>
     <% products.each do |product| %>
-      <%= product.name %>
-      <img src="<%= image_path(product.image) %>" alt="<%= product.name %>">
+      <li>
+        <%= link_to "/products/#{product.slug}" do %>
+          <%= product.name %>
+          <%= image_tag(product.image) %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </section>

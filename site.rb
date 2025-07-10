@@ -7,7 +7,7 @@ module Koeda
   Hotpages.setup_site(Site)
 
   class Page < Hotpages::Page
-    include ::AssetsHelper
+    helper SiteHelper
 
     def site = @site ||= SiteProperties.new
     delegate [:title, :subtitle, :description] => :site

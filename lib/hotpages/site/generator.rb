@@ -6,22 +6,19 @@ class Hotpages::Site::Generator
   def generate
     FileUtils.rm_rf(config.dist_full_path) if Dir.exist?(config.dist_full_path)
 
-    page_ruby_files = Dir.glob(File.join(config.pages_full_path, "**", "*.rb"))
-    page_ruby_files.each do |file|
-      relative_path = file.sub(config.pages_full_path + "/", "")
-      page_path = relative_path.sub(".rb", "")
-      puts "Generating page: #{page_path}"
+    page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.pages_full_path, "**", "*")), config:)
 
-      # Instantiate the page class
-      page_instance = Hotpages::Page.instance_for(page_path, config:)
+    page_instances.each do |page_instance|
+      path_to_write = page_instance.expanded_base_path
+      puts "Generating page: #{path_to_write}"
 
-      # Render the page
       content = page_instance.render
-      file_path = File.join(config.dist_full_path, "#{page_path}.html")
+      file_path = File.join(config.dist_full_path, "#{path_to_write}.html")
+
       FileUtils.mkdir_p(File.dirname(file_path))
       File.open(file_path, "w+b") { |f| f.write(content) }
 
-      puts "Generated #{page_path}.html"
+      puts "Generated #{path_to_write}.html"
     end
 
     # Copy assets
@@ -33,4 +30,10 @@ class Hotpages::Site::Generator
   private
 
   attr_reader :config
+
+  def remove_ext(path)
+    basename = File.basename(path)
+    basename_without_exts = basename.sub(/\..*$/, '')
+    File.join(File.dirname(path), basename_without_exts)
+  end
 end

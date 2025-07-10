@@ -4,20 +4,11 @@ require "forwardable"
 class Hotpages::Page
   extend Forwardable
   include Hotpages::Helpers
+  include Expandable, Instantizable
 
   class << self
     def inherited(subclass)
       subclass.layout_path = self.layout_path.dup if self.layout_path
-    end
-
-    # TODO: Handle case where page_class is not defined
-    def instance_for(page_path, config:)
-      page_path = "#{page_path}index" if page_path.end_with?("/")
-      page_path = page_path.sub(%r{^/}, '') # Remove leading slash if present
-      namespace = config.pages_namespace_module
-      const_name = page_path.split('/').map(&:capitalize).join('::')
-      page_class = namespace.const_get(const_name)
-      page_class.new(base_path: page_path, config:)
     end
 
     def layout(layout_path)
@@ -28,8 +19,9 @@ class Hotpages::Page
 
   layout :site # Default layout path, can be overridden by individual pages
 
-  def initialize(base_path: nil, config: nil)
+  def initialize(base_path:, id: nil, config:)
     @base_path = base_path
+    @id = id || base_path.split("/").last
     @config = config
   end
 
@@ -43,7 +35,7 @@ class Hotpages::Page
 
   private
 
-  attr_reader :base_path, :config
+  attr_reader :base_path, :id, :config
 
   def layout_body
     layout_path = self.class.layout_path

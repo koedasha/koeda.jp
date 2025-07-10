@@ -2,5 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "zeitwerk"
+gem "minitest"
+gem "rake"
 gem "webrick"
+gem "zeitwerk"

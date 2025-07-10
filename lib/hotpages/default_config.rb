@@ -1,6 +1,7 @@
 module Hotpages
-  DEFAULT_CONFIG = {
+  DEFAULT_CONFIG = Configuration.new(
     root: nil,
+    page_base_class: Hotpages::Page,
     site: Configuration.new(
       root: "site",
       models_path:"models",
@@ -17,5 +18,5 @@ module Hotpages
         port: 8080
       )
     )
-  }.freeze
+  )
 end

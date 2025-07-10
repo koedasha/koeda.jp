@@ -5,7 +5,7 @@ class Pages::Products < SitePage
       <p>Here are some of our products:</p>
       <ul>
         <% products.each do |product| -%>
-          <li><%= product -%></li>
+          <li><%= product.name -%></li>
         <% end %>
       </ul>
     HTML
@@ -13,5 +13,5 @@ class Pages::Products < SitePage
 
   private
 
-  def products = ["Product 1", "Product 2", "Product 3"]
+  def products = Product.all
 end

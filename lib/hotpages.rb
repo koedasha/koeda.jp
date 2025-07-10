@@ -1,4 +1,5 @@
 require "zeitwerk"
+require_relative "./hotpages/string_ext"
 
 module Hotpages
   def self.loader = @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|
@@ -22,7 +23,7 @@ module Hotpages
     end
 
     attr_accessor :site
-    def config = @config ||= Configuration.new(Hotpages::DEFAULT_CONFIG)
+    def config = @config ||= DEFAULT_CONFIG
 
     def setup_site(site_class)
       self.site = site_class.instance

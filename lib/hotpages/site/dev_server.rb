@@ -61,9 +61,13 @@ class Hotpages::Site::DevServer
     respond_with_not_found(res)
   end
 
+  def page_fetcher = @page_fetcher ||= Hotpages::Site::PageFetcher.new(config)
+
   def handle_page_request(req, res)
-    # TODO: Error handling for page not found
-    page = Hotpages::Page.instance_for(req.path, config:)
+    page = page_fetcher.fetch_for(req.path)
+
+    return respond_with_not_found(res) unless page
+
     res["Content-Type"] = "text/html"
     res.body = page.render
   rescue NameError => e

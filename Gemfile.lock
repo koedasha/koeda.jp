@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    minitest (5.25.5)
+    rake (13.2.1)
     webrick (1.9.1)
     zeitwerk (2.7.3)
 
@@ -9,6 +11,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
+  rake
   webrick
   zeitwerk
 

@@ -1,5 +1,6 @@
-require "erb"
 require "forwardable"
+require "erubi"
+require "tilt"
 
 class Hotpages::Page
   extend Forwardable
@@ -32,7 +33,7 @@ class Hotpages::Page
       render_partial(partial_path, **locals)
     else
       render_layout do
-        ERB.new(body, trim_mode: "-").result(binding)
+        Tilt.new("erb") { body }.render(self)
       end
     end
   end
@@ -41,20 +42,17 @@ class Hotpages::Page
 
   attr_reader :base_path, :id, :config
 
-  def layout_body
-    layout_path = self.class.layout_path
-
-    File.read(File.join(config.layouts_full_path, "#{layout_path}.html.erb"))
+  def layout_template
+    @layout_template ||=
+      Tilt.new(File.join(config.layouts_full_path, "#{self.class.layout_path}.html.erb"))
   end
-
-  def render_layout
-    ERB.new(layout_body, trim_mode: "-").result(binding)
+  def render_layout(&block)
+    layout_template.render(self, &block)
   end
 
   def render_partial(partial_path, **locals)
     partial_full_path = File.join(config.partials_full_path, "#{partial_path}.html.erb")
-    partial_body = File.read(partial_full_path)
 
-    ERB.new(partial_body, trim_mode: "-").result_with_hash(locals.merge(page: self))
+    Tilt.new(partial_full_path).render(self, locals)
   end
 end

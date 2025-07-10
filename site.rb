@@ -2,8 +2,9 @@ require "#{__dir__}/lib/hotpages"
 
 module Koeda
   class Page < Hotpages::Page
+    include AssetsHelper
     def site = @site ||= SiteProperties.new
-    delegate [:title, :description] => :site
+    delegate [:title, :subtitle, :description] => :site
   end
 
   class Site < Hotpages::Site

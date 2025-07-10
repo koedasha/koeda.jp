@@ -1,8 +1,5 @@
 class SiteProperties
-  attr_accessor :title, :description
-
-  def initialize
-    @title = "My Site"
-    @description = "This is a sample site description."
-  end
+  def title = "こえだ舎"
+  def description = "こえだ舎はアプリ制作と開発サービスを提供しています"
+  def subtitle = "Apps & Development Service"
 end

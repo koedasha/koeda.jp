@@ -1,11 +1,4 @@
 <article>
-  <section>
-    <ul>
-      <% greetings.each do |greeting| -%>
-        <li>
-          <%= greeting -%>
-        </li>
-        <% end -%>
-    </ul>
-  </section>
+  <h2>Products</h2>
+  <%= render "products", products: %>
 </article>

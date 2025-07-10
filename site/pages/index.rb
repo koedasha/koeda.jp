@@ -1,3 +1,3 @@
 class Pages::Index < Koeda::Page
-  def greetings = ["Hello", "Welcome", "Greetings", "こんにちは"]
+  def products = Product.all
 end

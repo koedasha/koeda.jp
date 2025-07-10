@@ -29,6 +29,10 @@ module Hotpages::Page::Renderable
 
     def capture(&block) = @buf.capture(&block)
 
+    def respond_to_missing?(method_name, include_private = false)
+      page.respond_to?(method_name, true) || super
+    end
+
     def method_missing(method_name, *args, &block)
       if page.respond_to?(method_name, true)
         page.send(method_name, *args, &block)

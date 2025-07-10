@@ -62,10 +62,8 @@ class Hotpages::Site::DevServer
     respond_with_not_found(res)
   end
 
-  def page_fetcher = @page_fetcher ||= Hotpages::Page::Finder.new(config)
-
   def handle_page_request(req, res)
-    page = page_fetcher.find_for(req.path)
+    page = Hotpages::Page.find_by_path(req.path, config:)
 
     return respond_with_not_found(res) unless page
 

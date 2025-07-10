@@ -2,7 +2,7 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable
-  include Expandable, Instantiation, Renderable
+  include Expandable, Instantiation, Renderable, Findable
 
   class << self
     def inherited(subclass)

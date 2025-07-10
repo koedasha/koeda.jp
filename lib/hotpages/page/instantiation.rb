@@ -8,21 +8,21 @@ module Hotpages::Page::Instantiation
   end
 
   module ClassMethods
-    def from_full_paths(paths, config:)
+    def from_full_paths(paths)
       files = paths.select { |f| File.file?(f) }
       base_path_exts_map = files.group_by { |file| remove_ext(file) }.transform_values do |files|
         files.map { |file| File.extname(file).sub(/^\./, "") }
       end
       base_path_exts_map.flat_map do |base_path, exts|
-        config.page_base_class.from_path(base_path, exts:, config:)
+        config.page_base_class.from_path(base_path, exts:)
       end
     end
 
     # TODO: support no ruby file erb
-    def from_path(base_path, exts:, config:)
+    def from_path(base_path, exts:)
       page_base_path = base_path.sub(config.pages_full_path + "/", "")
       page_class = config.pages_namespace_module.const_get(page_base_path.classify, false)
-      page_class.expand_instances_for(page_base_path, config:)
+      page_class.expand_instances_for(page_base_path)
     end
 
     private

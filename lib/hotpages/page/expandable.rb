@@ -8,9 +8,9 @@ module Hotpages::Page::Expandable
   module ClassMethods
     def expanded_ids = nil
 
-    def expand_instances_for(base_path, config:)
+    def expand_instances_for(base_path)
       if expanded_ids.nil?
-        [new(base_path: base_path, config:)]
+        [ new(base_path: base_path) ]
       else
         # Convention check
         unless File.basename(base_path).start_with?("_")
@@ -18,7 +18,7 @@ module Hotpages::Page::Expandable
         end
 
         expanded_ids.map do |id|
-          new(base_path: base_path, id:, config:)
+          new(base_path: base_path, id:)
         end
       end
     end

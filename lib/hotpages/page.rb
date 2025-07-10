@@ -5,6 +5,9 @@ class Hotpages::Page
   include Expandable, Instantiation, Renderable, Findable
 
   class << self
+    # Class wide configuration refers to Hotpages.config
+    def config = @config ||= Hotpages.config
+
     def inherited(subclass)
       subclass.layout_path = self.layout_path.dup if self.layout_path
       subclass.helpers = self.helpers.dup if self.helpers
@@ -27,10 +30,10 @@ class Hotpages::Page
 
   attr_reader :base_path, :id, :config
 
-  def initialize(base_path:, id: nil, config:)
+  def initialize(base_path:, id: nil)
     @base_path = base_path
     @id = id || base_path.split("/").last
-    @config = config
+    @config = self.class.config
   end
 
   def body = File.read(File.join(config.pages_full_path, "#{base_path}.html.erb"))

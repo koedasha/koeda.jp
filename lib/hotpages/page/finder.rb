@@ -11,12 +11,12 @@ class Hotpages::Page::Finder
     page_class = constantize_path(page_path)
 
     if page_class
-      page_class.new(base_path: page_path, config:)
+      page_class.new(base_path: page_path)
     else
       dirname = File.dirname(page_path)
 
       expandable_files = Dir.glob(File.join(config.pages_full_path, dirname, "_*"))
-      page_instances = config.page_base_class.from_full_paths(expandable_files, config:)
+      page_instances = config.page_base_class.from_full_paths(expandable_files)
       page_instances.find { |page| page.expanded_base_path == page_path }
     end
   end

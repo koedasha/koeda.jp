@@ -6,7 +6,7 @@ class Hotpages::Site::Generator
   def generate
     FileUtils.rm_rf(config.dist_full_path) if Dir.exist?(config.dist_full_path)
 
-    page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.pages_full_path, "**", "*")), config:)
+    page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.pages_full_path, "**", "*")))
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path

@@ -63,7 +63,7 @@ class Hotpages::Site::DevServer
   end
 
   def handle_page_request(req, res)
-    page = Hotpages::Page.find_by_path(req.path, config:)
+    page = Hotpages::Page.find_by_path(req.path)
 
     return respond_with_not_found(res) unless page
 

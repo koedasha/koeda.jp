@@ -17,14 +17,22 @@ module SiteHelper
     tag(:img, **options)
   end
 
-  def link_to(url, text = nil, **options, &block)
+  def link_to(url, **options, &block)
     options[:href] = url
 
     if block_given?
       tag(:a, **options, &block)
     else
-      tag(:a, **options) { text || url }
+      tag(:a, **options) { url }
     end
+  end
+
+  def link_to_page(page_path, **options, &block)
+    unless Hotpages.config.page_base_class.exists?(page_path)
+      raise ArgumentError, "Page not found while generating link with 'link_to_page': #{page_path}"
+    end
+
+    link_to(page_path, **options, &block)
   end
 
   private

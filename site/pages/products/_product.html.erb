@@ -1,1 +1,15 @@
-<%= product.name -%>
+<%= turbo_frame_tag :remote_modal do %>
+  <dialog
+    id="contact_form_modal"
+    aria-labelledby="modal_title"
+    data-controller="remote-modal">
+    <header>
+      <h2 id="modal_title">
+        <%= product.name %>
+      </h2>
+      <form method="dialog">
+        <button aria-label="close">X</button>
+      </form>
+    </header>
+  </dialog>
+<% end %>

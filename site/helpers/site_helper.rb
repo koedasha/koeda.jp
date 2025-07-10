@@ -4,14 +4,11 @@ module SiteHelper
   end
 
   def tag(name, **options, &block)
-    attributes = options.map { |key, value| "#{key}='#{value}'" }.join(" ")
+    attributes = attributes_string(options)
+    content = block_given? ? @buf.capture(&block) : ""
+    normalized_name = name.to_s.tr("_", "-")
 
-    if block_given?
-      content = @buf.capture(&block)
-      "<#{name} #{attributes}>#{content}</#{name}>"
-    else
-      "<#{name} #{attributes}>"
-    end
+    "<#{normalized_name} #{attributes}>#{content}</#{name}>"
   end
 
   def image_tag(image_name, alt: "", **options)
@@ -28,5 +25,20 @@ module SiteHelper
     else
       tag(:a, **options) { text || url }
     end
+  end
+
+  private
+
+  def attributes_string(attributes, key_prefix: "")
+    attributes.map do |key, value|
+      normalized_key = key.to_s.tr("_", "-")
+
+      if value.is_a?(Hash)
+        attributes_string(value, key_prefix: "#{key_prefix}#{normalized_key}-")
+      else
+        normalized_value = value.is_a?(String) ? value : value.to_s.tr("_", "-")
+        "#{key_prefix}#{normalized_key}='#{normalized_value}'"
+      end
+    end.join(" ")
   end
 end

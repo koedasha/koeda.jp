@@ -17,9 +17,12 @@
     <h1><%= title %></h1>
     <p><%= subtitle %></p>
   </header>
+
   <main>
     <%= yield %>
   </main>
+
+  <%= turbo_frame_tag :remote_modal %>
 </body>
 
 </html>

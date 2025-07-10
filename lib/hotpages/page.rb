@@ -15,9 +15,9 @@ class Hotpages::Page
     end
     attr_accessor :layout_path
 
-    def helper(helper_module)
+    def helper(*helper_modules)
       @helpers ||= []
-      @helpers << helper_module
+      @helpers.concat(helper_modules)
     end
     attr_accessor :helpers
   end

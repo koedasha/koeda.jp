@@ -7,7 +7,7 @@ module Koeda
   Hotpages.setup_site(Site)
 
   class Page < Hotpages::Page
-    helper SiteHelper
+    helper SiteHelper, TurboHelper
 
     def site = @site ||= SiteProperties.new
     delegate [:title, :subtitle, :description] => :site

@@ -1,7 +1,7 @@
 module Hotpages
   DEFAULT_CONFIG = Configuration.new(
     root: nil,
-    page_base_class: Hotpages::Page,
+    page_base_class: Hotpages::Page, # TDOO: will be used for erb only pages
     site: Configuration.new(
       root: "site",
       models_path:"models",

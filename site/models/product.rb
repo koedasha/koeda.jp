@@ -18,6 +18,7 @@ class Product
     def find_by_slug(slug)
       all.find { |product| product.slug == slug }
     end
+    alias find find_by_slug
   end
 
   attr_reader :slug, :name, :image, :description

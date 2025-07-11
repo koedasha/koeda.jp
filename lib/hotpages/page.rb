@@ -18,6 +18,7 @@ class Hotpages::Page
     end
     attr_accessor :layout_path
 
+    # Helper methods will be merged into the rendering context
     def helper(*helper_modules)
       @helpers ||= []
       @helpers.concat(helper_modules)

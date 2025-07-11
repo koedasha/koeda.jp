@@ -5,13 +5,13 @@ require "erubi/capture_block"
 module Hotpages::Page::Renderable
   def render
     render_layout do
-      new_tilt("erb") { body }.render(render_context)
+      new_tilt("erb") { body }.render(rendering_context)
     end
   end
 
   private
 
-  class RenderContext
+  class RenderingContext
     def initialize(page)
       @page = page
     end
@@ -41,8 +41,8 @@ module Hotpages::Page::Renderable
       end
     end
   end
-  def render_context
-    @render_context ||= RenderContext.new(self).tap do |context|
+  def rendering_context
+    @rendering_context ||= RenderingContext.new(self).tap do |context|
       self.class.helpers&.each do |helper_module|
         context.extend(helper_module)
       end
@@ -58,6 +58,6 @@ module Hotpages::Page::Renderable
       new_tilt(File.join(config.layouts_full_path, "#{self.class.layout_path}.html.erb"))
   end
   def render_layout(&block)
-    layout_template.render(render_context, &block)
+    layout_template.render(rendering_context, &block)
   end
 end

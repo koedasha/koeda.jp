@@ -1,4 +1,4 @@
-class Pages::Products < Koeda::Page
+class Pages::Products < Page
   def body
     <<~HTML
       <h1>Products</h1>

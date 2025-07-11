@@ -48,7 +48,7 @@ class Hotpages::Site::DevServer
 
   def handle_assets_request(req, res)
     ext = File.extname(req.path)
-    asset_file_path = File.join(config.site_full_path, req.path)
+    asset_file_path = File.join(config.site.root, req.path)
     content = File.read(asset_file_path)
     mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, '')] || "application/octet-stream"
     res["Content-Type"] = mime_type
@@ -74,7 +74,7 @@ class Hotpages::Site::DevServer
 
   def respond_with_not_found(res)
     res.status = 404
-    res.body = "<h1>404 Not Found</h1><p>The requested page was not found.</p>"
+    res.body = "<h1>404 Not Found</h1><p>The requested resource was not found.</p>"
     res["Content-Type"] = "text/html"
   end
 end

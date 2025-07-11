@@ -1,4 +1,4 @@
-class Pages::Products::Product < Koeda::Page
+class Pages::Products::Product < Page
   class << self
     def expanded_ids = Product.ids
   end

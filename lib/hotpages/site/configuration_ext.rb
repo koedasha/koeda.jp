@@ -1,36 +1,32 @@
 require "forwardable"
 
 module Hotpages::Site::ConfigurationExt
-  def site_full_path
-    File.join(root, site.root)
-  end
-
   def models_full_path
-    File.join(site_full_path, site.models_path)
+    File.join(site.root, site.models_path)
   end
 
   def helpers_full_path
-    File.join(site_full_path, site.helpers_path)
+    File.join(site.root, site.helpers_path)
   end
 
   def layouts_full_path
-    File.join(site_full_path, site.layouts_path)
+    File.join(site.root, site.layouts_path)
   end
 
   def assets_full_path
-    File.join(site_full_path, site.assets_path)
+    File.join(site.root, site.assets_path)
   end
 
   def pages_full_path
-    File.join(site_full_path, site.pages_path)
+    File.join(site.root, site.pages_path)
   end
 
   def partials_full_path
-    File.join(site_full_path, site.partials_path)
+    File.join(site.root, site.partials_path)
   end
 
   def dist_full_path
-    File.join(root, site.dist_path)
+    File.join(site.root, site.dist_path)
   end
 
   def pages_namespace_module(ns_name = site.pages_namespace)

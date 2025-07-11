@@ -4,16 +4,25 @@ require "erubi/capture_block"
 
 module Hotpages::Page::Renderable
   def render
-    render_layout do
-      new_tilt("erb") { body }.render(rendering_context)
+    page_content = new_tilt("erb") { body }.render(rendering_context)
+
+    render_layout do |content_name = nil|
+      if content_name
+        rendering_context.contents[content_name.to_sym]
+      else
+        page_content
+      end
     end
   end
 
   private
 
   class RenderingContext
+    attr_reader :contents
+
     def initialize(page)
       @page = page
+      @contents = {}
     end
 
     private
@@ -27,12 +36,10 @@ module Hotpages::Page::Renderable
       new_tilt(partial_full_path).render(self, locals)
     end
 
-    def capture(&block) = @buf.capture(&block)
-
+    # Method delegation
     def respond_to_missing?(method_name, include_private = false)
       page.respond_to?(method_name, true) || super
     end
-
     def method_missing(method_name, *args, &block)
       if page.respond_to?(method_name, true)
         page.send(method_name, *args, &block)
@@ -40,8 +47,21 @@ module Hotpages::Page::Renderable
         super
       end
     end
+
+    # Helper methods for capturing content
+    def capture(&block) = @buf.capture(&block)
+    def content_for(name, content = nil, &block)
+      return @contents[name.to_sym] if !content && !block_given?
+
+      content ||= block.call if block_given?
+      @contents[name.to_sym] = content
+    end
+    def content_for?(name)
+      @contents.key?(name.to_sym)
+    end
   end
   def rendering_context
+    # We should use same context for all render calls
     @rendering_context ||= RenderingContext.new(self).tap do |context|
       self.class.helpers&.each do |helper_module|
         context.extend(helper_module)

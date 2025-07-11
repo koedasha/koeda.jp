@@ -6,20 +6,17 @@ module Hotpages
     loader.inflector.inflect "default_config" => "DEFAULT_CONFIG"
     loader.enable_reloading
   end
-  loader.setup
+  self.loader.setup
 
   class << self
     def reload
-      loader.reload
-    rescue Zeitwerk::SetupRequired # TODO: Correct to handle like this?
-      loader.setup
-    ensure
       loader.reload
     end
 
     def teardown
       loader.unload
       loader.unregister
+      site.teardown if site
     end
 
     attr_accessor :site

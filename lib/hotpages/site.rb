@@ -24,10 +24,6 @@ class Hotpages::Site
 
   def reload
     loader.reload
-  rescue Zeitwerk::SetupRequired
-    loader.setup
-  ensure
-    loader.reload
   end
 
   def generate = generator.generate

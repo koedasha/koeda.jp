@@ -9,6 +9,7 @@ class Hotpages::Site::DevServer
 
   def start(gem_development: false)
     @gem_development = gem_development
+    # TDOO: eager_load Hotpages libs when gem development is off
     puts "Starting development server on port #{port}..."
     setup_routes
     server.start
@@ -33,11 +34,6 @@ class Hotpages::Site::DevServer
 
   def setup_routes
     server.mount_proc "/" do |req, res|
-      if gem_development?
-        puts "Gem development mode enabled. Reloading Hotpages: #{Hotpages.reload}"
-      end
-      site.reload
-
       if req.path.start_with?("/#{config.site.assets_path}/")
         handle_assets_request(req, res)
       else
@@ -63,6 +59,11 @@ class Hotpages::Site::DevServer
   end
 
   def handle_page_request(req, res)
+    if gem_development?
+      puts "Gem development mode enabled. Reloading Hotpages: #{Hotpages.reload}"
+    end
+    site.reload
+
     page = Hotpages::Page.find_by_path(req.path)
 
     return respond_with_not_found(res) unless page

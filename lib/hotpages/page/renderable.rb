@@ -39,8 +39,6 @@ module Hotpages::Page::Renderable
       else
         super
       end
-    rescue NameError => e
-      raise NameError, "Error while sending '#{method_name}' to #{page.class.name} (#{e.message})"
     end
   end
   def render_context

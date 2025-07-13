@@ -3,6 +3,8 @@ require "erubi"
 require "erubi/capture_block"
 
 module Hotpages::Page::Renderable
+  include Hotpages::Helpers::CaptureHelper
+
   def render(partial_path = nil, **locals)
     return render_partial(partial_path, **locals) if partial_path
 
@@ -10,7 +12,7 @@ module Hotpages::Page::Renderable
 
     render_layout do |content_name = nil|
       if content_name
-        rendering_context.contents[content_name.to_sym]
+        content_for(content_name)
       else
         page_content
       end

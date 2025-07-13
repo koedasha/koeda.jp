@@ -1,4 +1,11 @@
 <% content_for :description, "This is a captured description" -%>
+<% content_for :nav do -%>
+  <ul>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+<% end -%>
+
 <article>
   <%= render "greetings", greetings: %>
 </article>

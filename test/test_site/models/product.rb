@@ -8,7 +8,7 @@ class Product
       ]
     end
 
-    def ids = all.map { _1.slug }
+    def page_names = all.map { _1.slug }
 
     def find_by_slug(slug)
       all.find { |product| product.slug == slug }

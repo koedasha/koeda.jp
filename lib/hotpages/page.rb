@@ -29,11 +29,11 @@ class Hotpages::Page
   layout :site # Default layout path, can be overridden by individual pages
   helper Hotpages::Helpers::AssetsHelper
 
-  attr_reader :base_path, :id, :config
+  attr_reader :base_path, :name, :config
 
-  def initialize(base_path:, id: nil)
+  def initialize(base_path:, name: nil)
     @base_path = base_path
-    @id = id || base_path.split("/").last
+    @name = name || base_path.split("/").last
     @config = self.class.config
   end
 

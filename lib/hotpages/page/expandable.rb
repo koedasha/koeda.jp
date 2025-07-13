@@ -6,10 +6,10 @@ module Hotpages::Page::Expandable
   end
 
   module ClassMethods
-    def expanded_ids = nil
+    def expanded_names = nil
 
     def expand_instances_for(base_path)
-      if expanded_ids.nil?
+      if expanded_names.nil?
         [ new(base_path: base_path) ]
       else
         # Convention check
@@ -17,14 +17,14 @@ module Hotpages::Page::Expandable
           raise ArgumentError, "On expanding, base path must starts with an underscore prefix (e.g., '_products')"
         end
 
-        expanded_ids.map do |id|
-          new(base_path: base_path, id:)
+        expanded_names.map do |name|
+          new(base_path: base_path, name:)
         end
       end
     end
   end
 
   def expanded_base_path
-    File.join(base_path.split("/")[0..-2].join("/"), id)
+    File.join(base_path.split("/")[0..-2].join("/"), name)
   end
 end

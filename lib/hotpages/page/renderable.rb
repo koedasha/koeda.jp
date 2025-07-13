@@ -3,8 +3,8 @@ require "erubi"
 require "erubi/capture_block"
 
 module Hotpages::Page::Renderable
-  def render(partial_path = nil, **locals)
-    return render_partial(partial_path, **locals) if partial_path
+  def render(partial_path = nil, **partial_locals)
+    return render_partial(partial_path, **partial_locals) if partial_path
 
     page_content = new_tilt("erb") { body }.render(self)
 

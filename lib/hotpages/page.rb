@@ -3,6 +3,7 @@ require "forwardable"
 class Hotpages::Page
   extend Forwardable
   include Expandable, Instantiation, Renderable, Findable
+  include Hotpages::Helpers
 
   class << self
     # Class wide configuration refers to Hotpages.config
@@ -27,7 +28,6 @@ class Hotpages::Page
   end
 
   layout :site # Default layout path, can be overridden by individual pages
-  helper Hotpages::Helpers::AssetsHelper
 
   attr_reader :base_path, :name, :config
 

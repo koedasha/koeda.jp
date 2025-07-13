@@ -1,4 +1,4 @@
-class Pages::Products < SitePage
+class Pages::Products < Page
   def body
     <<~HTML
       <h1>Products</h1>

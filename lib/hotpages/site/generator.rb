@@ -1,3 +1,5 @@
+require "fileutils"
+
 class Hotpages::Site::Generator
   def initialize(config:)
     @config = config

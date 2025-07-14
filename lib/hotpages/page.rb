@@ -29,13 +29,23 @@ class Hotpages::Page
 
   layout :site # Default layout path, can be overridden by individual pages
 
-  attr_reader :base_path, :name, :config
+  attr_reader :base_path, :name, :config, :template_extension, :layout_path
 
-  def initialize(base_path:, name: nil)
+  def initialize(base_path:, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
     @name = name || base_path.split("/").last
     @config = self.class.config
+    @template_extension = template_extension
+    @layout_path = layout || self.class.layout_path
   end
 
-  def body = File.read(File.join(config.site.pages_full_path, "#{base_path}.html.erb"))
+  def layout(layout_path)
+    @layout_path = layout_path
+  end
+
+  def body
+    raise "No template file is found for #{self.class.name} at #{base_path}, "\
+          "please provide body method or template file."
+  end
+  def body_type = "erb"
 end

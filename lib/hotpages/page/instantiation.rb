@@ -11,20 +11,28 @@ module Hotpages::Page::Instantiation
     def from_full_paths(paths)
       files = paths.map { File.expand_path(_1) }.select { |f| File.file?(f) }
       base_path_exts_map = files.group_by { |file| remove_ext(file) }.transform_values do |files|
-        # TODO: support multiple exts like `index.html.erb`
-        files.map { |file| File.extname(file).sub(/^\./, "") }
+        files.map { |file| (File.basename(file).split('.')[1..] || []).join('.') }
       end
       base_path_exts_map.flat_map do |base_path, exts|
-        config.page_base_class.from_path(base_path, exts:)
+        non_rb_exts = exts.reject { |ext| ext == "rb" }
+
+        raise "Multiple page templates found for #{base_path}: #{non_rb_exts.join(', ')}" if non_rb_exts.size > 1
+
+        from_path(base_path, template_extension: non_rb_exts.first) || []
       end
     end
 
-    # TODO: support no ruby file erb
-    def from_path(base_path, exts:)
+    def from_path(base_path, template_extension:)
+      filename = File.basename(base_path)
+
+      return nil if filename =~ Hotpages::Page::Renderable::TEMPLATE_BASENAME_REGEXP
+
       page_base_path = base_path.sub(config.site.pages_full_path + "/", "")
-      page_class = config.site.pages_namespace_module.const_get(classify_base_path(page_base_path), false) rescue nil
-      return [] unless page_class
-      page_class.expand_instances_for(page_base_path)
+
+      class_name = classify_base_path(page_base_path)
+      page_class = config.site.pages_namespace_module.const_get(class_name, false) rescue config.page_base_class
+
+      page_class.expand_instances_for(page_base_path, template_extension:)
     end
 
     private
@@ -38,10 +46,9 @@ module Hotpages::Page::Instantiation
     def classify_base_path(base_path)
       pathnames = base_path.split("/")
       filename = pathnames.pop
-      return nil if filename =~ Hotpages::Page::Renderable::TEMPLATE_BASENAME_REGEXP
-      normalized_filename =
+      class_file_name =
         filename.match(Hotpages::Page::Expandable::EXPANDABLE_BASENAME_REGEXP) ? $1 : filename
-      pathnames.push(normalized_filename)
+      pathnames.push(class_file_name)
       pathnames.join("/").classify
     end
   end

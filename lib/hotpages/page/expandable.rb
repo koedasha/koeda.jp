@@ -11,9 +11,9 @@ module Hotpages::Page::Expandable
   module ClassMethods
     def expanded_names = nil
 
-    def expand_instances_for(base_path)
+    def expand_instances_for(base_path, template_extension:)
       if expanded_names.nil?
-        [ new(base_path: base_path) ]
+        [ new(base_path: base_path, template_extension:) ]
       else
         # Convention check
         unless base_path =~ EXPANABLE_PATH_REGEXP
@@ -21,7 +21,7 @@ module Hotpages::Page::Expandable
         end
 
         expanded_names.map do |name|
-          new(base_path: base_path, name:)
+          new(base_path: base_path, name:, template_extension:)
         end
       end
     end
@@ -35,5 +35,10 @@ module Hotpages::Page::Expandable
     else
       File.join(dirname, name)
     end
+  end
+
+  def expanded_path
+    ext = template_extension&.split(".")&.first || "html"
+    "#{expanded_base_path}.#{ext}"
   end
 end

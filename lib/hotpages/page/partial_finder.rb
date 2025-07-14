@@ -1,4 +1,4 @@
-class Hotpages::Page::TemplateFinder
+class Hotpages::Page::PartialFinder
   def initialize(base_path, config)
     @base_path = base_path
     @config = config
@@ -6,16 +6,16 @@ class Hotpages::Page::TemplateFinder
     @shared_dir = config.site.shared_full_path
   end
 
-  def find_for(template_path)
-    dirname = File.dirname(template_path)
-    basename = "_#{File.basename(template_path)}"
+  def find_for(partial_path)
+    dirname = File.dirname(partial_path)
+    basename = "_#{File.basename(partial_path)}"
 
-    prioritized_search_paths = [
+    search_paths = [
       !dirname.start_with?("/") ? File.join(base_dir, dirname, basename) : nil,
       File.join(shared_dir, dirname, basename)
     ].compact.map { File.expand_path(_1) }
 
-    prioritized_search_paths.each do |path|
+    search_paths.each do |path|
       if file = Dir.glob("#{path}.*").find { File.file?(_1) }
         return file
       else
@@ -23,7 +23,7 @@ class Hotpages::Page::TemplateFinder
       end
     end
 
-    raise "Cannot find template in: #{prioritized_search_paths}"
+    raise "Cannot find template in: #{search_paths}"
   end
 
   private

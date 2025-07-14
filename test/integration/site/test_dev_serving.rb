@@ -49,5 +49,15 @@ class TestSiteDevServing < Minitest::Test
     res = Net::HTTP.get_response(uri)
     assert_equal "200", res.code
     assert_match %r{body \{}, res.body
+
+    uri = URI("http://localhost:#{TEST_PORT}/misc/no_ruby")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "200", res.code
+    assert_match %r{<div>I am a page without ruby.</div>}, res.body
+
+    uri = URI("http://localhost:#{TEST_PORT}/misc/just")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "200", res.code
+    assert_match %r{<div>Just html</div>}, res.body
   end
 end

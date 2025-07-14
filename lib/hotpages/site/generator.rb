@@ -11,16 +11,16 @@ class Hotpages::Site::Generator
     page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.site.pages_full_path, "**", "*")))
 
     page_instances.each do |page_instance|
-      path_to_write = page_instance.expanded_base_path
+      path_to_write = page_instance.expanded_path
       puts "Generating page: #{path_to_write}"
 
       content = page_instance.render
-      file_path = File.join(config.site.dist_full_path, "#{path_to_write}.html")
+      file_path = File.join(config.site.dist_full_path, path_to_write)
 
       FileUtils.mkdir_p(File.dirname(file_path))
       File.open(file_path, "w+b") { |f| f.write(content) }
 
-      puts "Generated #{path_to_write}.html"
+      puts "Generated path_to_write"
     end
 
     # Copy assets

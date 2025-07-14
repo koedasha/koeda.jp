@@ -28,7 +28,7 @@ module SiteHelper
   end
 
   def link_to_page(page_path, **options, &block)
-    unless Hotpages.config.page_base_class.exists?(page_path)
+    unless config.page_base_class.exists?(page_path)
       raise ArgumentError, "Page not found while generating link with 'link_to_page': #{page_path}"
     end
 

@@ -13,5 +13,5 @@ class Pages::Products < Page
 
   private
 
-  def products = Product.all
+  def products = ::Product.all
 end

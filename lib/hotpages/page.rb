@@ -37,5 +37,5 @@ class Hotpages::Page
     @config = self.class.config
   end
 
-  def body = File.read(File.join(config.pages_full_path, "#{base_path}.html.erb"))
+  def body = File.read(File.join(config.site.pages_full_path, "#{base_path}.html.erb"))
 end

@@ -4,16 +4,16 @@ class Hotpages::Site::Generator
   end
 
   def generate
-    FileUtils.rm_rf(config.dist_full_path) if Dir.exist?(config.dist_full_path)
+    FileUtils.rm_rf(config.site.dist_full_path) if Dir.exist?(config.site.dist_full_path)
 
-    page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.pages_full_path, "**", "*")))
+    page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.site.pages_full_path, "**", "*")))
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path
       puts "Generating page: #{path_to_write}"
 
       content = page_instance.render
-      file_path = File.join(config.dist_full_path, "#{path_to_write}.html")
+      file_path = File.join(config.site.dist_full_path, "#{path_to_write}.html")
 
       FileUtils.mkdir_p(File.dirname(file_path))
       File.open(file_path, "w+b") { |f| f.write(content) }
@@ -22,8 +22,8 @@ class Hotpages::Site::Generator
     end
 
     # Copy assets
-    assets_src = config.assets_full_path
-    assets_dest = config.dist_full_path
+    assets_src = config.site.assets_full_path
+    assets_dest = config.site.dist_full_path
     FileUtils.cp_r(assets_src, assets_dest)
   end
 

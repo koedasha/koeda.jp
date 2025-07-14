@@ -26,14 +26,14 @@ module Hotpages::Page::Renderable
   def captured_contents = @captured_contents ||= {}
 
   def render_partial(partial_path, **locals)
-    partial_full_path = File.join(config.partials_full_path, "#{partial_path}.html.erb")
+    partial_full_path = File.join(config.site.partials_full_path, "#{partial_path}.html.erb")
 
     new_tilt(partial_full_path).render(self, locals)
   end
 
   def layout_template
     @layout_template ||=
-      new_tilt(File.join(config.layouts_full_path, "#{self.class.layout_path}.html.erb"))
+      new_tilt(File.join(config.site.layouts_full_path, "#{self.class.layout_path}.html.erb"))
   end
   def render_layout(&block)
     layout_template.render(self, &block)

@@ -1,4 +1,4 @@
-class Pages::Products::Slug < Page
+class Pages::Products::Product < Page
   class << self
     def expanded_names = Product.page_names
   end

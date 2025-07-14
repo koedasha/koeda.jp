@@ -21,9 +21,4 @@ class Hotpages::Page::Finder
     path = path.sub(%r{^/}, '') # Remove leading slash if present
     path
   end
-
-  def constantize_path(path)
-    const_name = path.split('/').map(&:capitalize).join('::')
-    config.pages_namespace_module.const_get(const_name) rescue nil
-  end
 end

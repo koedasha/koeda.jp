@@ -13,7 +13,7 @@ module Hotpages::Site::ConfigurationExt
     def layouts_full_path = full_path(layouts_path)
     def assets_full_path = full_path(assets_path)
     def pages_full_path = full_path(pages_path)
-    def partials_full_path = full_path(partials_path)
+    def shared_full_path = full_path(shared_path)
     def dist_full_path = full_path(dist_path)
 
     def pages_namespace_module(ns_name = pages_namespace)

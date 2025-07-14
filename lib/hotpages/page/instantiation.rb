@@ -22,7 +22,8 @@ module Hotpages::Page::Instantiation
     # TODO: support no ruby file erb
     def from_path(base_path, exts:)
       page_base_path = base_path.sub(config.site.pages_full_path + "/", "")
-      page_class = config.site.pages_namespace_module.const_get(classify_base_path(page_base_path), false)
+      page_class = config.site.pages_namespace_module.const_get(classify_base_path(page_base_path), false) rescue nil
+      return [] unless page_class
       page_class.expand_instances_for(page_base_path)
     end
 
@@ -37,6 +38,7 @@ module Hotpages::Page::Instantiation
     def classify_base_path(base_path)
       pathnames = base_path.split("/")
       filename = pathnames.pop
+      return nil if filename =~ Hotpages::Page::Renderable::TEMPLATE_BASENAME_REGEXP
       normalized_filename =
         filename.match(Hotpages::Page::Expandable::EXPANDABLE_BASENAME_REGEXP) ? $1 : filename
       pathnames.push(normalized_filename)

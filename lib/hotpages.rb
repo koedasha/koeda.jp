@@ -26,5 +26,10 @@ module Hotpages
       self.site = site_class.instance
       site.setup
     end
+
+    def dev_server
+      raise "Site is not set. Please call Hotpages.setup_site first." unless site
+      @dev_server ||= Hotpages::DevServer.new(site: site)
+    end
   end
 end

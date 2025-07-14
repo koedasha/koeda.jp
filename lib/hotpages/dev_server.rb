@@ -1,10 +1,10 @@
 require "webrick"
 
-class Hotpages::Site::DevServer
+class Hotpages::DevServer
   def initialize(site:)
     @site = site
     @config = site.config
-    @port = @config.site.dev_server.port
+    @port = @config.dev_server.port
   end
 
   def start(gem_development: false)

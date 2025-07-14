@@ -14,10 +14,10 @@ module Hotpages
       },
       pages_path: "pages",
       pages_namespace: "Pages",
-      partials_path: "partials",
-      dev_server: Configuration.new(
-        port: 8080
-      )
+      partials_path: "partials"
+    ),
+    dev_server: Configuration.new(
+      port: 4001
     )
   )
 end

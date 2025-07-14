@@ -7,18 +7,18 @@ class TestSiteDevServing < Minitest::Test
   class TestSite < Hotpages::Site
     config.site.root = File.join(__dir__, "../../test_site")
     config.site.dist_path = "../dist/actual"
-    config.site.dev_server.port = TEST_PORT
+    config.dev_server.port = TEST_PORT
   end
 
   def setup
     Hotpages.setup_site(TestSite)
     Hotpages.config.page_base_class = Page
-    @server_thread = Thread.new { Hotpages.site.dev_server.start }
+    @server_thread = Thread.new { Hotpages.dev_server.start }
     sleep 0.1
   end
 
   def teardown
-    Hotpages.site.dev_server.stop
+    Hotpages.dev_server.stop
     @server_thread.join
     Hotpages.site.teardown
     sleep 0.1

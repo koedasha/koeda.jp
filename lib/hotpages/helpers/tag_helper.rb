@@ -28,7 +28,7 @@ module Hotpages::Helpers::TagHelper
           attributes_string(value, key_prefix: "#{key_prefix}#{normalized_key}-")
         else
           normalized_value = value.is_a?(String) ? value : value.to_s.tr("_", "-")
-          "#{key_prefix}#{normalized_key}='#{normalized_value}'"
+          "#{key_prefix}#{normalized_key}=\"#{normalized_value}\""
         end
       end.join(" ")
     end

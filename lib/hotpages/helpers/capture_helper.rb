@@ -1,5 +1,15 @@
 module Hotpages::Helpers::CaptureHelper
-  def capture(&block) = @buf.capture(&block)
+  def capture(*, **, &block)
+    val = nil
+    buffer = @buf.capture { val = yield(*, **) }
+
+    # if yield returns non buffer value, it will be returned directly
+    if @buf.equal?(val)
+      buffer
+    else
+      val
+    end
+  end
   def concat(value) = @buf.concat(value)
 
   def content_for(name, content = nil, &block)

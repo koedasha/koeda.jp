@@ -9,12 +9,22 @@ module Hotpages::Helpers::AssetsHelper
   #   File.join(config.site.base_url, config.site.assets_path, asset_name)
   # end
 
+  def image_path(image_name)
+    File.join("/", config.site.assets_path, "images", image_name)
+  end
+
+  def image_tag(image_name, alt = "", **options)
+    options[:src] = image_path(image_name)
+    options[:alt] = alt
+    tag.img options
+  end
+
   def stylesheet_link_tag(stylesheet_name)
-    "<link rel='stylesheet' href='#{asset_path(stylesheet_name)}.css'>"
+    tag.link rel: "stylesheet", href: "#{asset_path(stylesheet_name)}.css"
   end
 
   def javascript_include_tag(script_name, type: "module")
-    "<script type='#{type}' src='#{asset_path(script_name)}.js'></script>"
+    tag.script type: type, src: "#{asset_path(script_name)}.js"
   end
 
   def javascript_importmap_tags(entrypoint: "site.js")

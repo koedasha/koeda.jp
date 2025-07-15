@@ -2,8 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     erubi (1.13.1)
+    kramdown (2.5.1)
+      rexml (>= 3.3.9)
     minitest (5.25.5)
     rake (13.2.1)
+    rexml (3.4.1)
     tilt (2.6.1)
     webrick (1.9.1)
     zeitwerk (2.7.3)
@@ -14,6 +17,7 @@ PLATFORMS
 
 DEPENDENCIES
   erubi
+  kramdown
   minitest
   rake
   tilt

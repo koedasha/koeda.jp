@@ -4,6 +4,7 @@ module Hotpages::Helpers
     CaptureHelper,
     UrlHelper,
     AssetsHelper,
-    TurboHelper
+    TurboHelper,
+    MarkdownHelper
   )
 end

@@ -20,13 +20,14 @@ class Hotpages::Site::Generator
       FileUtils.mkdir_p(File.dirname(file_path))
       File.open(file_path, "w+b") { |f| f.write(content) }
 
-      puts "Generated path_to_write"
+      puts "Generated #{path_to_write}"
     end
 
     # Copy assets
     assets_src = config.site.assets_full_path
     assets_dest = config.site.dist_full_path
     FileUtils.cp_r(assets_src, assets_dest)
+    puts "Copied assets to #{assets_dest}"
   end
 
   private

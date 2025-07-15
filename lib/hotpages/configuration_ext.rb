@@ -1,6 +1,6 @@
 require "forwardable"
 
-module Hotpages::Site::ConfigurationExt
+module Hotpages::ConfigurationExt
   class << self
     def extended(base)
       base.site.extend(SiteExt)

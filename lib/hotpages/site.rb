@@ -1,7 +1,7 @@
 class Hotpages::Site
   class << self
     def instance = @instance ||= new
-    def config = @config ||= Hotpages.config.tap { _1.extend(ConfigurationExt) }
+    def config = @config ||= Hotpages.config
   end
 
   attr_reader :config

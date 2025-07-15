@@ -6,10 +6,12 @@ module Hotpages::Helpers::UrlHelper
                   [nil, text_or_url]
                 end
 
+    options[:href] ||= url
+
     if block_given?
-      tag.a options.merge(href: url), &block
+      tag.a(options, &block)
     else
-      tag.a options { text || url }
+      tag.a(options) { concat(text || url) }
     end
   end
 

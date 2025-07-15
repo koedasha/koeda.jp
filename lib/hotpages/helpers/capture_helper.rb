@@ -1,5 +1,6 @@
 module Hotpages::Helpers::CaptureHelper
   def capture(&block) = @buf.capture(&block)
+  def concat(value) = @buf.concat(value)
 
   def content_for(name, content = nil, &block)
     return captured_contents[name.to_sym] if !content && !block_given?

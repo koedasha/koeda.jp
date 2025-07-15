@@ -1,8 +1,8 @@
 <% content_for :description, "This is a captured description" -%>
 <% content_for :nav do -%>
   <ul>
-    <li><a href="/products">Products</a></li>
-    <li><a href="/about">About</a></li>
+    <li><%= link_to "Products", "/products" %></li>
+    <li><%= link_to("/about") { concat "About" } %></li>
   </ul>
 <% end -%>
 

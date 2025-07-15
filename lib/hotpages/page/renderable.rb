@@ -41,19 +41,23 @@ module Hotpages::Page::Renderable
 
   def new_tilt(template_path, &block)
     extensions = block_given? ? template_path.split(".") : template_path.split(".")[1..]
+    erb_options = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
 
     # TODO: Correctly handle registering pipelines
     if extensions.length > 1
       options = if extensions.include?("erb")
-                  { "erb" => { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" } }
+                  { "erb" => erb_options }
                 else
                   {}
                 end
 
       Tilt.register_pipeline(extensions.join("."), options)
+      Tilt.new(template_path, &block)
+    elsif extensions.include?("erb")
+      Tilt.new(template_path, **erb_options, &block)
+    else
+      Tilt.new(template_path, &block)
     end
-
-    Tilt.new(template_path, &block)
   end
 
   def captured_contents = @captured_contents ||= {}

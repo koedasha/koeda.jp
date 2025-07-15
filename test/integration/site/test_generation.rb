@@ -1,4 +1,5 @@
 require "test_helper"
+require "digest"
 
 class TestSiteGeneration < Minitest::Test
   class TestSite < Hotpages::Site

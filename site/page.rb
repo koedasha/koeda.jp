@@ -1,5 +1,5 @@
 class Page < Hotpages::Page
-  include SiteHelper, TurboHelper
+  include SiteHelper
 
   def site = @site ||= SiteProperties.new
   delegate [:title, :subtitle, :description] => :site

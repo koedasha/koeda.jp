@@ -6,7 +6,11 @@ class Product
           slug: "elapsed-times",
           name: "時間計測タイマー",
           image: "ph.svg",
-          description: "メモ機能と通知機能のついた時間計測タイマー"
+          description: <<~MD
+            メモ機能と通知機能のついた時間計測タイマーです。
+
+            日常生活のさまざまなシーンで活用いただけます。
+          MD
         ),
         # new(slug: "two", name: "Product 2", image: "product2.jpg", description: "Description for Product 2"),
         # new(slug: "three", name: "Product 3", image: "product3.jpg", description: "Description for Product 3")

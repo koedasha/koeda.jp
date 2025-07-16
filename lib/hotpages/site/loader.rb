@@ -22,7 +22,7 @@ class Hotpages::Site::Loader
       loader.collapse(config.site.helpers_full_path)
       loader.ignore(config.site.assets_full_path)
       loader.ignore(config.site.layouts_full_path)
-      loader.ignore(config.site.shared_full_path)
+      loader.ignore(config.site.partials_full_path)
       loader.enable_reloading
     end
   end

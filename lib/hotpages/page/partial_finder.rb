@@ -3,7 +3,7 @@ class Hotpages::Page::PartialFinder
     @base_path = base_path
     @config = config
     @base_dir = File.join(config.site.pages_full_path, File.dirname(base_path))
-    @shared_dir = config.site.shared_full_path
+    @partials_dir = config.site.partials_full_path
   end
 
   def find_for(partial_path)
@@ -12,7 +12,7 @@ class Hotpages::Page::PartialFinder
 
     search_paths = [
       !dirname.start_with?("/") ? File.join(base_dir, dirname, basename) : nil,
-      File.join(shared_dir, dirname, basename)
+      File.join(partials_dir, dirname, basename)
     ].compact.map { File.expand_path(_1) }
 
     search_paths.each do |path|
@@ -28,5 +28,5 @@ class Hotpages::Page::PartialFinder
 
   private
 
-  attr_reader :base_dir, :shared_dir
+  attr_reader :base_dir, :partials_dir
 end

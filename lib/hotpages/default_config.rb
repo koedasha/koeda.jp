@@ -8,7 +8,7 @@ module Hotpages
       helpers_path:"helpers",
       layouts_path: "layouts",
       assets_path: "assets",
-      shared_path: "shared",
+      partials_path: "partials",
       importmaps: {
         "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
         "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"

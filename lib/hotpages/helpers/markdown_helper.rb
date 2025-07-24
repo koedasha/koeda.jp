@@ -17,7 +17,7 @@ module Hotpages::Helpers::MarkdownHelper
       line
     end.join
 
-    template = new_tilt("md.erb") { unindented_content }
-    template.render(self, locals)
+    template = Hotpages::Template.new("md.erb") { unindented_content }
+    template.render_in(self, locals)
   end
 end

@@ -1,4 +1,13 @@
 class Hotpages::Page::PartialFinder
+  Partial = Data.define(:base_path, :extension) do
+    def self.from_full_path(full_path)
+      fragments = full_path.split(".")
+      base_path = fragments.first
+      extensions = fragments[1..]
+      new(base_path, extensions.join("."))
+    end
+  end
+
   def initialize(base_path, config)
     @base_path = base_path
     @config = config
@@ -17,7 +26,7 @@ class Hotpages::Page::PartialFinder
 
     search_paths.each do |path|
       if file = Dir.glob("#{path}.*").find { File.file?(_1) }
-        return file
+        return Partial.from_full_path(file)
       else
         next
       end

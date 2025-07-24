@@ -21,13 +21,20 @@ class Hotpages::Page
 
   layout :site # Default layout path, can be overridden by individual pages
 
-  attr_reader :base_path, :name, :config, :template_extension, :layout_path
+  attr_reader :base_path, :name, :config, :template_extension, :template, :layout_path
 
   def initialize(base_path:, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
     @name = name || base_path.split("/").last
     @config = self.class.config
     @template_extension = template_extension
+    # Page's template
+    @template =
+      if template_extension
+        Hotpages::Template.new(template_extension, base_path:, path_prefix: config.site.pages_full_path)
+      else
+        Hotpages::Template.new(body_type) { body }
+      end
     @layout_path = layout || self.class.layout_path
   end
 
@@ -39,5 +46,5 @@ class Hotpages::Page
     raise "No template file is found for #{self.class.name} at #{base_path}, "\
           "please provide body method or template file."
   end
-  def body_type = "erb"
+  def body_type = "html.erb"
 end

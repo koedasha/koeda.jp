@@ -5,18 +5,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
-  <meta name="description" content="<%= description %>" />
-  <title><%= yield :title %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : description %>" />
+  <title><%= content_for?(:title) ? yield(:title) : title %></title>
   <%= javascript_importmap_tags %>
   <%= stylesheet_link_tag "site" %>
-  <style></style>
 </head>
 
 <body>
-  <header>
-    <h1><%= yield :title %></h1>
-    <p><%= yield :subtitle %></p>
-  </header>
+  <% if header? %>
+    <header>
+      <h1><%= content_for?(:title) ? yield(:title) : title %></h1>
+      <p><%= content_for?(:subtitle) ? yield(:subtitle) : subtitle %></p>
+    </header>
+  <% end %>
 
   <main>
     <%= yield %>

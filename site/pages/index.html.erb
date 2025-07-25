@@ -1,3 +1,12 @@
-<% content_for :title, title %>
-<% content_for :subtitle, subtitle %>
-<%= render "products", products: %>
+<article id="index">
+  <%# <h1>こえだ舎</h1> %>
+  <h1>Site</h1>
+  <ul class="businesses">
+    <li>
+      <%= link_to "Apps", "/apps" %>
+    </li>
+    <li>
+      <%= link_to "Development Service", "/development-service" %>
+    </li>
+  </ul>
+</article>

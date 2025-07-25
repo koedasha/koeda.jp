@@ -1,5 +1,5 @@
 module Hotpages::Page::Expandable
-  EXPANABLE_PATH_REGEXP = /\[(.*)\](\.\w+)*\z/.freeze
+  EXPANABLE_PATH_REGEXP = /__(.+)__(\.\w+)*\z/.freeze
   EXPANDABLE_BASENAME_REGEXP = /\A#{EXPANABLE_PATH_REGEXP}/.freeze
 
   class << self
@@ -17,7 +17,7 @@ module Hotpages::Page::Expandable
       else
         # Convention check
         unless base_path =~ EXPANABLE_PATH_REGEXP
-          raise ArgumentError, "On expanding, base path must be surrounded by [ and ] (e.g., '[post]')"
+          raise ArgumentError, "On expanding, base path must be surrounded by __ and __ (e.g., '__post__')"
         end
 
         expanded_names.map do |name|

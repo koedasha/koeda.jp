@@ -4,8 +4,8 @@ module Hotpages
     site: Configuration.new(
       root: nil,
       dist_path: "../dist",
-      models_path:"models",
-      helpers_path:"helpers",
+      models_path: "models",
+      helpers_path: "helpers",
       layouts_path: "layouts",
       assets_path: "assets",
       partials_path: "partials",
@@ -17,7 +17,7 @@ module Hotpages
       pages_namespace: "Pages",
     ),
     dev_server: Configuration.new(
-      port: 4001
+      port: 4000
     )
   )
 end

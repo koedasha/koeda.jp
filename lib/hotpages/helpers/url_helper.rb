@@ -15,11 +15,12 @@ module Hotpages::Helpers::UrlHelper
     end
   end
 
-  def link_to_page(page_path, **options, &block)
-    unless config.page_base_class.exists?(page_path)
-      raise "Page not found while generating link with 'link_to_page': #{page_path}"
-    end
+  # TODO: generaterで行うようにする。link_toの使用で相対パスが渡された時とする
+  # def link_to_page(page_path, **options, &block)
+  #   unless config.page_base_class.exists?(page_path)
+  #     raise "Page not found while generating link with 'link_to_page': #{page_path}"
+  #   end
 
-    link_to(page_path, **options, &block)
-  end
+  #   link_to(page_path, **options, &block)
+  # end
 end

@@ -17,12 +17,10 @@ class Hotpages::Site::Loader
   def initialize(config:)
     @loader = Zeitwerk::Loader.new.tap do |loader|
       loader.inflector = Inflector.new
-      loader.push_dir(config.site.root)
-      loader.collapse(config.site.models_full_path)
-      loader.collapse(config.site.helpers_full_path)
-      loader.ignore(config.site.assets_full_path)
-      loader.ignore(config.site.layouts_full_path)
-      loader.ignore(config.site.partials_full_path)
+      loader.push_dir(config.site.config_full_path)
+      loader.push_dir(config.site.pages_full_path, namespace: config.site.pages_namespace_module)
+      loader.push_dir(config.site.models_full_path)
+      loader.push_dir(config.site.helpers_full_path)
       loader.enable_reloading
     end
   end

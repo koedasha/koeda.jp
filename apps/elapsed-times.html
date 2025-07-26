@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" xml:lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
+  <title>Site</title>
+  <script type="importmap">
+{
+  "imports": {
+    "assets/": "/assets/",
+    "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
+    "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"
+  }
+}
+</script>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js'>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm'>
+<script type="module" src="/assets/site.js"></script>
+
+  <link rel="stylesheet" href="/assets/site.css"></link>
+</head>
+
+<body>
+    <header>
+      <h1><a href="/">Site</a></h1>
+    </header>
+
+  <main>
+    <turbo-frame id="remote-modal">
+  <dialog
+    id="contact_form_modal"
+    aria-labelledby="modal_title"
+    data-controller="remote-modal">
+    <header>
+      <h2 id="modal_title">
+        時間計測タイマー
+      </h2>
+      <form method="dialog">
+        <button aria-label="close">X</button>
+      </form>
+    </header>
+    <main>
+      <p>メモ機能と通知機能のついた時間計測タイマーです。</p>
+
+<p>日常生活のさまざまなシーンで活用いただけます。</p>
+
+    </main>
+  </dialog>
+</turbo_frame>
+  </main>
+
+  <turbo-frame id="remote-modal"></turbo_frame>
+</body>
+
+</html>

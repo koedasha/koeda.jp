@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xml:lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
+  <title>Site</title>
+  <script type="importmap">
+{
+  "imports": {
+    "assets/": "/assets/",
+    "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
+    "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"
+  }
+}
+</script>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js'>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm'>
+<script type="module" src="/assets/site.js"></script>
+
+  <link rel="stylesheet" href="/assets/site.css"></link>
+</head>
+
+<body>
+
+  <main>
+    <article id="index">
+  <h1 class="gradient-text">Site</h1>
+  <ul id="businesses" class="gradient-text">
+    <li>
+      <a href="/apps">Apps</a>
+    </li>
+    <li>
+      <a href="/development-service">Development Service</a>
+    </li>
+  </ul>
+</article>
+
+  </main>
+
+  <turbo-frame id="remote-modal"></turbo_frame>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+article#index {
+  font-family: 'Poppins', sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  flex-direction: column;
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 4rem;
+  }
+
+  ul#businesses {
+    font-size: 2.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: block;
+    }
+
+    li + li::before {
+      content: "&";
+      display: block;
+      font-size: 1.8rem;
+    }
+  }
+}

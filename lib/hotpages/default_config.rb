@@ -3,7 +3,7 @@ module Hotpages
     page_base_class: Hotpages::Page,
     site: Configuration.new(
       root: nil,
-      dist_path: "../dist",
+      dist_path: "../_site",
       config_path: "config",
       models_path: "models",
       helpers_path: "helpers",

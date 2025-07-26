@@ -1,6 +1,9 @@
+require "singleton"
+
 class Hotpages::Site
+  include Singleton
+
   class << self
-    def instance = @instance ||= new
     def config = @config ||= Hotpages.config
   end
 

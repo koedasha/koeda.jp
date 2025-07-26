@@ -2,6 +2,6 @@ class Page < Hotpages::Page
   include SiteHelper
 
   def header? = true
-  def site = @site ||= SiteProperties.new
-  delegate [:title, :subtitle, :description] => :site
+  def site_name = "Site"
+  def site_description = "こえだ舎はアプリと開発サービスを提供しています"
 end

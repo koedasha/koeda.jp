@@ -1,2 +1,6 @@
 @import "./css/reset.min.css";
+
 @import "./css/base.css";
+@import "./css/utilities.css";
+
+@import "./css/index.css";

@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
-  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : description %>" />
-  <title><%= content_for?(:title) ? yield(:title) : title %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : site_description %>" />
+  <title><%= content_for?(:title) ? "#{yield(:title)} | #{site_name}" : site_name %></title>
   <%= javascript_importmap_tags %>
   <%= stylesheet_link_tag "site" %>
 </head>
@@ -14,8 +14,7 @@
 <body>
   <% if header? %>
     <header>
-      <h1><%= content_for?(:title) ? yield(:title) : title %></h1>
-      <p><%= content_for?(:subtitle) ? yield(:subtitle) : subtitle %></p>
+      <h1><%= link_to site_name, "/" %></h1>
     </header>
   <% end %>
 

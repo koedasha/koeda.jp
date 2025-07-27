@@ -7,14 +7,14 @@ class Hotpages::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
 
   def initialize(extension, base_path: nil, path_prefix: nil, &body)
-    @extension = extension
+    @extension = extension || ""
     @base_path = base_path
     @path_prefix = path_prefix
 
-    @name = [base_path, extension].compact.join(".")
+    @name = [base_path, extension].compact.join(".").chomp(".")
     @full_path = File.join(*[path_prefix, @name].compact)
 
-    @tilt = block_given? ? new_tilt(&body) : new_tilt
+    @tilt = new_tilt(&body)
   end
 
   def rendered_to_html? = extension.start_with?("html")
@@ -27,14 +27,17 @@ class Hotpages::Template
   def extensions = @extensions ||= extension.split(".")
 
   def new_tilt(&block)
-    # TODO: Correctly handle registering pipelines
-    if extensions.length > 1
+    if extensions.empty?
+      # When extension is not provided, use PlainTemplate
+      Tilt::PlainTemplate.new(full_path, &block)
+    elsif extensions.length > 1
       options = if extensions.include?("erb")
                   { "erb" => ERB_OPTIONS }
                 else
                   {}
                 end
 
+      # TODO: Correctly handle registering pipelines
       Tilt.register_pipeline(extension, options)
       Tilt.new(full_path, &block)
     elsif extensions.include?("erb")

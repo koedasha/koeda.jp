@@ -38,7 +38,11 @@ module Hotpages::Page::Expandable
   end
 
   def expanded_path
-    ext = template_extension&.split(".")&.first || "html"
-    "#{expanded_base_path}.#{ext}"
+    ext = if template_extension.nil?
+            "html"
+          else
+            template_extension.split(".").first
+          end
+    [expanded_base_path, ext].compact.join(".")
   end
 end

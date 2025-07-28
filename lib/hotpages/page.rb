@@ -1,8 +1,8 @@
 require "forwardable"
 
 class Hotpages::Page
-  extend Forwardable
-  include Expandable, Instantiation, Renderable, Findable
+  extend Forwardable, Instantiation
+  include Expandable, Renderable, Findable
   include Hotpages::Helpers
 
   class << self

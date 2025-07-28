@@ -8,7 +8,7 @@ module Hotpages::Page::Expandable
   end
 
   module ClassMethods
-    def expanded_names = nil
+    def segment_names = nil
 
     def expand_instances_for(base_path, template_extension:)
       namespaces = name.split("::")
@@ -18,9 +18,9 @@ module Hotpages::Page::Expandable
       segment_name_values = namespaces.map do |namespace|
         current_namespace = current_namespace.const_get(namespace, false)
 
-        next nil unless current_namespace.respond_to?(:expanded_names)
+        next nil unless current_namespace.respond_to?(:segment_names)
 
-        names = current_namespace.expanded_names
+        names = current_namespace.segment_names
 
         next nil if names.nil?
 
@@ -30,13 +30,14 @@ module Hotpages::Page::Expandable
       # Not expanded
       return [ new(base_path:, template_extension:) ] if segment_name_values.empty?
 
-      segment_names = segment_name_values.keys
-      segment_values = segment_name_values.values
-      segment_values_product = segment_values.first.product(*segment_values[1..])
+      segment_keys = segment_name_values.keys
+      segment_values_product = segment_name_values.values.then do |values|
+        values.first.product(*values[1..])
+      end
 
       segment_values_product.map do |segment_values|
-        segments = segment_names.zip(segment_values).to_h
-        name = expanded_names.nil? ? nil : segment_values.last
+        segments = segment_keys.zip(segment_values).to_h
+        name = segment_names.nil? ? nil : segment_values.last
         new(base_path:, segments:, name:, template_extension:)
       end
     end

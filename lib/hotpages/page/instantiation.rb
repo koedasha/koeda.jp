@@ -29,7 +29,7 @@ module Hotpages::Page::Instantiation
 
       page_base_path = base_path.sub(config.site.pages_full_path + "/", "")
 
-      class_name = classify_base_path(page_base_path)
+      class_name = page_base_path.classify
       page_class = config.site.pages_namespace_module.const_get(class_name, false) rescue config.page_base_class
 
       page_class.expand_instances_for(page_base_path, template_extension:)
@@ -41,15 +41,6 @@ module Hotpages::Page::Instantiation
       basename = File.basename(path)
       basename_without_exts = basename.sub(/\..*$/, '')
       File.join(File.dirname(path), basename_without_exts)
-    end
-
-    def classify_base_path(base_path)
-      pathnames = base_path.split("/")
-      filename = pathnames.pop
-      class_file_name =
-        filename.match(Hotpages::Page::Expandable::EXPANDABLE_BASENAME_REGEXP) ? $1 : filename
-      pathnames.push(class_file_name)
-      pathnames.join("/").classify
     end
   end
 end

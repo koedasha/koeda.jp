@@ -1,6 +1,5 @@
 module Hotpages::Page::Expandable
   EXPANABLE_PATH_REGEXP = /__(.+)__(\.\w+)*\z/.freeze
-  EXPANDABLE_BASENAME_REGEXP = /\A#{EXPANABLE_PATH_REGEXP}/.freeze
 
   class << self
     def included(base)

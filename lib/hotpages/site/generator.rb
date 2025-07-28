@@ -11,7 +11,7 @@ class Hotpages::Site::Generator
     page_instances = config.page_base_class.from_full_paths(Dir.glob(File.join(config.site.pages_full_path, "**", "*")))
 
     page_instances.each do |page_instance|
-      path_to_write = page_instance.expanded_path
+      path_to_write = page_instance.expanded_base_path_with_extension
       puts "Generating page: #{path_to_write}"
 
       content = page_instance.render

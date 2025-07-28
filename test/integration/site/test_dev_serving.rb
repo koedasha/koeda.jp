@@ -24,40 +24,40 @@ class TestSiteDevServing < Minitest::Test
     sleep 0.1
   end
 
-  def test_site_dev_serving
-    uri = URI("http://localhost:#{TEST_PORT}/")
-    res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{<title>My Site</title>}, res.body
+  def test_serves_all_pages
+    Dir.glob(File.join(__dir__, "../../dist/expected/**/*")).each do |file|
+      next if File.directory?(file)
 
-    uri = URI("http://localhost:#{TEST_PORT}/products")
-    res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{<h1>Products</h1>}, res.body
+      relative_path = file.sub(File.join(__dir__, "../../dist/expected"), "")
+      uri = URI("http://localhost:#{TEST_PORT}#{relative_path}")
+      res = Net::HTTP.get_response(uri)
+      assert_equal "200", res.code, "Failed for #{relative_path}"
+      assert_page_content relative_path, res.body
+    end
 
-    uri = URI("http://localhost:#{TEST_PORT}/products/")
+    # HTML should be served without file extension
+    uri = URI("http://localhost:#{TEST_PORT}/posts/1/bar/index")
     res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{<h1>Products</h1>}, res.body
+    assert_equal "200", res.code, "Failed to serve /posts/1/bar/index"
+    assert_page_content "posts/1/bar/index.html", res.body
 
-    uri = URI("http://localhost:#{TEST_PORT}/products/one")
+    # index.html should be served without file name
+    uri = URI("http://localhost:#{TEST_PORT}/posts/1/bar/")
     res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{Product 1}, res.body
+    assert_equal "200", res.code, "Failed to serve /posts/1/bar/"
+    assert_page_content "posts/1/bar/index.html", res.body
 
-    uri = URI("http://localhost:#{TEST_PORT}/assets/site.css")
+    # TXT should not be served without file extension
+    uri = URI("http://localhost:#{TEST_PORT}/robot")
     res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{body \{}, res.body
+    assert_equal "404", res.code, "Should not serve /robot.txt without extension"
+  end
 
-    uri = URI("http://localhost:#{TEST_PORT}/misc/no_ruby")
-    res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{<div>I am a page without ruby.</div>}, res.body
+  private
 
-    uri = URI("http://localhost:#{TEST_PORT}/misc/just")
-    res = Net::HTTP.get_response(uri)
-    assert_equal "200", res.code
-    assert_match %r{<div>Just html</div>}, res.body
+  def assert_page_content(expected_path, actual_content)
+    actual_content = actual_content.force_encoding("UTF-8").encode("UTF-8")
+    expected_content = File.read(File.join(__dir__, "../../dist/expected", expected_path))
+    assert_equal expected_content, actual_content, "File content mismatch for #{expected_path}"
   end
 end

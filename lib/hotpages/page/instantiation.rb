@@ -22,6 +22,8 @@ module Hotpages::Page::Instantiation
       end
     end
 
+    private
+
     def from_path(base_path, template_extension:)
       filename = File.basename(base_path)
 
@@ -30,17 +32,39 @@ module Hotpages::Page::Instantiation
       page_base_path = base_path.sub(config.site.pages_full_path + "/", "")
 
       class_name = page_base_path.classify
-      page_class = config.site.pages_namespace_module.const_get(class_name, false) rescue config.page_base_class
+      page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false)
+      page_class =
+        if page_class_defined
+          config.site.pages_namespace_module.const_get(class_name, false)
+        else
+          page_subclass_under(class_name.split("::")[...-1])
+        end
 
-      page_class.expand_instances_for(page_base_path, template_extension:)
+      if page_class.respond_to?(:expand_instances_for)
+        page_class.expand_instances_for(page_base_path, template_extension:)
+      else
+        nil
+      end
     end
-
-    private
 
     def remove_ext(path)
       basename = File.basename(path)
       basename_without_exts = basename.sub(/\..*$/, '')
       File.join(File.dirname(path), basename_without_exts)
+    end
+
+    def page_subclass_under(
+      namespaces,
+      root_module: config.site.pages_namespace_module,
+      parent_class: config.page_base_class,
+      class_name: "Page_"
+    )
+      ns = namespaces.inject(root_module) do |ns, namespace|
+        ns.const_defined?(namespace) ? ns.const_get(namespace) : ns.const_set(namespace, Module.new)
+      end
+
+      ns.const_defined?(class_name) ? ns.const_get(class_name) :
+                                      ns.const_set(class_name, Class.new(parent_class))
     end
   end
 end

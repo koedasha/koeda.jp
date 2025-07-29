@@ -15,7 +15,7 @@ module Hotpages::ConfigurationExt
     def layouts_full_path = full_path(layouts_path)
     def assets_full_path = full_path(assets_path)
     def pages_full_path = full_path(pages_path)
-    def partials_full_path = full_path(partials_path)
+    def shared_full_path = full_path(shared_path)
 
     def pages_namespace_module(ns_name = pages_namespace)
       return Object.const_get(ns_name) if Object.const_defined?(ns_name)

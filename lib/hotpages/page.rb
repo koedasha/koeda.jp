@@ -21,7 +21,7 @@ class Hotpages::Page
 
   layout :site # Default layout path, can be overridden by individual pages
 
-  attr_reader :base_path, :segments, :name, :config, :template_extension, :layout_path, :template
+  attr_reader :base_path, :segments, :name, :config, :template_extension, :layout_path, :page_template
 
   def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
@@ -31,7 +31,7 @@ class Hotpages::Page
     @template_extension = template_extension
     @layout_path = layout || self.class.layout_path
 
-    @template ||=
+    @page_template ||=
       if !@template_extension.nil? # `nil` if no template file is provided
         Hotpages::Template.new(@template_extension, base_path:, path_prefix: config.site.pages_full_path)
       else

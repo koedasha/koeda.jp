@@ -1,19 +1,18 @@
 module Hotpages::Page::Renderable
   TEMPLATE_BASENAME_REGEXP = /\A_[^_]+/.freeze
 
-  def render_layout? = layout_path && !layout_path.empty? && template.rendered_to_html?
+  def render_layout? = layout_path && !layout_path.empty? && page_template.rendered_to_html?
 
-  def render(partial_path = nil, **partial_locals)
-    return render_partial(partial_path, **partial_locals) if partial_path
+  def render
+    # For capturing contents for rendering, render page here
+    page_content = page_template.render_in(rendering_context)
 
-    page_content = template.render_in(self)
+    rendering_context.cached_page_content = page_content
 
-    render_layout do |content_name = nil|
-      if content_name
-        captured_contents[content_name.to_sym]
-      else
-        page_content
-      end
+    if render_layout?
+      rendering_context.render(File.join(config.site.layouts_path, layout_path.to_s))
+    else
+      page_content
     end
   end
 
@@ -21,23 +20,32 @@ module Hotpages::Page::Renderable
 
   def captured_contents = @captured_contents ||= {}
 
-  # TODO: support ruby objects responds to `render_in`
-  def partial_finder = @partial_finder ||= Hotpages::Page::PartialFinder.new(base_path, config)
-  def render_partial(partial_path, **locals)
-    partial = partial_finder.find_for(partial_path)
-    template = Hotpages::Template.new(partial.extension, base_path: partial.base_path)
-    template.render_in(self, locals)
-  end
+  def rendering_context = @rendering_context ||= self.extend(TemplateRendering)
 
-  def layout_template
-    @layout_template ||=
-      Hotpages::Template.new("html.erb", base_path: layout_path, path_prefix: config.site.layouts_full_path)
-  end
-  def render_layout(&block)
-    if !render_layout?
-      yield if block_given?
-    else
-      layout_template.render_in(self, &block)
+  module TemplateRendering
+    attr_accessor :cached_page_content
+
+    # TODO: support ruby objects responds to `render_in`
+    def render(template_path, **locals, &block)
+      template_path = template_finder.find_for(template_path)
+      template = Hotpages::Template.new(template_path.extension, base_path: template_path.base_path)
+
+      if block_given?
+        # TODO: nested yield support?
+        template.render_in(rendering_context, locals, &block)
+      else
+        template.render_in(rendering_context, locals) do |content_name = nil|
+          if content_name
+            captured_contents[content_name.to_sym]
+          else
+            cached_page_content
+          end
+        end
+      end
     end
+
+    private
+
+    def template_finder = @template_finder ||= Hotpages::Page::TemplateFinder.new(base_path, config)
   end
 end

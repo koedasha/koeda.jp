@@ -1,5 +1,5 @@
-class Hotpages::Page::PartialFinder
-  Partial = Data.define(:base_path, :extension) do
+class Hotpages::Page::TemplateFinder
+  Template = Data.define(:base_path, :extension) do
     def self.from_full_path(full_path)
       fragments = full_path.split(".")
       base_path = fragments.first
@@ -12,21 +12,23 @@ class Hotpages::Page::PartialFinder
     @base_path = base_path
     @config = config
     @base_dir = File.join(config.site.pages_full_path, File.dirname(base_path))
-    @partials_dir = config.site.partials_full_path
+    @root_dir = config.site.root
   end
 
-  def find_for(partial_path)
-    dirname = File.dirname(partial_path)
-    basename = "_#{File.basename(partial_path)}"
+  def find_for(template_path)
+    dirname = File.dirname(template_path)
+    basename = File.basename(template_path)
+    underscore_basename = "_#{basename}"
 
     search_paths = [
-      !dirname.start_with?("/") ? File.join(base_dir, dirname, basename) : nil,
-      File.join(partials_dir, dirname, basename)
+      !dirname.start_with?("/") ? File.join(base_dir, dirname, underscore_basename) : nil,
+      File.join(root_dir, dirname, basename),
+      File.join(root_dir, dirname, underscore_basename)
     ].compact.map { File.expand_path(_1) }
 
     search_paths.each do |path|
       if file = Dir.glob("#{path}.*").find { File.file?(_1) }
-        return Partial.from_full_path(file)
+        return Template.from_full_path(file)
       else
         next
       end
@@ -37,5 +39,5 @@ class Hotpages::Page::PartialFinder
 
   private
 
-  attr_reader :base_dir, :partials_dir
+  attr_reader :base_dir, :root_dir
 end

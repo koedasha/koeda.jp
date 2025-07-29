@@ -13,6 +13,7 @@ class TestSiteDevServing < Minitest::Test
   def setup
     Hotpages.setup_site(TestSite)
     Hotpages.config.page_base_class = Page
+    Hotpages.site.generate
     @server_thread = Thread.new { Hotpages.dev_server.start }
     sleep 0.1
   end

@@ -12,7 +12,7 @@ class Hotpages::Page::Finder
     page_instances = config.page_base_class.from_full_paths(page_files)
     page_instances.find do |page|
       page.expanded_base_path_with_extension == page_path ||
-        page.expanded_base_path_with_extension == add_extension_to(page_path)
+        page.expanded_base_path_with_extension == "#{page_path}.html"
     end
   end
 
@@ -22,12 +22,5 @@ class Hotpages::Page::Finder
     path = "#{path}index" if path.end_with?("/")
     path = path.sub(%r{^/}, '') # Remove leading slash if present
     path
-  end
-
-  def add_extension_to(page_path)
-    return page_path if page_path.split("/").last.split(".").size > 1
-
-    # Add .html extension by default
-    "#{page_path}.html"
   end
 end

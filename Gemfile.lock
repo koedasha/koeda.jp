@@ -5,7 +5,7 @@ GEM
     kramdown (2.5.1)
       rexml (>= 3.3.9)
     minitest (5.25.5)
-    rake (13.2.1)
+    rake (13.3.0)
     rexml (3.4.1)
     tilt (2.6.1)
     webrick (1.9.1)

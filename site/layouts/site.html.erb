@@ -18,9 +18,13 @@
     </header>
   <% end %>
 
-  <main>
-    <%= yield %>
-  </main>
+  <% if content_for?(:inner_layout_content) %>
+    <%= content_for(:inner_layout_content) %>
+  <% else %>
+    <main>
+      <%= yield %>
+    </main>
+  <% end %>
 
   <%= turbo_frame_tag :remote_modal %>
 </body>

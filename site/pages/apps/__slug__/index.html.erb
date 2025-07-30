@@ -1,3 +1,8 @@
+<%
+layout :apps
+product = Product.find_by_slug(segments[:slug])
+content_for :app_name, product.name_ja
+%>
 <%= turbo_frame_tag :remote_modal do %>
   <dialog
     id="contact_form_modal"
@@ -5,14 +10,14 @@
     data-controller="remote-modal">
     <header>
       <h2 id="modal_title">
-        <%= product.name %>
+        <%= product.name_ja %>
       </h2>
       <form method="dialog">
         <button aria-label="close">X</button>
       </form>
     </header>
     <main>
-      <%= render_markdown product.description %>
+      <%= render_markdown product.description_ja %>
     </main>
   </dialog>
 <% end %>

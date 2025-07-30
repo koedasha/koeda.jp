@@ -1,7 +1,3 @@
-class Pages::Apps::Slug < Page
-  class << self
-    def segment_names = Product.page_names
-  end
-
-  def product = Product.find_by_slug(name)
+module Pages::Apps::Slug
+  def self.segment_names = Product.segment_names
 end

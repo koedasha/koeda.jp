@@ -4,9 +4,9 @@
     <ul>
       <% products.each do |product| %>
         <li>
-          <%= link_to "/apps/#{product.slug}", data: { turbo_frame: :remote_modal } do %>
-            <%= product.name %>
-            <%= image_tag(product.image, product.name) %>
+          <%= link_to "/apps/#{product.slug}/", data: { turbo_frame: :remote_modal } do %>
+            <%= product.name_ja %>
+            <%= image_tag(product.image, product.name_ja) %>
           <% end %>
         </li>
       <% end %>

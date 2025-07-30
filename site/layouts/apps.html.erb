@@ -1,0 +1,9 @@
+<% content_for :inner_layout_content do %>
+  <nav>
+    <h2><%= content_for :app_name %></h2>
+  </nav>
+  <main>
+    <%= yield %>
+  </main>
+<% end %>
+<%= render "layouts/site" %>

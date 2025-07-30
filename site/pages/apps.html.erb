@@ -1,15 +1,20 @@
+<% content_for :title, "Apps" %>
+
 <article>
   <h2>Apps</h2>
-  <section class="products">
-    <ul>
-      <% products.each do |product| %>
-        <li>
-          <%= link_to "/apps/#{product.slug}/", data: { turbo_frame: :remote_modal } do %>
-            <%= product.name_ja %>
-            <%= image_tag(product.image, product.name_ja) %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+  <section class="apps">
+    <% apps.each do |app| %>
+      <div class="app-col">
+        <%= link_to "/apps/#{app.slug}/" do %>
+          <%= image_tag(app.image, alt: app.name_ja, class: "app-col__icon") %>
+          <h3 class="app-col__name">
+            <%= app.name_ja %>
+          </h3>
+          <div class="app-col__copy">
+            <%= app.copy_ja %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </section>
 </article>

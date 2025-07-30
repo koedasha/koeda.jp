@@ -1,3 +1,3 @@
 class Pages::Apps < Page
-  def products = Product.all
+  def apps = Product.all
 end

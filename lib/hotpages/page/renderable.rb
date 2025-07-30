@@ -4,7 +4,7 @@ module Hotpages::Page::Renderable
   def render_layout? = layout_path && !layout_path.empty? && page_template.rendered_to_html?
 
   def render
-    # For capturing contents for rendering, render page here
+    # For capturing contents for rendering, render page first
     page_content = page_template.render_in(rendering_context)
 
     rendering_context.cached_page_content = page_content
@@ -19,7 +19,6 @@ module Hotpages::Page::Renderable
   private
 
   def captured_contents = @captured_contents ||= {}
-
   def rendering_context = @rendering_context ||= self.extend(TemplateRendering)
 
   module TemplateRendering
@@ -27,8 +26,7 @@ module Hotpages::Page::Renderable
 
     # TODO: support ruby objects responds to `render_in`
     def render(template_path, **locals, &block)
-      template_path = template_finder.find_for(template_path)
-      template = Hotpages::Template.new(template_path.extension, base_path: template_path.base_path)
+      template = template_finder.find_for(template_path)
 
       if block_given?
         # TODO: nested yield support?
@@ -46,6 +44,6 @@ module Hotpages::Page::Renderable
 
     private
 
-    def template_finder = @template_finder ||= Hotpages::Page::TemplateFinder.new(base_path, config)
+    def template_finder = @template_finder ||= Hotpages::Page::Template::Finder.new(base_path, config)
   end
 end

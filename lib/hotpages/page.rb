@@ -33,9 +33,9 @@ class Hotpages::Page
 
     @page_template ||=
       if !@template_extension.nil? # `nil` if no template file is provided
-        Hotpages::Template.new(@template_extension, base_path:, path_prefix: config.site.pages_full_path)
+        Hotpages::Page::Template.new(@template_extension, base_path:, path_prefix: config.site.pages_full_path)
       else
-        Hotpages::Template.new(body_type) { body }
+        Hotpages::Page::Template.new(body_type) { body }
       end
   end
 

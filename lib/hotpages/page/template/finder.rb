@@ -1,5 +1,5 @@
-class Hotpages::Page::TemplateFinder
-  Template = Data.define(:base_path, :extension) do
+class Hotpages::Page::Template::Finder
+  PathData = Data.define(:base_path, :extension) do
     def self.from_full_path(full_path)
       fragments = full_path.split(".")
       base_path = fragments.first
@@ -16,6 +16,15 @@ class Hotpages::Page::TemplateFinder
   end
 
   def find_for(template_path)
+    data = path_data_for(template_path)
+    Hotpages::Page::Template.new(data.extension, base_path: data.base_path)
+  end
+
+  private
+
+  attr_reader :base_dir, :root_dir
+
+  def path_data_for(template_path)
     dirname = File.dirname(template_path)
     basename = File.basename(template_path)
     underscore_basename = "_#{basename}"
@@ -28,7 +37,7 @@ class Hotpages::Page::TemplateFinder
 
     search_paths.each do |path|
       if file = Dir.glob("#{path}.*").find { File.file?(_1) }
-        return Template.from_full_path(file)
+        return PathData.from_full_path(file)
       else
         next
       end
@@ -36,8 +45,4 @@ class Hotpages::Page::TemplateFinder
 
     raise "Cannot find template in: #{search_paths}"
   end
-
-  private
-
-  attr_reader :base_dir, :root_dir
 end

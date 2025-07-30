@@ -3,7 +3,7 @@ require "erubi/capture_block"
 
 Tilt.register(Tilt::PlainTemplate, "txt")
 
-class Hotpages::Template
+class Hotpages::Page::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
 
   def initialize(extension, base_path: nil, path_prefix: nil, &body)

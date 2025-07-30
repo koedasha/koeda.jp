@@ -11,7 +11,7 @@ module Hotpages::Page::Expandable
     def segment_names = nil
 
     def expand_instances_for(base_path, template_extension:)
-      namespaces = name.split("::")
+      namespaces = self.name.split("::")
       namespaces.shift # Remove the first `Pages` namespace
 
       current_namespace = config.site.pages_namespace_module

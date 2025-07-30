@@ -57,13 +57,14 @@ module Hotpages::Page::Instantiation
     namespaces,
     root_module: config.site.pages_namespace_module,
     parent_class: config.page_base_class,
-    class_name: "Page_"
+    class_name: "Page"
   )
     ns = namespaces.inject(root_module) do |ns, namespace|
-      ns.const_defined?(namespace) ? ns.const_get(namespace) : ns.const_set(namespace, Module.new)
+      ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
+                                            ns.const_set(namespace, Module.new)
     end
 
-    ns.const_defined?(class_name) ? ns.const_get(class_name) :
-                                    ns.const_set(class_name, Class.new(parent_class))
+    ns.const_defined?(class_name, false) ? ns.const_get(class_name, false) :
+                                           ns.const_set(class_name, Class.new(parent_class))
   end
 end

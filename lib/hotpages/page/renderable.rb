@@ -1,6 +1,4 @@
 module Hotpages::Page::Renderable
-  TEMPLATE_BASENAME_REGEXP = /\A_[^_]+/.freeze
-
   def render_layout? = layout_path && !layout_path.empty? && page_template.rendered_to_html?
 
   def render

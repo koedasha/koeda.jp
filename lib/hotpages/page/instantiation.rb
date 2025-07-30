@@ -1,9 +1,23 @@
 module Hotpages::Page::Instantiation
+  IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
+
   def from_full_paths(paths)
-    files = paths.map { File.expand_path(_1) }.select { |f| File.file?(f) }
-    base_path_exts_map = files.group_by { |file| remove_ext(file) }.transform_values do |files|
-      files.map { |file| (File.basename(file).split('.')[1..] || []).join('.') }
+    base_paths = paths.inject([]) do |result, path|
+      next result unless path.start_with?(config.site.pages_full_path)
+
+      base_path = path.sub(config.site.pages_full_path + "/", "")
+
+      next result if base_path =~ IGNORED_PATH_REGEXP
+
+      full_path = File.expand_path(path)
+
+      File.file?(full_path) ? result << base_path :result
     end
+
+    base_path_exts_map = base_paths.group_by { |path| remove_ext(path) }.transform_values do |paths|
+      paths.map { |path| (File.basename(path).split('.')[1..] || []).join('.') }
+    end
+
     base_path_exts_map.flat_map do |base_path, exts|
       non_rb_exts = exts.reject { |ext| ext == "rb" }
 
@@ -16,13 +30,7 @@ module Hotpages::Page::Instantiation
   private
 
   def from_path(base_path, template_extension:)
-    filename = File.basename(base_path)
-
-    return nil if filename =~ Hotpages::Page::Renderable::TEMPLATE_BASENAME_REGEXP
-
-    page_base_path = base_path.sub(config.site.pages_full_path + "/", "")
-
-    class_name = page_base_path.classify
+    class_name = base_path.classify
     page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false)
     page_class =
       if page_class_defined
@@ -32,7 +40,7 @@ module Hotpages::Page::Instantiation
       end
 
     if page_class.respond_to?(:expand_instances_for)
-      page_class.expand_instances_for(page_base_path, template_extension:)
+      page_class.expand_instances_for(base_path, template_extension:)
     else
       nil
     end
@@ -41,7 +49,8 @@ module Hotpages::Page::Instantiation
   def remove_ext(path)
     basename = File.basename(path)
     basename_without_exts = basename.sub(/\..*$/, '')
-    File.join(File.dirname(path), basename_without_exts)
+    dirname = File.dirname(path)
+    File.join(*[dirname == "." ? nil : dirname, basename_without_exts].compact)
   end
 
   def page_subclass_under(

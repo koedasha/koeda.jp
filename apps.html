@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
   <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
-  <title>Site</title>
+  <title>Apps | Site</title>
   <script type="importmap">
 {
   "imports": {
@@ -24,21 +24,25 @@
 </head>
 
 <body>
-    <header>
+    <header class="gradient-text">
       <h1><a href="/">Site</a></h1>
     </header>
 
     <main>
-      <article>
+      
+<article>
   <h2>Apps</h2>
-  <section class="products">
-    <ul>
-        <li>
-          <a data-turbo-frame="remote-modal" href="/apps/elapsed-times/">
+  <section class="apps">
+      <div class="app-col">
+        <a href="/apps/elapsed-times/">
+          <img alt="時間計測タイマー" class="app-col__icon" src="/assets/images/elapsed-times.png"></img>
+          <h3 class="app-col__name">
             時間計測タイマー
-            <img src="/assets/images/ph.svg" alt="時間計測タイマー"></img>
-</a>        </li>
-    </ul>
+          </h3>
+          <div class="app-col__copy">
+            「あれからどれくらいたったかな？」日常生活の中で時間を計測したいときに役立つタイマーアプリ。
+          </div>
+</a>      </div>
   </section>
 </article>
 

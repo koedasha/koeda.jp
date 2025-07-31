@@ -8,6 +8,8 @@ class TestSite < Hotpages::Site
 end
 
 Hotpages.setup_site(TestSite)
+
+# Page class is accessible only after site loader setup
 Hotpages.config.page_base_class = ::Page
 
 Minitest.after_run do

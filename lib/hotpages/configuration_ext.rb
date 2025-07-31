@@ -1,5 +1,3 @@
-require "forwardable"
-
 module Hotpages::ConfigurationExt
   class << self
     def extended(base)

@@ -1,3 +1,5 @@
+require "uri"
+
 module Hotpages::Helpers::UrlHelper
   def link_to(text_or_url, url_or_nil = nil, **options, &block)
     text, url = if url_or_nil
@@ -23,4 +25,12 @@ module Hotpages::Helpers::UrlHelper
 
   #   link_to(page_path, **options, &block)
   # end
+
+  private
+
+  def compose_url(url, **query_params)
+    uri = URI(url)
+    uri.query = URI.encode_www_form(query_params) if query_params.any?
+    uri.to_s
+  end
 end

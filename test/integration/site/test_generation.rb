@@ -2,22 +2,8 @@ require "test_helper"
 require "digest"
 
 class TestSiteGeneration < Minitest::Test
-  class TestSite < Hotpages::Site
-    config.site.root = File.join(__dir__, "../../test_site")
-    config.site.dist_path = "../dist/actual"
-  end
-
-  def setup
-    Hotpages.setup_site(TestSite)
-    Hotpages.config.page_base_class = Page
-  end
-
-  def teardown
-    Hotpages.site.teardown
-  end
-
   def test_site_generation
-    Hotpages.site.generate
+    Hotpages.site.generate(assets_version: "test")
 
     expected_dist = File.join(__dir__, "../../dist/expected")
     actual_dist = Hotpages.site.config.site.dist_full_path

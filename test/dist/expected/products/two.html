@@ -7,8 +7,20 @@
   <meta name="keywords" content="" />
   <meta name="description" content="This is a sample site description." />
   <title>My Site</title>
-  <link rel="stylesheet" href="example.css" />
-  <style></style>
+  <script type="importmap">
+{
+  "imports": {
+    "assets/": "/assets/",
+    "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
+    "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"
+  }
+}
+</script>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js'>
+<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm'>
+<script type="module" src="/assets/site.js?v=test"></script>
+
+  <link rel="stylesheet" href="/assets/site.css?v=test"></link>
 </head>
 
 <body>

@@ -2,15 +2,15 @@ require "json"
 
 module Hotpages::Helpers::AssetsHelper
   def asset_path(asset_name)
-    File.join("/", config.site.assets_path, asset_name)
+    url = File.join("/", config.site.assets_path, asset_name)
+    # For busting cache
+    assets_version = Hotpages.site.generating? ? Hotpages.site.assets_version : nil
+    params = { v: assets_version }.compact
+    compose_url(url, **params)
   end
 
-  # def asset_url(asset_name)
-  #   File.join(config.site.base_url, config.site.assets_path, asset_name)
-  # end
-
   def image_path(image_name)
-    File.join("/", config.site.assets_path, "images", image_name)
+    asset_path(File.join("images", image_name))
   end
 
   def image_tag(image_name, **options)
@@ -19,10 +19,12 @@ module Hotpages::Helpers::AssetsHelper
   end
 
   def stylesheet_link_tag(stylesheet_name)
-    tag.link rel: "stylesheet", href: "#{asset_path(stylesheet_name)}.css"
+    stylesheet_name = "#{stylesheet_name.delete_suffix(".css")}.css"
+    tag.link rel: "stylesheet", href: "#{asset_path(stylesheet_name)}"
   end
 
   def javascript_include_tag(script_name, type: "module")
+    script_name = "#{script_name.delete_suffix(".js")}.js"
     tag.script type: type, src: "#{asset_path(script_name)}.js"
   end
 

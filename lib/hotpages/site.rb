@@ -1,7 +1,9 @@
 require "singleton"
+require "forwardable"
 
 class Hotpages::Site
   include Singleton
+  extend Forwardable
 
   class << self
     def config = @config ||= Hotpages.config
@@ -15,20 +17,13 @@ class Hotpages::Site
     @generator = Generator.new(config:)
   end
 
-  def setup
-    loader.setup
-  end
-
+  def_delegators :loader, :setup, :reload
   def teardown
     loader.unload
     loader.unregister
   end
 
-  def reload
-    loader.reload
-  end
-
-  def generate = generator.generate
+  def_delegators :generator, :generate, :generating?, :assets_version
 
   private
 

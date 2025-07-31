@@ -1,11 +1,18 @@
 require "fileutils"
 
 class Hotpages::Site::Generator
+  attr_reader :assets_version
+
   def initialize(config:)
     @config = config
+    @generating = false
+    @assets_version = nil
   end
 
-  def generate
+  def generate(assets_version: nil)
+    self.assets_version = assets_version || SecureRandom.hex(4)
+    self.generating = true
+
     FileUtils.rm_rf(config.site.dist_full_path) if Dir.exist?(config.site.dist_full_path)
 
     all_page_files = Dir.glob(File.join(config.site.pages_full_path, "**/*"))
@@ -29,11 +36,17 @@ class Hotpages::Site::Generator
     assets_dest = config.site.dist_full_path
     FileUtils.cp_r(assets_src, assets_dest)
     puts "Copied assets to #{assets_dest}"
+
+    self.generating = false
   end
+
+  def generating? = generating
 
   private
 
   attr_reader :config
+  attr_accessor :generating
+  attr_writer :assets_version
 
   def remove_ext(path)
     basename = File.basename(path)

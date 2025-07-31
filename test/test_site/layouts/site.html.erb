@@ -7,8 +7,8 @@
   <meta name="keywords" content="" />
   <meta name="description" content="<%= content_for?(:description) ? content_for(:description) : description %>" />
   <title><%= title %></title>
-  <link rel="stylesheet" href="example.css" />
-  <style></style>
+  <%= javascript_importmap_tags %>
+  <%= stylesheet_link_tag "site" %>
 </head>
 
 <body>

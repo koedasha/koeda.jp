@@ -5,24 +5,25 @@ class Hotpages::DevServer
     @site = site
     @config = site.config
     @port = @config.dev_server.port
+    @logger = WEBrick::Log.new()
   end
 
   def start(gem_development: false)
     @gem_development = gem_development
     # TDOO: eager_load Hotpages libs when gem development is off
-    puts "Starting development server on port #{port}..."
+    logger.info "Starting development server on port #{port}..."
     setup_routes
     server.start
   end
 
   def stop
-    puts "Stopping development server..."
+    logger.info "Stopping development server..."
     server.shutdown
   end
 
   private
 
-  attr_reader :site, :config, :port
+  attr_reader :site, :config, :port, :logger
 
   def server
     @server ||= WEBrick::HTTPServer.new(
@@ -54,27 +55,49 @@ class Hotpages::DevServer
     res["Content-Type"] = mime_type
     res.body = content
   rescue Errno::ENOENT => e
-    puts "Error: #{e.message}"
-    respond_with_not_found(res)
+    logger.error(e)
+    respond_with_not_found(req, res)
   end
 
   def handle_page_request(req, res)
     if gem_development?
-      puts "Gem development mode enabled. Reloading Hotpages: #{Hotpages.reload}"
+      logger.info "Gem development mode enabled. Reloading Hotpages: #{Hotpages.reload}"
     end
     site.reload
 
     page = Hotpages::Page.find_by_path(req.path)
 
-    return respond_with_not_found(res) unless page
+    return respond_with_not_found(req, res) unless page
 
     res["Content-Type"] = "text/html"
     res.body = page.render
+  rescue Exception => e
+    logger.error(e)
+
+    res.status = 500
+
+    error_page = <<~HTML
+      <body style="font-family:sans-serif; font-size:14px;">
+        <h1>#{e.class.name}</h1>
+        <p><strong>Message:</strong> #{e.message}</p>
+        <p><strong>Path:</strong> #{req.path}</p>
+        <p><strong>Backtrace:</strong></p>
+        <pre>#{e.backtrace.join("\n")}</pre>
+      </body>
+    HTML
+
+    res.body = error_page
   end
 
-  def respond_with_not_found(res)
+  def respond_with_not_found(req, res)
     res.status = 404
-    res.body = "<h1>404 Not Found</h1><p>The requested resource was not found.</p>"
+    res.body = <<~HTML
+      <body style="font-family:sans-serif; font-size:14px;">
+        <h1>404 Not Found</h1>
+        <p>The requested resource was not found.</p>
+        <p><strong>Path:</strong> #{req.path}</p>
+      </body>
+    HTML
     res["Content-Type"] = "text/html"
   end
 end

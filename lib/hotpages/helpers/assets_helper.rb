@@ -20,12 +20,12 @@ module Hotpages::Helpers::AssetsHelper
 
   def stylesheet_link_tag(stylesheet_name)
     stylesheet_name = "#{stylesheet_name.delete_suffix(".css")}.css"
-    tag.link rel: "stylesheet", href: "#{asset_path(stylesheet_name)}"
+    tag.link rel: "stylesheet", href: asset_path(stylesheet_name)
   end
 
   def javascript_include_tag(script_name, type: "module")
     script_name = "#{script_name.delete_suffix(".js")}.js"
-    tag.script type: type, src: "#{asset_path(script_name)}.js"
+    tag.script type: type, src: asset_path(script_name)
   end
 
   def javascript_importmap_tags(entrypoint: "site.js")

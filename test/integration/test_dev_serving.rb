@@ -2,14 +2,17 @@ require "test_helper"
 require "net/http"
 
 class TestSiteDevServing < Minitest::Test
-  def self.setup
+  @@setup_done = false
+  def setup
+    return if @@setup_done
+
     Hotpages.site.generate
     @@server_thread = Thread.new { Hotpages.dev_server.start }
     @@port = Hotpages.config.dev_server.port
     @@cache_buster_string = "?v=#{Hotpages.site.assets_version}"
+    @@setup_done = true
     sleep 0.1
   end
-  setup
 
   Minitest.after_run do
     if defined?(@@server_thread)

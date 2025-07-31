@@ -2,19 +2,35 @@
   --primary-gradient: linear-gradient(to bottom right, rgb(57, 117, 129), rgb(156, 133, 39));
 
   --light-foreground-color: #0f100f;
+  --light-paragraph-foreground-color: #494e48;
   --dark-foreground-color: #f5f5f5;
+  --light-background-color: var(--dark-foreground-color);
+  --dark-background-color: var(--primary-gradient);
   --secondary-color: #aaa;
 
   --foreground-color: var(--light-foreground-color);
-  --background-color: var(--dark-foreground-color);
+  --paragraph-foreground-color: var(--light-paragraph-foreground-color);
+  --background-color: var(--light-background-color);
+  --foreground-color-inversed: var(--dark-foreground-color);
+  --background-color-inversed: var(--dark-background-color);
 
-  --content-max-width: 768px;
+  --bp-xs: 320px;
+  --bp-sm: 548px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1200px;
+  --bp-xxl: 1400px;
+
+  --content-max-width: var(--bp-md);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-color: var(--dark-foreground-color);
-    --background-color: var(--primary-gradient);
+    --paragraph-foreground-color: var(--dark-foreground-color);
+    --background-color: var(--dark-background-color);
+    --foreground-color-inversed: var(--light-foreground-color);
+    --background-color-inversed: var(--light-background-color);
   }
 }
 

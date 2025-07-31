@@ -7,7 +7,28 @@ article.devs {
     align-items: center;
     text-align: center;
     flex-direction: column;
+    text-wrap: pretty;
   }
+  @media (max-width: 50ch) {
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .devs__contact {
+    color: var(--foreground-color-inversed);
+    background: var(--background-color-inversed);
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-indent: 0;
+    display: block;
+    margin: 2rem auto 1rem;
+    max-width: 7em;
+    &:hover { text-decoration: none; }
+  }
+
   h3 {
     margin: 3rem 0;
     font-size: 2rem;
@@ -18,7 +39,7 @@ article.devs {
     flex-direction: column;
   }
   p {
-    color: #4a4a4a;
+    color: var(--paragraph-foreground-color);
     text-indent: 0.5em;
     margin-bottom: 0.6rem;
   }

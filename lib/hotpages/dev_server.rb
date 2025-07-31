@@ -75,8 +75,7 @@ class Hotpages::DevServer
     logger.error(e)
 
     res.status = 500
-
-    error_page = <<~HTML
+    res.body = <<~HTML
       <body style="font-family:sans-serif; font-size:14px;">
         <h1>#{e.class.name}</h1>
         <p><strong>Message:</strong> #{e.message}</p>
@@ -85,8 +84,6 @@ class Hotpages::DevServer
         <pre>#{e.backtrace.join("\n")}</pre>
       </body>
     HTML
-
-    res.body = error_page
   end
 
   def respond_with_not_found(req, res)

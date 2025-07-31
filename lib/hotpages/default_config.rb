@@ -4,7 +4,6 @@ module Hotpages
     site: Configuration.new(
       root: nil,
       dist_path: "../_site",
-      config_path: "config",
       models_path: "models",
       helpers_path: "helpers",
       layouts_path: "layouts",

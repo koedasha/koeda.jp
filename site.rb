@@ -1,7 +1,7 @@
-require "#{__dir__}/../../lib/hotpages"
+require "#{__dir__}/lib/hotpages"
 
 class Site < Hotpages::Site
-  config.site.root = File.join(__dir__, "..")
+  config.site.root = File.join(__dir__, "site")
 end
 
 Hotpages.setup_site(Site)

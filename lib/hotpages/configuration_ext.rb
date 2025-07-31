@@ -7,7 +7,6 @@ module Hotpages::ConfigurationExt
 
   module SiteExt
     def dist_full_path = full_path(dist_path)
-    def config_full_path = full_path(config_path)
     def models_full_path = full_path(models_path)
     def helpers_full_path = full_path(helpers_path)
     def layouts_full_path = full_path(layouts_path)

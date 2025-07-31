@@ -14,7 +14,7 @@ class Hotpages::Site::Loader
     end
   end
 
-  delegate [:setup, :reload, :unload, :unregister] => :loader
+  delegate %i[ setup reload unload unregister ] => :loader
 
   private
 

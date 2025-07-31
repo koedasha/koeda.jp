@@ -17,13 +17,13 @@ class Hotpages::Site
     @generator = Generator.new(config:)
   end
 
-  def_delegators :loader, :setup, :reload
+  delegate %i[ setup reload ] => :loader
   def teardown
     loader.unload
     loader.unregister
   end
 
-  def_delegators :generator, :generate, :generating?, :assets_version
+  delegate %i[ generate generating? assets_version ] => :generator
 
   private
 

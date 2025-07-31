@@ -1,9 +1,6 @@
-<% content_for :app_name, product.name_ja %>
-<header>
-  <h2 id="modal_title">
-    <%= product.name_ja %>
-  </h2>
-</header>
-<main>
-  <%= render_markdown product.description_ja %>
-</main>
+<% content_for :app_name, app.name_ja %>
+<% content_for :app_image, app.image %>
+
+<article>
+  <%= render_markdown app.copy_ja %>
+</article>

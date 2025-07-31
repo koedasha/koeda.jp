@@ -1,6 +1,9 @@
 <% content_for :inner_layout_content do %>
-  <nav>
-    <h2><%= content_for :app_name %></h2>
+  <nav class="app-nav">
+    <h2>
+      <%= image_tag(content_for(:app_image), alt: content_for(:app_name), class: "app-col__icon") %>
+      <%= content_for :app_name %>
+    </h2>
   </nav>
   <main>
     <%= yield %>

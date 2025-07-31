@@ -1,5 +1,5 @@
 # App
-Product = Data.define(:slug, :image, :name_ja, :description_ja, :copy_ja) do
+Product = Data.define(:slug, :image, :name_ja, :copy_ja) do
   class << self
     def all
       @products ||= [
@@ -7,7 +7,6 @@ Product = Data.define(:slug, :image, :name_ja, :description_ja, :copy_ja) do
           slug: "elapsed-times",
           image: "elapsed-times.png",
           name_ja: "時間計測タイマー",
-          description_ja: "メモ機能と通知機能のついた時間計測タイマーです。日常生活のさまざまなシーンで活用いただけます。",
           copy_ja: "「あれからどれくらいたったかな？」日常生活の中で時間を計測したいときに役立つタイマーアプリ。"
         )
       ]

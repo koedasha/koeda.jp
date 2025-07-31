@@ -1,0 +1,25 @@
+article.devs {
+  h2 {
+    margin: 5rem 0 3rem;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  h3 {
+    margin: 3rem 0;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  p {
+    color: #4a4a4a;
+    text-indent: 0.5em;
+    margin-bottom: 0.6rem;
+  }
+}

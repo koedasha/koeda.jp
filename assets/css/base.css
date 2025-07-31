@@ -14,14 +14,7 @@
   --foreground-color-inversed: var(--dark-foreground-color);
   --background-color-inversed: var(--dark-background-color);
 
-  --bp-xs: 320px;
-  --bp-sm: 548px;
-  --bp-md: 768px;
-  --bp-lg: 1024px;
-  --bp-xl: 1200px;
-  --bp-xxl: 1400px;
-
-  --content-max-width: var(--bp-md);
+  --content-max-width: 768px;
 }
 
 @media (prefers-color-scheme: dark) {

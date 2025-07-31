@@ -1,7 +1,14 @@
 <article class="devs">
-  <%= render_markdown do %>
-    ## ともにつくるアプリケーション
+  <h2>
+    <span>アプリケーションを</span>
+    <span>ともにつくる</span>
+  </h2>
 
+  <% contact = capture do %>
+    <% link_to "Contact", "mailto:hi@koeda.jp", class: "devs__contact" %>
+  <% end %>
+
+  <%= render_markdown do %>
     デジタル化の進展にともない、企業の成長にとってアプリケーション開発は欠かせない要素となっています。
 
     しかし、アプリケーション開発の現場ではとにかくさまざまな課題につき当たります。
@@ -10,11 +17,11 @@
 
     こえだ舎はこれまでの様々なプロジェクト経験からアプリケーション開発の課題解決をお手伝いいたします。
 
-    <%= link_to "mailto:hi@koeda.jp", class: "devs__contact" %>
+    <%= contact %>
 
     ### Technologies
 
-    最大の価値の提供にこだわり、アプリケーション開発にこれらの技術を用いています。
+    価値提供の最大化にこだわり、アプリケーション開発にこれらの技術を用いています。
 
     Ruby on Rails
     : Ruby製のウェブアプリケーションフレームワーク
@@ -32,5 +39,7 @@
     ### Information
 
     TBD
+
+    <%= contact %>
   <% end %>
 </article>

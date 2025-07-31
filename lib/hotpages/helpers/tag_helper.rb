@@ -13,7 +13,7 @@ module Hotpages::Helpers::TagHelper
       content = block_given? ? context.capture(&block) : ""
       normalized_name = name.to_s.tr("_", "-")
 
-      "<#{normalized_name} #{attributes}>#{content}</#{name}>"
+      "<#{normalized_name} #{attributes}>#{content}</#{normalized_name}>"
     end
 
     private

@@ -31,7 +31,7 @@ module Hotpages::Page::Instantiation
 
   def from_path(base_path, template_extension:)
     class_name = base_path.classify
-    page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false)
+    page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false) rescue false
     page_class =
       if page_class_defined
         config.site.pages_namespace_module.const_get(class_name, false)

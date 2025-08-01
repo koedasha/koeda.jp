@@ -1,6 +1,6 @@
 import "@hotwired/turbo"
 import { Application } from "@hotwired/stimulus"
-import RemoteModalController from "./controllers/remote_modal_controller.js"
+import RemoteModalController from "controllers/remote_modal_controller.js"
 
 const application = Application.start()
 

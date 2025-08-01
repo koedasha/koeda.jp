@@ -1,8 +1,8 @@
-@import "./css/reset.min.css";
+@import "./css/reset.min.css?v=cd045c42";
 
-@import "./css/base.css";
-@import "./css/utilities.css";
-@import "./css/apps.css";
-@import "./css/devs.css";
+@import "./css/base.css?v=cd045c42";
+@import "./css/utilities.css?v=cd045c42";
+@import "./css/apps.css?v=cd045c42";
+@import "./css/devs.css?v=cd045c42";
 
-@import "./css/index.css";
+@import "./css/index.css?v=cd045c42";

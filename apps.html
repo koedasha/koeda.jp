@@ -9,16 +9,12 @@
   <title>Apps | Site</title>
   <script type="importmap">{
   "imports": {
-    "controllers/remote_modal_controller.js": "/assets/controllers/remote_modal_controller.js?v=ab9523b1",
+    "controllers/remote_modal_controller.js": "/assets/controllers/remote_modal_controller.js?v=e9afc223",
     "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
     "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"
   }
-}</script>
-<link rel='modulepreload' href='/assets/controllers/remote_modal_controller.js?v=ab9523b1'>
-<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js'>
-<link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm'>
-<script type="module" src="/assets/site.js?v=ab9523b1"></script>
-  <link rel="stylesheet" href="/assets/site.css?v=ab9523b1"></link>
+}</script><link rel="modulepreload" href="/assets/controllers/remote_modal_controller.js?v=e9afc223"></link><link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js"></link><link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"></link><script type="module" src="/assets/site.js?v=e9afc223"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=e9afc223"></link>
 </head>
 
 <body>
@@ -33,7 +29,7 @@
   <section class="apps">
       <div class="app-col">
         <a href="/apps/elapsed-times/">
-          <img alt="時間計測タイマー" class="app-col__icon" src="/assets/images/elapsed-times.png?v=ab9523b1"></img>
+          <img alt="時間計測タイマー" class="app-col__icon" src="/assets/images/elapsed-times.png?v=e9afc223"></img>
           <h3 class="app-col__name">
             時間計測タイマー
           </h3>
@@ -47,6 +43,12 @@
     </main>
 
   <turbo-frame id="remote-modal"></turbo-frame>
+
+  <script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons()
+document.documentElement.addEventListener("turbo:frame-load", function() {
+  lucide.createIcons()
+})
+</script>
 </body>
 
 </html>

@@ -1,8 +1,10 @@
 <% layout :posts %>
 
-<ul>
-  <li><%= segments[:id] %></li>
-  <li><%= segments[:slug] %></li>
-</ul>
+<dl>
+  <dt>id</dt>
+  <dd><%= segments[:id] %></dd>
+  <dt>slug</dt>
+  <dd><%= segments[:slug] %></dd>
+</dl>
 
 <p>Content located by `id` and `slug`.</p>

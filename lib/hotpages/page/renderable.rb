@@ -2,6 +2,8 @@ module Hotpages::Page::Renderable
   def render_layout? = layout_path && !layout_path.empty? && page_template.rendered_to_html?
 
   def render
+    before_render
+
     # For capturing contents for rendering, render page first
     page_content = page_template.render_in(rendering_context)
 

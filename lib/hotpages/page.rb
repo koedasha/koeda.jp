@@ -43,6 +43,9 @@ class Hotpages::Page
     @layout_path = layout_path
   end
 
+  # Rendering hook, can be overridden by subclasses
+  def before_render; end
+
   def body
     raise "No template file is found for #{self.class.name} at #{base_path}, "\
           "please provide body method or template file."

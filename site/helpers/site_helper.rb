@@ -1,14 +1,7 @@
 module SiteHelper
   def init_lucide_tag
     tag.script(src: "https://unpkg.com/lucide@latest").concat(
-      tag.script do
-        <<~JS
-          lucide.createIcons()
-          document.documentElement.addEventListener("turbo:frame-load", function() {
-            lucide.createIcons()
-          })
-        JS
-      end
+      tag.script { "lucide.createIcons()" }
     )
   end
 

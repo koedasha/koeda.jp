@@ -23,10 +23,10 @@ class TestSiteDevServing < Minitest::Test
   end
 
   def test_serves_all_pages
-    Dir.glob(File.join(Hotpages.config.site.dist_full_path, "**/*")).each do |file|
+    Dir.glob(File.join(Hotpages.config.site.dist_absolute_path, "**/*")).each do |file|
       next if File.directory?(file)
 
-      file_path = file.sub(Hotpages.config.site.dist_full_path, "")
+      file_path = file.sub(Hotpages.config.site.dist_absolute_path, "")
       uri = URI("http://localhost:#{@@port}#{file_path}")
       res = Net::HTTP.get_response(uri)
       assert_equal "200", res.code, "Failed for #{file_path}"
@@ -58,7 +58,7 @@ class TestSiteDevServing < Minitest::Test
 
   def assert_page_content(expected_path, actual_content)
     actual_content = actual_content.force_encoding("UTF-8").encode("UTF-8")
-    expected_content = File.read(File.join(Hotpages.config.site.dist_full_path, expected_path))
+    expected_content = File.read(File.join(Hotpages.config.site.dist_absolute_path, expected_path))
     expected_content = expected_content.gsub(@@cache_buster_string, "")
     assert_equal expected_content, actual_content, "File content mismatch for #{expected_path}"
   end

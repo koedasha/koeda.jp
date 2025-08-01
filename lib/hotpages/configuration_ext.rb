@@ -6,13 +6,13 @@ module Hotpages::ConfigurationExt
   end
 
   module SiteExt
-    def dist_full_path = full_path(dist_path)
-    def models_full_path = full_path(models_path)
-    def helpers_full_path = full_path(helpers_path)
-    def layouts_full_path = full_path(layouts_path)
-    def assets_full_path = full_path(assets_path)
-    def pages_full_path = full_path(pages_path)
-    def shared_full_path = full_path(shared_path)
+    def dist_absolute_path = absolute_path(dist_path)
+    def models_absolute_path = absolute_path(models_path)
+    def helpers_absolute_path = absolute_path(helpers_path)
+    def layouts_absolute_path = absolute_path(layouts_path)
+    def assets_absolute_path = absolute_path(assets_path)
+    def pages_absolute_path = absolute_path(pages_path)
+    def shared_absolute_path = absolute_path(shared_path)
 
     def pages_namespace_module(ns_name = pages_namespace)
       return Object.const_get(ns_name) if Object.const_defined?(ns_name)
@@ -22,7 +22,7 @@ module Hotpages::ConfigurationExt
 
     private
 
-    def full_path(path)
+    def absolute_path(path)
       File.expand_path(File.join(root, path))
     end
   end

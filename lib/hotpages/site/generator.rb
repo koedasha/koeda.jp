@@ -14,7 +14,7 @@ class Hotpages::Site::Generator
     puts "Site generation start. assets_version: #{self.assets_version}"
     self.generating = true
 
-    FileUtils.rm_rf(config.site.dist_full_path) if Dir.exist?(config.site.dist_full_path)
+    FileUtils.rm_rf(config.site.dist_absolute_path) if Dir.exist?(config.site.dist_absolute_path)
 
     generate_pages
     generate_assets
@@ -31,12 +31,12 @@ class Hotpages::Site::Generator
   attr_writer :assets_version
 
   def generate_pages
-    all_page_files = Dir.glob(File.join(config.site.pages_full_path, "**/*"))
-    page_instances = config.page_base_class.from_full_paths(all_page_files)
+    all_page_files = Dir.glob(File.join(config.site.pages_absolute_path, "**/*"))
+    page_instances = config.page_base_class.from_absolute_paths(all_page_files)
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path_with_extension
-      file_path = File.join(config.site.dist_full_path, path_to_write)
+      file_path = File.join(config.site.dist_absolute_path, path_to_write)
       with_logging("PAGE", file_path) do
         content = page_instance.render
         write_file(file_path, content)
@@ -45,8 +45,8 @@ class Hotpages::Site::Generator
   end
 
   def generate_assets(
-    src: config.site.assets_full_path,
-    dist: File.join(config.site.dist_full_path, config.site.assets_path)
+    src: config.site.assets_absolute_path,
+    dist: File.join(config.site.dist_absolute_path, config.site.assets_path)
   )
     # Process CSSs
     Dir.glob(File.join(src, "**/*.css")).each do |css_file|

@@ -8,8 +8,8 @@ class Hotpages::Page::Finder
   def find_for(requested_path)
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)
-    page_files = Dir.glob(File.join(config.site.pages_full_path, "**/*"))
-    page_instances = config.page_base_class.from_full_paths(page_files)
+    page_files = Dir.glob(File.join(config.site.pages_absolute_path, "**/*"))
+    page_instances = config.page_base_class.from_absolute_paths(page_files)
     page_instances.find do |page|
       page.expanded_base_path_with_extension == page_path ||
         page.expanded_base_path_with_extension == "#{page_path}.html"

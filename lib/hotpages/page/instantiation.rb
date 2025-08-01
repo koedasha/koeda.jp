@@ -1,17 +1,17 @@
 module Hotpages::Page::Instantiation
   IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
 
-  def from_full_paths(paths)
+  def from_absolute_paths(paths)
     base_paths = paths.inject([]) do |result, path|
-      next result unless path.start_with?(config.site.pages_full_path)
+      next result unless path.start_with?(config.site.pages_absolute_path)
 
-      base_path = path.sub(config.site.pages_full_path + "/", "")
+      base_path = path.sub(config.site.pages_absolute_path + "/", "")
 
       next result if base_path =~ IGNORED_PATH_REGEXP
 
-      full_path = File.expand_path(path)
+      absolute_path = File.expand_path(path)
 
-      File.file?(full_path) ? result << base_path :result
+      File.file?(absolute_path) ? result << base_path :result
     end
 
     base_path_exts_map = base_paths.group_by { |path| remove_ext(path) }.transform_values do |paths|

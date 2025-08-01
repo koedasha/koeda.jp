@@ -29,7 +29,7 @@ module Hotpages::Helpers::AssetsHelper
   end
 
   def javascript_importmap_tags(entrypoint: "site.js")
-    assets_path = config.site.assets_full_path
+    assets_path = config.site.assets_absolute_path
     file_imports =
       Dir.glob(File.join(assets_path, "**/*.js")).each.with_object({}) do |file, imports|
         relative_path = file.sub(assets_path + "/", "")

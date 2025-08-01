@@ -1,7 +1,7 @@
 class Hotpages::Page::Template::Finder
   PathData = Data.define(:base_path, :extension) do
-    def self.from_full_path(full_path)
-      fragments = full_path.split(".")
+    def self.from_absolute_path(absolute_path)
+      fragments = absolute_path.split(".")
       base_path = fragments.first
       extensions = fragments[1..]
       new(base_path, extensions.join("."))
@@ -11,7 +11,7 @@ class Hotpages::Page::Template::Finder
   def initialize(base_path, config)
     @base_path = base_path
     @config = config
-    @base_dir = File.join(config.site.pages_full_path, File.dirname(base_path))
+    @base_dir = File.join(config.site.pages_absolute_path, File.dirname(base_path))
     @root_dir = config.site.root
   end
 
@@ -37,7 +37,7 @@ class Hotpages::Page::Template::Finder
 
     search_paths.each do |path|
       if file = Dir.glob("#{path}.*").find { File.file?(_1) }
-        return PathData.from_full_path(file)
+        return PathData.from_absolute_path(file)
       else
         next
       end

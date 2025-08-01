@@ -6,7 +6,7 @@ class TestSiteGeneration < Minitest::Test
     Hotpages.site.generate(assets_version: "test")
 
     expected_dist = File.join(__dir__, "../../dist/expected")
-    actual_dist = Hotpages.site.config.site.dist_full_path
+    actual_dist = Hotpages.site.config.site.dist_absolute_path
 
     expected_files = Dir.glob("#{expected_dist}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
     actual_files = Dir.glob("#{actual_dist}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }

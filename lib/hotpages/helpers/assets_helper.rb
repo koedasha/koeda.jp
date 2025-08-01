@@ -45,7 +45,9 @@ module Hotpages::Helpers::AssetsHelper
     end.compact
 
     tag.script(type: "importmap") { JSON.pretty_generate({ imports: }, indent: "  ") } +
-      preloads.join +
+      "\n" +
+      preloads.join("\n") +
+      "\n" +
       tag.script(type: "module", src: asset_path(entrypoint))
   end
 end

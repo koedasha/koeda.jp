@@ -8,19 +8,17 @@
   <meta name="keywords" content="" />
   <meta name="description" content="This is a sample site description." />
   <title>My Site</title>
-  <script type="importmap">
-{
+  <script type="importmap">{
   "imports": {
-    "assets/": "/assets/",
+    "controllers/remote_modal_controller.js": "/assets/controllers/remote_modal_controller.js?v=test",
     "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js",
     "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"
   }
-}
-</script>
+}</script>
+<link rel='modulepreload' href='/assets/controllers/remote_modal_controller.js?v=test'>
 <link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js'>
 <link rel='modulepreload' href='https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm'>
 <script type="module" src="/assets/site.js?v=test"></script>
-
   <link rel="stylesheet" href="/assets/site.css?v=test"></link>
 </head>
 

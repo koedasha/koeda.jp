@@ -75,6 +75,7 @@ class Hotpages::DevServer
     logger.error(e)
 
     res.status = 500
+    res["Content-Type"] = "text/html"
     res.body = <<~HTML
       <body style="font-family:sans-serif; font-size:14px;">
         <h1>#{e.class.name}</h1>
@@ -88,6 +89,7 @@ class Hotpages::DevServer
 
   def respond_with_not_found(req, res)
     res.status = 404
+    res["Content-Type"] = "text/html"
     res.body = <<~HTML
       <body style="font-family:sans-serif; font-size:14px;">
         <h1>404 Not Found</h1>
@@ -95,6 +97,5 @@ class Hotpages::DevServer
         <p><strong>Path:</strong> #{req.path}</p>
       </body>
     HTML
-    res["Content-Type"] = "text/html"
   end
 end

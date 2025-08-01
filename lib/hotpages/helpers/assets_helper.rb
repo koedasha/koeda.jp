@@ -29,22 +29,25 @@ module Hotpages::Helpers::AssetsHelper
   end
 
   def javascript_importmap_tags(entrypoint: "site.js")
-    map = {
-      imports: {
-        "#{config.site.assets_path}/": "/#{config.site.assets_path}/",
-        **config.site.importmaps.to_h
-      }
+    assets_path = config.site.assets_full_path
+    file_imports =
+      Dir.glob(File.join(assets_path, "**/*.js")).each.with_object({}) do |file, imports|
+        relative_path = file.sub(assets_path + "/", "")
+        next if relative_path == entrypoint
+        imports[relative_path.to_sym] = asset_path(relative_path)
+      end
+    imports = {
+      **file_imports,
+      **config.site.importmaps.to_h
     }
-    preloads = map[:imports].map do |_key, path|
+    preloads = imports.map do |_key, path|
       path.end_with?("/") ? nil : "<link rel='modulepreload' href='#{path}'>"
     end.compact
 
-    <<~TAG
-      <script type="importmap">
-      #{JSON.pretty_generate(map, indent: "  ")}
-      </script>
-      #{preloads.join("\n")}
-      <script type="module" src="#{asset_path(entrypoint)}"></script>
-    TAG
+    tag.script(type: "importmap") { JSON.pretty_generate({ imports: }, indent: "  ") } +
+      "\n" +
+      preloads.join("\n") +
+      "\n" +
+      tag.script(type: "module", src: asset_path(entrypoint))
   end
 end

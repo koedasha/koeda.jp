@@ -23,7 +23,7 @@ class Hotpages::Site
     loader.unregister
   end
 
-  delegate %i[ generate generating? assets_version ] => :generator
+  delegate %i[ generate generating? ] => :generator
 
   private
 

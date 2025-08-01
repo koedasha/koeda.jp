@@ -3,10 +3,8 @@ require "json"
 module Hotpages::Helpers::AssetsHelper
   def asset_path(asset_name)
     url = File.join("/", config.site.assets_path, asset_name)
-    # For busting cache
-    assets_version = Hotpages.site.generating? ? Hotpages.site.assets_version : nil
-    params = { v: assets_version }.compact
-    compose_url(url, **params)
+    asset = Hotpages::Asset.new(url)
+    Hotpages.site.generating? ? asset.digested_location : asset.location
   end
 
   def image_path(image_name)

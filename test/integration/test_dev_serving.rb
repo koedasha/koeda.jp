@@ -9,7 +9,6 @@ class TestSiteDevServing < Minitest::Test
     Hotpages.site.generate
     @@server_thread = Thread.new { Hotpages.dev_server.start }
     @@port = Hotpages.config.dev_server.port
-    @@cache_buster_string = "?v=#{Hotpages.site.assets_version}"
     @@setup_done = true
     sleep 0.1
   end
@@ -59,7 +58,7 @@ class TestSiteDevServing < Minitest::Test
   def assert_page_content(expected_path, actual_content)
     actual_content = actual_content.force_encoding("UTF-8").encode("UTF-8")
     expected_content = File.read(File.join(Hotpages.config.site.dist_absolute_path, expected_path))
-    expected_content = expected_content.gsub(@@cache_buster_string, "")
+    expected_content = expected_content.gsub(/(\S)[?&]v=[a-z0-9]+/) { $1 } # Remove cache buster
     assert_equal expected_content, actual_content, "File content mismatch for #{expected_path}"
   end
 end

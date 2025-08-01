@@ -3,8 +3,6 @@ require "digest"
 
 class TestSiteGeneration < Minitest::Test
   def test_site_generation
-    Hotpages.site.generate(assets_version: "test")
-
     expected_dist = File.join(__dir__, "../../dist/expected")
     actual_dist = Hotpages.site.config.site.dist_absolute_path
 

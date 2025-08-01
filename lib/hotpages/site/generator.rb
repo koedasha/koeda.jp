@@ -1,17 +1,12 @@
 require "fileutils"
 
 class Hotpages::Site::Generator
-  attr_reader :assets_version
-
   def initialize(config:)
     @config = config
     @generating = false
-    @assets_version = nil
   end
 
-  def generate(assets_version: nil)
-    self.assets_version = assets_version || SecureRandom.hex(4)
-    puts "Site generation start. assets_version: #{self.assets_version}"
+  def generate
     self.generating = true
 
     FileUtils.rm_rf(config.site.dist_absolute_path) if Dir.exist?(config.site.dist_absolute_path)
@@ -28,7 +23,6 @@ class Hotpages::Site::Generator
 
   attr_reader :config
   attr_accessor :generating
-  attr_writer :assets_version
 
   def generate_pages
     all_page_files = Dir.glob(File.join(config.site.pages_absolute_path, "**/*"))
@@ -56,8 +50,8 @@ class Hotpages::Site::Generator
         # Add cache buster to @import URLs
         content = content.gsub(/@import\s+(?:url\()?["']?([^"')]+)["']?\)?/) do |match|
           url = $1
-          separator = url.include?("?") ? "&" : "?"
-          match.gsub(url, "#{url}#{separator}v=#{assets_version}")
+          asset = Hotpages::Asset.new(url, directory: File.dirname(css_file))
+          match.gsub(url, asset.digested_location)
         end
 
         write_file(dist_file, content)

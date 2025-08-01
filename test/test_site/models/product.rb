@@ -1,4 +1,6 @@
 class Product
+  extend Sluggable
+
   class << self
     def all
       @products ||= [
@@ -6,12 +8,6 @@ class Product
         new(slug: "two", name: "Product 2", image: "product2.jpg", description: "Description for Product 2"),
         new(slug: "three", name: "Product 3", image: "product3.jpg", description: "Description for Product 3")
       ]
-    end
-
-    def page_names = all.map { _1.slug }
-
-    def find_by_slug(slug)
-      all.find { |product| product.slug == slug }
     end
   end
 

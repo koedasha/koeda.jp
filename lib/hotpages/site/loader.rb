@@ -10,6 +10,7 @@ class Hotpages::Site::Loader
       loader.push_dir(config.site.models_absolute_path)
       loader.push_dir(config.site.helpers_absolute_path)
       loader.push_dir(config.site.shared_absolute_path)
+      loader.collapse(File.join(config.site.root, "*/concerns"))
       loader.enable_reloading
     end
   end

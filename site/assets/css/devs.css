@@ -19,14 +19,25 @@ article.devs {
     color: var(--foreground-color-inversed);
     background: var(--background-color-inversed);
     border-radius: 50px;
-    padding: 0.5rem 1rem;
+    padding: .7rem 1rem;
     font-weight: bold;
     text-align: center;
     text-indent: 0;
     display: block;
     margin: 2rem auto 1rem;
-    max-width: 7em;
+    max-width: 11em;
     &:hover { text-decoration: none; }
+    text-wrap: nowrap;
+    svg, span {
+      vertical-align: middle;
+    }
+    svg {
+      margin-right: 0.3rem;
+    }
+    span {
+      display: inline-block;
+      padding-top: 0.1rem;
+    }
   }
 
   h3 {

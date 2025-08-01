@@ -10,10 +10,11 @@ module Hotpages::Helpers::TagHelper
 
     def render(name, **options, &block)
       attributes = attributes_string(options)
+      attributes = " #{attributes}" unless attributes.empty?
       content = block_given? ? context.capture(&block) : ""
       normalized_name = name.to_s.tr("_", "-")
 
-      "<#{normalized_name} #{attributes}>#{content}</#{normalized_name}>"
+      "<#{normalized_name}#{attributes}>#{content}</#{normalized_name}>"
     end
 
     private

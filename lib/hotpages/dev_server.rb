@@ -33,6 +33,10 @@ class Hotpages::DevServer
 
   def gem_development? = !!@gem_development
 
+  def page_finder
+    @page_finder ||= Hotpages::Page::Finder.new(config)
+  end
+
   def setup_routes
     server.mount_proc "/" do |req, res|
       if req.path.start_with?("/#{config.site.assets_path}/")
@@ -44,8 +48,6 @@ class Hotpages::DevServer
       res["Cache-Control"] = "no-store"
     end
   end
-
-  private
 
   def handle_assets_request(req, res)
     ext = File.extname(req.path)
@@ -65,7 +67,7 @@ class Hotpages::DevServer
     end
     site.reload
 
-    page = Hotpages::Page.find_by_path(req.path)
+    page = page_finder.find_by_path(req.path)
 
     return respond_with_not_found(req, res) unless page
 

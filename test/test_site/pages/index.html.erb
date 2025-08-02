@@ -2,7 +2,7 @@
 <% content_for :nav do -%>
   <ul>
     <li><%= link_to "Products", "/products" %></li>
-    <li><%= link_to("/about") { "About" } %></li>
+    <li><%= link_to("/about", check_broken: false) { "About" } %></li>
   </ul>
 <% end -%>
 

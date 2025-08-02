@@ -7,7 +7,7 @@ class Hotpages::Page::Finder
 
   # Generic finding logic for pages based on the requested path.
   # TODO: Static O(1) finding logic for pages generation with instances cache
-  def find_for(requested_path)
+  def find_by_path(requested_path)
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)
     extension = File.extname(requested_path)

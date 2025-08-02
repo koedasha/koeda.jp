@@ -32,12 +32,6 @@ module Hotpages::Helpers::UrlHelper
 
   private
 
-  def compose_url(url, **query_params)
-    uri = URI(url)
-    uri.query = URI.encode_www_form(query_params) if query_params.any?
-    uri.to_s
-  end
-
   def page_url?(url)
     uri = URI(url)
 

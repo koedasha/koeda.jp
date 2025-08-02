@@ -33,6 +33,12 @@ class TestSiteDevServing < Minitest::Test
     end
   end
 
+  def test_serves_404_page_for_non_existent_page
+    uri = URI("http://localhost:#{@@port}/not-exist")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "404", res.code, "Failed to serve /not-exist"
+  end
+
   def test_serves_without_file_extension
     uri = URI("http://localhost:#{@@port}/posts/1/bar/index")
     res = Net::HTTP.get_response(uri)

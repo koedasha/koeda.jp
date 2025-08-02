@@ -23,13 +23,36 @@ module Hotpages::Page::Instantiation
 
       raise "Multiple page templates found for #{base_path}: #{non_rb_exts.join(', ')}" if non_rb_exts.size > 1
 
-      from_path(base_path, template_extension: non_rb_exts.first) || []
+      from_base_path(base_path, template_extension: non_rb_exts.first) || []
     end
+  end
+
+  def page_subclass_under(
+    namespaces,
+    class_name: "Page",
+    root_namespace: config.site.pages_namespace_module,
+    parent_class: config.page_base_class
+  )
+    ns = namespaces.inject(root_namespace) do |ns, namespace|
+      ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
+                                            ns.const_set(namespace, Module.new)
+    end
+
+    if ns.const_defined?(class_name, false)
+      ns.const_get(class_name, false)
+    else
+      phantom_page_class = Class.new(parent_class) do
+        def self.phantom? = true
+      end
+      ns.const_set(class_name, phantom_page_class)
+    end
+  rescue NameError
+    nil
   end
 
   private
 
-  def from_path(base_path, template_extension:)
+  def from_base_path(base_path, template_extension:)
     class_name = base_path.classify
     page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false) rescue false
     page_class =
@@ -51,20 +74,5 @@ module Hotpages::Page::Instantiation
     basename_without_exts = basename.sub(/\..*$/, '')
     dirname = File.dirname(path)
     File.join(*[dirname == "." ? nil : dirname, basename_without_exts].compact)
-  end
-
-  def page_subclass_under(
-    namespaces,
-    root_module: config.site.pages_namespace_module,
-    parent_class: config.page_base_class,
-    class_name: "Page"
-  )
-    ns = namespaces.inject(root_module) do |ns, namespace|
-      ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
-                                            ns.const_set(namespace, Module.new)
-    end
-
-    ns.const_defined?(class_name, false) ? ns.const_get(class_name, false) :
-                                           ns.const_set(class_name, Class.new(parent_class))
   end
 end

@@ -13,18 +13,20 @@ class Hotpages::Page::Template
 
     @name = [base_path, extension].compact.join(".").chomp(".")
     @absolute_path = File.join(*[path_prefix, @name].compact)
-
-    @tilt = new_tilt(&body)
+    @body = body
   end
 
+  def renders_file? = !base_path.nil?
   def rendered_to_html? = extension.start_with?("html")
   def render_in(context, locals = {}, &block) = tilt.render(context, locals, &block)
 
   private
 
-  attr_reader :extension, :base_path, :path_prefix, :name, :absolute_path, :tilt
+  attr_reader :extension, :base_path, :path_prefix, :name, :absolute_path, :body
 
   def extensions = @extensions ||= extension.split(".")
+
+  def tilt = @tilt ||= new_tilt(&body)
 
   def new_tilt(&block)
     if extensions.empty?

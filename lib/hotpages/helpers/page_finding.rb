@@ -1,5 +1,5 @@
 module Hotpages::Helpers::PageFinding
-  def page_exists?(path) = page_finder.find_by_path(path)
+  def page_exists?(path) = page_finder.find(path)
 
   private
 

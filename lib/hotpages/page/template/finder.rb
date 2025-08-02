@@ -15,7 +15,7 @@ class Hotpages::Page::Template::Finder
     @root_dir = config.site.root
   end
 
-  def find_for(template_path)
+  def find!(template_path)
     data = path_data_for(template_path)
     Hotpages::Page::Template.new(data.extension, base_path: data.base_path)
   end

@@ -26,7 +26,7 @@ module Hotpages::Page::Renderable
 
     # TODO: support ruby objects responds to `render_in`
     def render(template_path, **locals, &block)
-      template = template_finder.find_for(template_path)
+      template = template_finder.find!(template_path)
 
       if block_given?
         # TODO: nested yield support?

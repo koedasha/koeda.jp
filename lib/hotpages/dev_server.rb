@@ -67,7 +67,7 @@ class Hotpages::DevServer
     end
     site.reload
 
-    page = page_finder.find_by_path(req.path)
+    page = page_finder.find(req.path)
 
     return respond_with_not_found(req, res) unless page
 

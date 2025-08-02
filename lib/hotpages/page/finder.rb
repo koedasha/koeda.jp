@@ -1,6 +1,4 @@
 class Hotpages::Page::Finder
-  attr_reader :config
-
   def initialize(config)
     @config = config
   end
@@ -77,6 +75,8 @@ class Hotpages::Page::Finder
   end
 
   private
+
+  attr_reader :config
 
   def normalize_path(path)
     path = path.delete_suffix(File.extname(path))

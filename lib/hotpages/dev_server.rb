@@ -1,13 +1,17 @@
 require "webrick"
 
 class Hotpages::DevServer
-  prepend HotReloading if Hotpages.config.dev_server.hot_reloading_enabled
-
-  def initialize(site:)
+  def initialize(
+    site:,
+    port: @config.dev_server.port,
+    hot_reload: Hotpages.config.dev_server.hot_reloading_enabled
+  )
     @site = site
+    @port = port
     @config = site.config
-    @port = @config.dev_server.port
     @logger = WEBrick::Log.new()
+
+    self.extend(HotReloading) if hot_reload
   end
 
   def start(gem_development: false)

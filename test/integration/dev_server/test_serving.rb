@@ -1,23 +1,26 @@
 require "test_helper"
 require "net/http"
 
-class TestSiteDevServing < Minitest::Test
+class TestServing < Minitest::Test
   @@setup_done = false
   def setup
     return if @@setup_done
 
-    Hotpages.config.dev_server.hot_reloading_enabled = false
     Hotpages.site.generate
-    @@server_thread = Thread.new { Hotpages.dev_server.start }
-    @@port = Hotpages.config.dev_server.port
+
+    @@port = 12345
+    @@server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: false)
+    @@server_thread = Thread.new { @@server.start }
     @@setup_done = true
+
     sleep 0.1
   end
 
   Minitest.after_run do
     if defined?(@@server_thread)
-      Hotpages.dev_server.stop
+      @@server.stop
       @@server_thread.join
+      @@server = nil
       sleep 0.1
     end
   end

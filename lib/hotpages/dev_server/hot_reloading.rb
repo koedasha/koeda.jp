@@ -4,8 +4,8 @@ require "listen"
 module Hotpages::DevServer::HotReloading
   HOT_RELOADING_JS = "_hot_reloading.js"
 
-  def initialize(site:)
-    super
+  def start(gem_development: false)
+    logger.info "Hot reloading enabled"
 
     @web_socket = Hotpages::DevServer::WebSocket.new
     @file_listener = Listen.to(config.site.root) do |modified_files, _added, _removed|
@@ -13,11 +13,8 @@ module Hotpages::DevServer::HotReloading
         handle_file_change(modified)
       end
     end
-  end
+    @file_listener.start
 
-  def start(gem_development: false)
-    logger.info "Hot reloading enabled"
-    file_listener.start
     super
   end
 

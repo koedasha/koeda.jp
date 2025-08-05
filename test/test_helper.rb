@@ -1,10 +1,9 @@
 require "minitest/autorun"
-require "hotpages"
+require "#{__dir__}/../lib/hotpages"
 
 class TestSite < Hotpages::Site
   config.site.root = File.join(__dir__, "test_site")
   config.site.dist_path = "../dist/actual"
-  config.dev_server.port = 12345
 end
 
 Hotpages.setup_site(TestSite)

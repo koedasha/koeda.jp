@@ -17,7 +17,8 @@ module Hotpages
       pages_namespace: "Pages",
     ),
     dev_server: Configuration.new(
-      port: 4000
+      port: 4000,
+      hot_reloading_enabled: true
     )
   )
 end

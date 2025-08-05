@@ -1,6 +1,8 @@
 require "webrick"
 
 class Hotpages::DevServer
+  prepend HotReloading if Hotpages.config.dev_server.hot_reloading_enabled
+
   def initialize(site:)
     @site = site
     @config = site.config
@@ -39,17 +41,21 @@ class Hotpages::DevServer
 
   def setup_routes
     server.mount_proc "/" do |req, res|
-      if req.path.start_with?("/#{config.site.assets_path}/")
-        handle_assets_request(req, res)
-      else
-        handle_page_request(req, res)
-      end
-
       res["Cache-Control"] = "no-store"
+      handle_request(req, res)
+    end
+  end
+
+  def handle_request(req, res)
+    if req.path.start_with?("/#{config.site.assets_path}/")
+      handle_assets_request(req, res)
+    else
+      handle_page_request(req, res)
     end
   end
 
   def handle_assets_request(req, res)
+    # web_socket.broadcast("Asset request: #{req.path}")
     ext = File.extname(req.path)
     asset_file_path = File.join(config.site.root, req.path)
     content = File.read(asset_file_path)
@@ -60,6 +66,8 @@ class Hotpages::DevServer
     logger.error(e)
     respond_with_not_found(req, res)
   end
+
+  def page_content(page) = page.render
 
   def handle_page_request(req, res)
     if gem_development?
@@ -72,7 +80,7 @@ class Hotpages::DevServer
     return respond_with_not_found(req, res) unless page
 
     res["Content-Type"] = "text/html"
-    res.body = page.render
+    res.body = page_content(page)
   rescue Exception => e
     logger.error(e)
 

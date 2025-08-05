@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 gem "erubi"
 gem "kramdown"
+gem "listen"
 gem "minitest"
 gem "rake"
 gem "tilt"

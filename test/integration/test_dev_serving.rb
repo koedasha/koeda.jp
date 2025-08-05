@@ -6,6 +6,7 @@ class TestSiteDevServing < Minitest::Test
   def setup
     return if @@setup_done
 
+    Hotpages.config.dev_server.hot_reloading_enabled = false
     Hotpages.site.generate
     @@server_thread = Thread.new { Hotpages.dev_server.start }
     @@port = Hotpages.config.dev_server.port

@@ -3,7 +3,7 @@ require "webrick"
 class Hotpages::DevServer
   def initialize(
     site:,
-    port: @config.dev_server.port,
+    port: Hotpages.config.dev_server.port,
     hot_reload: Hotpages.config.dev_server.hot_reloading_enabled
   )
     @site = site

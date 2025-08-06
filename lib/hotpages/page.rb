@@ -40,19 +40,6 @@ class Hotpages::Page
     @layout_path = layout_path
   end
 
-  def page_template
-    @page_template ||= begin
-      if !template_extension.nil? # `nil` if no template file is provided
-        Hotpages::Page::Template.new(@template_extension, base_path:, directory: site.pages_path)
-      else
-        Hotpages::Page::Template.new(body_type) { body }
-      end
-    end
-  end
-
-  # Rendering hook, can be overridden by subclasses
-  def before_render; end
-
   def body
     raise "No template file is found for #{self.class.name} at `/#{site.pages_dir}/#{base_path}`, "\
           "please provide body method or template file."

@@ -67,7 +67,7 @@ class Hotpages::Page::Finder
 
     page = page_class.new(base_path:, segments:, name:, template_extension:)
 
-    return nil if page_class.phantom? && !page.page_template.renders_file?
+    return nil if page_class.phantom? && !page.template_file_exist?
 
     if "#{page_path}#{extension}" == page.expanded_base_path_with_extension ||
         page_path == page.expanded_base_path_with_extension # For paths without extension

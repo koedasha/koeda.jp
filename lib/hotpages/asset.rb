@@ -3,7 +3,7 @@ require "digest/sha1"
 class Hotpages::Asset
   attr_reader :location
 
-  def initialize(location, directory: Hotpages.config.site.root)
+  def initialize(location, directory: Hotpages.site.root)
     @location = location
     @external = location.start_with?("http://", "https://")
     @location = @external ? location : location.delete_prefix(directory)

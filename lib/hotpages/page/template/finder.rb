@@ -8,11 +8,10 @@ class Hotpages::Page::Template::Finder
     end
   end
 
-  def initialize(base_path, config)
+  def initialize(base_path, site)
     @base_path = base_path
-    @config = config
-    @base_dir = File.join(config.site.pages_absolute_path, File.dirname(base_path))
-    @root_dir = config.site.root
+    @base_dir = File.join(site.pages_path, File.dirname(base_path))
+    @root_dir = site.root_path
   end
 
   def find!(template_path)

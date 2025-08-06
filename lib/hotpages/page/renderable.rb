@@ -10,7 +10,7 @@ module Hotpages::Page::Renderable
     rendering_context.cached_page_content = page_content
 
     if render_layout?
-      rendering_context.render(File.join(config.site.layouts_dir, layout_path.to_s))
+      rendering_context.render(File.join(site.layouts_dir, layout_path.to_s))
     else
       page_content
     end
@@ -28,8 +28,8 @@ module Hotpages::Page::Renderable
     def render(template_path, **locals, &block)
       template = template_finder.find!(template_path)
 
+      # TODO: block ignored warnings
       if block_given?
-        # TODO: nested yield support?
         template.render_in(rendering_context, locals, &block)
       else
         template.render_in(rendering_context, locals) do |content_name = nil|
@@ -44,6 +44,6 @@ module Hotpages::Page::Renderable
 
     private
 
-    def template_finder = @template_finder ||= Hotpages::Page::Template::Finder.new(base_path, config)
+    def template_finder = @template_finder ||= Hotpages::Page::Template::Finder.new(base_path, site)
   end
 end

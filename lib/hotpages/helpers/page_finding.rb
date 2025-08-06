@@ -4,6 +4,6 @@ module Hotpages::Helpers::PageFinding
   private
 
   def page_finder
-    @page_finder ||= Hotpages::Page::Finder.new(config)
+    @page_finder ||= Hotpages::Page::Finder.new(site)
   end
 end

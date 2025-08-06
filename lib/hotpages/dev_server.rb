@@ -8,7 +8,6 @@ class Hotpages::DevServer
   )
     @site = site
     @port = port
-    @config = site.config
     @logger = WEBrick::Log.new()
 
     self.extend(HotReloading) if hot_reload
@@ -40,7 +39,7 @@ class Hotpages::DevServer
   def gem_development? = !!@gem_development
 
   def page_finder
-    @page_finder ||= Hotpages::Page::Finder.new(config)
+    @page_finder ||= Hotpages::Page::Finder.new(site)
   end
 
   def setup_routes
@@ -51,7 +50,7 @@ class Hotpages::DevServer
   end
 
   def handle_request(req, res)
-    if req.path.start_with?("/#{config.site.assets_dir}/")
+    if req.path.start_with?("/#{site.assets_dir}/")
       handle_assets_request(req, res)
     else
       handle_page_request(req, res)
@@ -59,9 +58,8 @@ class Hotpages::DevServer
   end
 
   def handle_assets_request(req, res)
-    # web_socket.broadcast("Asset request: #{req.path}")
     ext = File.extname(req.path)
-    asset_file_path = File.join(config.site.root, req.path)
+    asset_file_path = site.root_path.join(req.path.delete_prefix("/"))
     content = File.read(asset_file_path)
     mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, '')] || "application/octet-stream"
     res["Content-Type"] = mime_type

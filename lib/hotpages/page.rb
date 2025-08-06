@@ -9,8 +9,8 @@ class Hotpages::Page
     # Pages dynamically generated and not defined in Ruby files are considered Phantom pages
     def phantom? = false
 
-    # Class wide configuration refers to Hotpages.config
-    def config = @config ||= Hotpages.config
+    def site = Hotpages.site
+    def config = Hotpages.config
 
     def inherited(subclass)
       subclass.layout_path = self.layout_path.dup if self.layout_path
@@ -24,12 +24,13 @@ class Hotpages::Page
 
   layout :site # Default layout path, can be overridden by individual pages
 
-  attr_reader :base_path, :segments, :name, :config, :template_extension, :layout_path
+  attr_reader :base_path, :segments, :name, :site, :config, :template_extension, :layout_path
 
   def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
     @segments = segments
     @name = name || base_path.split("/").last
+    @site = self.class.site
     @config = self.class.config
     @template_extension = template_extension
     @layout_path = layout || self.class.layout_path
@@ -41,8 +42,8 @@ class Hotpages::Page
 
   def page_template
     @page_template ||= begin
-      if !@template_extension.nil? # `nil` if no template file is provided
-        Hotpages::Page::Template.new(@template_extension, base_path:, path_prefix: config.site.pages_absolute_path)
+      if !template_extension.nil? # `nil` if no template file is provided
+        Hotpages::Page::Template.new(@template_extension, base_path:, directory: site.pages_path)
       else
         Hotpages::Page::Template.new(body_type) { body }
       end
@@ -53,7 +54,7 @@ class Hotpages::Page
   def before_render; end
 
   def body
-    raise "No template file is found for #{self.class.name} at `/#{config.site.pages_dir}/#{base_path}`, "\
+    raise "No template file is found for #{self.class.name} at `/#{site.pages_dir}/#{base_path}`, "\
           "please provide body method or template file."
   end
   def body_type = "html.erb"

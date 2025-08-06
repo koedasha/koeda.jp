@@ -1,4 +1,5 @@
 require "forwardable"
+require "pathname"
 
 class Hotpages::Site
   extend Forwardable
@@ -11,8 +12,8 @@ class Hotpages::Site
 
   def initialize
     @config = self.class.config
-    @loader = Loader.new(config:)
-    @generator = Generator.new(config:)
+    @loader = Loader.new(site: self)
+    @generator = Generator.new(site: self)
   end
 
   delegate %i[ setup reload ] => :loader
@@ -22,6 +23,33 @@ class Hotpages::Site
   end
 
   delegate %i[ generate generating? ] => :generator
+
+  module Paths
+    extend Forwardable
+
+    delegate %i[
+      root dist_dir models_dir helpers_dir layouts_dir assets_dir pages_dir shared_dir
+    ] => :site_config
+
+    def root_path = @root_path ||= Pathname.new(root)
+    def dist_path = root_path.join(dist_dir)
+    def models_path = root_path.join(models_dir)
+    def helpers_path = root_path.join(helpers_dir)
+    def layouts_path = root_path.join(layouts_dir)
+    def assets_path = root_path.join(assets_dir)
+    def pages_path = root_path.join(pages_dir)
+    def shared_path = root_path.join(shared_dir)
+
+    private
+
+    def site_config = config.site
+  end
+  include Paths
+
+  def pages_namespace_module(ns_name = config.site.pages_namespace)
+     Object.const_defined?(ns_name) ? Object.const_get(ns_name)
+                                    : Object.const_set(ns_name, Module.new)
+  end
 
   private
 

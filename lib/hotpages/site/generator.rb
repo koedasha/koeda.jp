@@ -1,15 +1,16 @@
 require "fileutils"
 
 class Hotpages::Site::Generator
-  def initialize(config:)
-    @config = config
+  def initialize(site:)
+    @site = site
+    @page_base_class = site.config.page_base_class
     @generating = false
   end
 
   def generate
     self.generating = true
 
-    FileUtils.rm_rf(config.site.dist_absolute_path) if Dir.exist?(config.site.dist_absolute_path)
+    FileUtils.rm_rf(site.dist_path) if Dir.exist?(site.dist_path)
 
     generate_pages
     generate_assets
@@ -21,16 +22,16 @@ class Hotpages::Site::Generator
 
   private
 
-  attr_reader :config
+  attr_reader :site, :page_base_class
   attr_accessor :generating
 
   def generate_pages
-    all_page_files = Dir.glob(File.join(config.site.pages_absolute_path, "**/*"))
-    page_instances = config.page_base_class.from_absolute_paths(all_page_files)
+    all_page_files = Dir.glob(site.pages_path.join("**/*"))
+    page_instances = page_base_class.from_absolute_paths(all_page_files)
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path_with_extension
-      file_path = File.join(config.site.dist_absolute_path, path_to_write)
+      file_path = site.dist_path.join(path_to_write)
       with_logging("PAGE", file_path) do
         content = page_instance.render
         write_file(file_path, content)
@@ -39,12 +40,12 @@ class Hotpages::Site::Generator
   end
 
   def generate_assets(
-    src: config.site.assets_absolute_path,
-    dist: File.join(config.site.dist_absolute_path, config.site.assets_dir)
+    src: site.assets_path,
+    dist: site.dist_path.join(site.assets_dir)
   )
     # Process CSSs
-    Dir.glob(File.join(src, "**/*.css")).each do |css_file|
-      dist_file = css_file.sub(src, dist)
+    Dir.glob(src.join("**/*.css")).each do |css_file|
+      dist_file = css_file.sub(src.to_s, dist.to_s)
       with_logging("ASSET(CSS)", dist_file) do
         content = File.read(css_file)
         # Add cache buster to @import URLs
@@ -59,9 +60,9 @@ class Hotpages::Site::Generator
     end
 
     # Copy other asset files as-is
-    Dir.glob(File.join(src, "**/*")).each do |file|
+    Dir.glob(src.join("**/*")).each do |file|
       next if File.directory?(file) || file.end_with?(".css")
-      dist_file = file.sub(src, dist)
+      dist_file = file.sub(src.to_s, dist.to_s)
       with_logging("ASSET", dist_file) do
         FileUtils.mkdir_p(File.dirname(dist_file))
         FileUtils.cp(file, dist_file)

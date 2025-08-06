@@ -6,13 +6,13 @@ Tilt.register(Tilt::PlainTemplate, "txt")
 class Hotpages::Page::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
 
-  def initialize(extension, base_path: nil, path_prefix: nil, &body)
+  def initialize(extension, base_path: nil, directory: nil, &body)
     @extension = extension || ""
     @base_path = base_path
-    @path_prefix = path_prefix
+    @directory = directory
 
     @name = [base_path, extension].compact.join(".").chomp(".")
-    @absolute_path = File.join(*[path_prefix, @name].compact)
+    @absolute_path = File.join(*[directory, @name].compact)
     @body = body
   end
 
@@ -22,7 +22,7 @@ class Hotpages::Page::Template
 
   private
 
-  attr_reader :extension, :base_path, :path_prefix, :name, :absolute_path, :body
+  attr_reader :extension, :base_path, :directory, :name, :absolute_path, :body
 
   def extensions = @extensions ||= extension.split(".")
 

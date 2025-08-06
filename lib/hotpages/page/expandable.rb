@@ -14,7 +14,7 @@ module Hotpages::Page::Expandable
       namespaces = self.name.split("::")
       namespaces.shift # Remove the first `Pages` namespace
 
-      current_namespace = config.site.pages_namespace_module
+      current_namespace = site.pages_namespace_module
       segment_name_values = namespaces.map do |namespace|
         current_namespace = current_namespace.const_get(namespace, false)
 

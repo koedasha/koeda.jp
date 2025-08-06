@@ -1,6 +1,7 @@
 class Hotpages::Page::Finder
-  def initialize(config)
-    @config = config
+  def initialize(site)
+    @site = site
+    @page_base_class = site.config.page_base_class
   end
 
   # Generic finding logic for pages based on the requested path.
@@ -14,8 +15,8 @@ class Hotpages::Page::Finder
     segment_names = page_path.split("/")
     constant_names = page_path.classify.split("::")
 
-    page_class = config.site.pages_namespace_module
-    page_file_path = config.site.pages_absolute_path
+    page_class = site.pages_namespace_module
+    page_file_path = site.pages_path.to_s
     name = nil
     segments = {}
 
@@ -44,7 +45,7 @@ class Hotpages::Page::Finder
         if !expandable_const_found
           return nil unless index == segment_names.size - 1
 
-          if generic_page_class = config.page_base_class.page_subclass_under(page_class.name.split("::"), root_namespace: Object)
+          if generic_page_class = page_base_class.page_subclass_under(page_class.name.split("::"), root_namespace: Object)
             page_class = generic_page_class
             page_file_path += "/#{segment_name}"
           else
@@ -54,7 +55,7 @@ class Hotpages::Page::Finder
       end
     end
 
-    base_path = page_file_path.sub(config.site.pages_absolute_path + "/", "")
+    base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
     files = Dir.glob("#{page_file_path}.*")
     files += [page_file_path] if File.file?(page_file_path)
     non_rb_exts = files
@@ -76,7 +77,7 @@ class Hotpages::Page::Finder
 
   private
 
-  attr_reader :config
+  attr_reader :site, :page_base_class
 
   def normalize_path(path)
     path = path.delete_suffix(File.extname(path))

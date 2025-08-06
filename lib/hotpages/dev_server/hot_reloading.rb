@@ -8,7 +8,7 @@ module Hotpages::DevServer::HotReloading
     logger.info "Hot reloading enabled"
 
     @web_socket = Hotpages::DevServer::WebSocket.new
-    @file_listener = Listen.to(config.site.root) do |modified_files, _added, _removed|
+    @file_listener = Listen.to(site.root_path) do |modified_files, _added, _removed|
       modified_files.each do |modified|
         handle_file_change(modified)
       end
@@ -44,7 +44,7 @@ module Hotpages::DevServer::HotReloading
   end
 
   def handle_file_change(file_path)
-    if file_path.start_with?(config.site.assets_absolute_path)
+    if file_path.start_with?(site.assets_path.to_s)
       case file_path
       when /\.css$/
         web_socket.broadcast(action: "reload:css")

@@ -3,9 +3,9 @@ module Hotpages::Page::Instantiation
 
   def from_absolute_paths(paths)
     base_paths = paths.inject([]) do |result, path|
-      next result unless path.start_with?(config.site.pages_absolute_path)
+      next result unless path.start_with?(site.pages_path.to_s)
 
-      base_path = path.sub(config.site.pages_absolute_path + "/", "")
+    base_path = path.sub(site.pages_path.to_s, "").delete_prefix("/")
 
       next result if base_path =~ IGNORED_PATH_REGEXP
 
@@ -30,7 +30,7 @@ module Hotpages::Page::Instantiation
   def page_subclass_under(
     namespaces,
     class_name: "Page",
-    root_namespace: config.site.pages_namespace_module,
+    root_namespace: site.pages_namespace_module,
     parent_class: config.page_base_class
   )
     ns = namespaces.inject(root_namespace) do |ns, namespace|
@@ -54,10 +54,10 @@ module Hotpages::Page::Instantiation
 
   def from_base_path(base_path, template_extension:)
     class_name = base_path.classify
-    page_class_defined = config.site.pages_namespace_module.const_defined?(class_name, false) rescue false
+    page_class_defined = site.pages_namespace_module.const_defined?(class_name, false) rescue false
     page_class =
       if page_class_defined
-        config.site.pages_namespace_module.const_get(class_name, false)
+        site.pages_namespace_module.const_get(class_name, false)
       else
         page_subclass_under(class_name.split("::")[...-1])
       end

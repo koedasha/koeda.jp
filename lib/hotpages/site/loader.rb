@@ -4,13 +4,13 @@ require "forwardable"
 class Hotpages::Site::Loader
   extend Forwardable
 
-  def initialize(config:)
+  def initialize(site:)
     @loader = Zeitwerk::Loader.new.tap do |loader|
-      loader.push_dir(config.site.pages_absolute_path, namespace: config.site.pages_namespace_module)
-      loader.push_dir(config.site.models_absolute_path)
-      loader.push_dir(config.site.helpers_absolute_path)
-      loader.push_dir(config.site.shared_absolute_path)
-      loader.collapse(File.join(config.site.root, "*/concerns"))
+    loader.push_dir(site.pages_path, namespace: site.pages_namespace_module)
+      loader.push_dir(site.models_path)
+      loader.push_dir(site.helpers_path)
+      loader.push_dir(site.shared_path)
+      loader.collapse(site.root_path.join("*/concerns"))
       loader.enable_reloading
     end
   end

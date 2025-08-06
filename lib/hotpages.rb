@@ -23,7 +23,7 @@ module Hotpages
     def config = @config ||= DEFAULT_CONFIG.tap { _1.extend(ConfigurationExt) }
 
     def setup_site(site_class)
-      self.site = site_class.instance
+      self.site = site_class.new
       site.setup
     end
 

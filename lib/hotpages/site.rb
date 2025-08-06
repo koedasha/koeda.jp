@@ -1,8 +1,6 @@
-require "singleton"
 require "forwardable"
 
 class Hotpages::Site
-  include Singleton
   extend Forwardable
 
   class << self

@@ -1,4 +1,6 @@
 module Hotpages::Page::Instantiation
+  using Hotpages::Refinements::String
+
   IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
 
   def from_absolute_paths(paths)

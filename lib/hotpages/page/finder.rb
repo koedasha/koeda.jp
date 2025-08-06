@@ -1,4 +1,6 @@
 class Hotpages::Page::Finder
+  using Hotpages::Refinements::String
+
   def initialize(site)
     @site = site
     @page_base_class = site.config.page_base_class

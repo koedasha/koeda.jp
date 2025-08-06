@@ -1,4 +1,6 @@
 module Hotpages::Page::Expandable
+  using Hotpages::Refinements::String
+
   EXPANDABLE_SEGMENT_REGEXP = /\A__(.+)__/.freeze
 
   class << self

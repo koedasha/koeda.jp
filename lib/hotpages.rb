@@ -1,5 +1,4 @@
 require "zeitwerk"
-require_relative "hotpages/core_ext/string"
 
 module Hotpages
   def self.loader = @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|

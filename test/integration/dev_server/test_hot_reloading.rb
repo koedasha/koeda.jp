@@ -48,17 +48,17 @@ class TestHotReloading < Minitest::Test
 
     # Notify file changes
     # HTML
-    FileUtils.touch(File.join(Hotpages.site.pages_path, "index.html.erb"))
+    FileUtils.touch Hotpages.site.pages_path.join("index.html.erb")
     response = client_socket.readpartial(1024)
     assert_match %r{{"action":"reload:html"}}, response
 
     # CSS
-    FileUtils.touch(File.join(Hotpages.site.assets_path, "base.css"))
+    FileUtils.touch Hotpages.site.assets_path.join("base.css")
     response = client_socket.readpartial(1024)
     assert_match %r{{"action":"reload:css"}}, response
 
     # JS
-    FileUtils.touch(File.join(Hotpages.site.assets_path, "site.js"))
+    FileUtils.touch Hotpages.site.assets_path.join("site.js")
     response = client_socket.readpartial(1024)
     assert_match %r{{"action":"reload:js"}}, response
   end

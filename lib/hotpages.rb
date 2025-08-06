@@ -3,7 +3,7 @@ require "zeitwerk"
 module Hotpages
   def self.loader = @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|
     loader.inflector.inflect "default_config" => "DEFAULT_CONFIG"
-  loader.enable_reloading
+    loader.enable_reloading
   end
   self.loader.setup
 

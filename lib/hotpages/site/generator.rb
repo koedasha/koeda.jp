@@ -75,12 +75,6 @@ class Hotpages::Site::Generator
     File.open(path, "w+b") { |f| f.write(content) }
   end
 
-  def remove_ext(path)
-    basename = File.basename(path)
-    basename_without_exts = basename.sub(/\..*$/, '')
-    File.join(File.dirname(path), basename_without_exts)
-  end
-
   def with_logging(label, path)
     puts "[#{label}] Generating #{path}..."
     yield

@@ -36,7 +36,7 @@ module Hotpages::Helpers::AssetsHelper
       end
     imports = {
       **file_imports,
-      **config.site.importmaps.to_h
+      **config.importmaps.to_h
     }
     preloads = imports.map do |_key, path|
       path.end_with?("/") ? nil : tag.link(rel: "modulepreload", href: path)

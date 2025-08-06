@@ -40,7 +40,7 @@ class Hotpages::Site::Generator
 
   def generate_assets(
     src: config.site.assets_absolute_path,
-    dist: File.join(config.site.dist_absolute_path, config.site.assets_path)
+    dist: File.join(config.site.dist_absolute_path, config.site.assets_dir)
   )
     # Process CSSs
     Dir.glob(File.join(src, "**/*.css")).each do |css_file|

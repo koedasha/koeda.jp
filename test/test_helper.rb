@@ -3,7 +3,7 @@ require "#{__dir__}/../lib/hotpages"
 
 class TestSite < Hotpages::Site
   config.site.root = File.join(__dir__, "test_site")
-  config.site.dist_path = "../dist/actual"
+  config.site.dist_dir = "../dist/actual"
 end
 
 Hotpages.setup_site(TestSite)

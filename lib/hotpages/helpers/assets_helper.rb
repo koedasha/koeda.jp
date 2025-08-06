@@ -2,7 +2,7 @@ require "json"
 
 module Hotpages::Helpers::AssetsHelper
   def asset_path(asset_name)
-    url = File.join("/", config.site.assets_path, asset_name)
+    url = File.join("/", config.site.assets_dir, asset_name)
     asset = Hotpages::Asset.new(url)
     Hotpages.site.generating? ? asset.digested_location : asset.location
   end
@@ -27,10 +27,10 @@ module Hotpages::Helpers::AssetsHelper
   end
 
   def javascript_importmap_tags(entrypoint: "site.js")
-    assets_path = config.site.assets_absolute_path
+    assets_dir = config.site.assets_absolute_path
     file_imports =
-      Dir.glob(File.join(assets_path, "**/*.js")).each.with_object({}) do |file, imports|
-        relative_path = file.sub(assets_path + "/", "")
+      Dir.glob(File.join(assets_dir, "**/*.js")).each.with_object({}) do |file, imports|
+        relative_path = file.sub(assets_dir + "/", "")
         next if relative_path == entrypoint
         imports[relative_path.to_sym] = asset_path(relative_path)
       end

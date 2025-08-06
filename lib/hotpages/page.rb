@@ -53,7 +53,7 @@ class Hotpages::Page
   def before_render; end
 
   def body
-    raise "No template file is found for #{self.class.name} at `/#{config.site.pages_path}/#{base_path}`, "\
+    raise "No template file is found for #{self.class.name} at `/#{config.site.pages_dir}/#{base_path}`, "\
           "please provide body method or template file."
   end
   def body_type = "html.erb"

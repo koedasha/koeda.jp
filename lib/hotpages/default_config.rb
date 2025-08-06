@@ -7,13 +7,13 @@ module Hotpages
     page_base_class: Hotpages::Page,
     site: Configuration.new(
       root: nil,
-      dist_path: "../_site",
-      models_path: "models",
-      helpers_path: "helpers",
-      layouts_path: "layouts",
-      assets_path: "assets",
-      shared_path: "shared",
-      pages_path: "pages",
+      dist_dir: "../_site",
+      models_dir: "models",
+      helpers_dir: "helpers",
+      layouts_dir: "layouts",
+      assets_dir: "assets",
+      shared_dir: "shared",
+      pages_dir: "pages",
       pages_namespace: "Pages"
     ),
     dev_server: Configuration.new(

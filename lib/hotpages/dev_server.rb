@@ -51,7 +51,7 @@ class Hotpages::DevServer
   end
 
   def handle_request(req, res)
-    if req.path.start_with?("/#{config.site.assets_path}/")
+    if req.path.start_with?("/#{config.site.assets_dir}/")
       handle_assets_request(req, res)
     else
       handle_page_request(req, res)

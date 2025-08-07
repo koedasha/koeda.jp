@@ -5,7 +5,7 @@ module Hotpages::Helpers::UrlHelper
 
   def link_to(
     text_or_url, url_or_nil = nil,
-    check_broken: true,
+    check_broken: Hotpages.site.generating?,
     **options,
     &block
   )
@@ -15,7 +15,7 @@ module Hotpages::Helpers::UrlHelper
                   [nil, text_or_url]
                 end
 
-    if check_broken && Hotpages.site.generating?
+    if check_broken
       if page_url?(url) && !page_exists?(url)
         raise "page is not found: #{url}"
       end
@@ -36,7 +36,7 @@ module Hotpages::Helpers::UrlHelper
     uri = URI(url)
 
     return false if !!uri.host # external URL
-    return false if url.start_with?("mailto:")# mailto link
+    return false if url.start_with?("mailto:") # mailto link
 
     true
   end

@@ -14,7 +14,13 @@ module Hotpages
       assets_dir: "assets",
       shared_dir: "shared",
       pages_dir: "pages",
-      pages_namespace: "Pages"
+      pages_namespace: "Pages",
+      i18n: Configuration.new(
+        locales: [],
+        default_locale: nil,
+        locales_dir: "locales",
+        locale_file_format: :yaml
+      )
     ),
     dev_server: Configuration.new(
       port: 4000,

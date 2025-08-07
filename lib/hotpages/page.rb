@@ -2,7 +2,7 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable, Instantiation
-  include Expandable, Renderable
+  include Expandable, Localizable, Renderable
   include Hotpages::Helpers
 
   class << self
@@ -25,8 +25,9 @@ class Hotpages::Page
   layout :site # Default layout path, can be overridden by individual pages
 
   attr_reader :base_path, :segments, :name, :site, :config, :template_extension, :layout_path
+  attr_accessor :locale
 
-  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil)
+  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil, locale: nil)
     @base_path = base_path
     @segments = segments
     @name = name || base_path.split("/").last
@@ -34,6 +35,10 @@ class Hotpages::Page
     @config = self.class.config
     @template_extension = template_extension
     @layout_path = layout || self.class.layout_path
+
+    # Localizable
+    @locale = locale || config.site.i18n.default_locale
+    super
   end
 
   def layout(layout_path)

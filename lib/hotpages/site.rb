@@ -1,5 +1,6 @@
 require "forwardable"
 require "pathname"
+require "fast_gettext"
 
 class Hotpages::Site
   extend Forwardable
@@ -16,13 +17,23 @@ class Hotpages::Site
     @generator = Generator.new(site: self)
   end
 
-  delegate %i[ setup reload ] => :loader
+  def setup
+    loader.setup
+    super
+  end
+
   def teardown
     loader.unload
     loader.unregister
   end
 
+  delegate %i[ reload ] => :loader
   delegate %i[ generate generating? ] => :generator
+
+  def pages_namespace_module(ns_name = config.site.pages_namespace)
+     Object.const_defined?(ns_name) ? Object.const_get(ns_name)
+                                    : Object.const_set(ns_name, Module.new)
+  end
 
   module Paths
     extend Forwardable
@@ -46,10 +57,43 @@ class Hotpages::Site
   end
   include Paths
 
-  def pages_namespace_module(ns_name = config.site.pages_namespace)
-     Object.const_defined?(ns_name) ? Object.const_get(ns_name)
-                                    : Object.const_set(ns_name, Module.new)
+  module Localizable
+    GETTEXT_DOMAIN = "hotpages_site"
+    Gettext = FastGettext
+
+    def setup
+      Gettext.add_text_domain(
+        GETTEXT_DOMAIN,
+        path: locales_path,
+        type: i18n_config.locale_file_format
+      )
+      Gettext.text_domain = GETTEXT_DOMAIN
+      Gettext.available_locales = i18n_config.locales
+    end
+
+    def locales = i18n_config.locales
+    def locales_path = root_path.join(i18n_config.locales_dir)
+    def default_locale?(locale) = i18n_config.default_locale.to_s == locale.to_s
+    def locales_without_default = locales.reject { default_locale?(_1) }
+    def current_locale = Gettext.locale
+    def current_locale=(locale)
+      Gettext.locale = locale
+    end
+    def with_locale(locale, &block)
+      # FIXME: This is a workaround for FastGettext::Storage::NoTextDomainConfigured error
+      Gettext.text_domain = GETTEXT_DOMAIN
+      previous_locale = current_locale
+      self.current_locale = locale
+      yield
+    ensure
+      self.current_locale = previous_locale
+    end
+
+    private
+
+    def i18n_config = config.site.i18n
   end
+  include Localizable
 
   private
 

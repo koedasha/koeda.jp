@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem "erubi"
+gem "fast_gettext"
 gem "kramdown"
 gem "listen"
 gem "minitest"

@@ -1,6 +1,8 @@
 require "fileutils"
 
 class Hotpages::Site::Generator
+  CSS_IMPORT_REGEXP = /@import\s+(?:url\()?["']?([^"')]+)["']?\)?/.freeze
+
   def initialize(site:)
     @site = site
     @page_base_class = site.config.page_base_class
@@ -49,7 +51,7 @@ class Hotpages::Site::Generator
       with_logging("ASSET(CSS)", dist_file) do
         content = File.read(css_file)
         # Add cache buster to @import URLs
-        content = content.gsub(/@import\s+(?:url\()?["']?([^"')]+)["']?\)?/) do |match|
+        content = content.gsub(CSS_IMPORT_REGEXP) do |match|
           url = $1
           asset = Hotpages::Asset.new(url, directory: File.dirname(css_file))
           match.gsub(url, asset.digested_location)

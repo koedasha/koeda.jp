@@ -30,10 +30,6 @@
     summary {
       list-style-type: none;
       padding: .4rem .8rem;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
 
       svg {
         vertical-align: text-top;
@@ -55,10 +51,6 @@
         a {
           display: block;
           color: var(--text-color);
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
           &:hover {
             text-decoration: none;
           }

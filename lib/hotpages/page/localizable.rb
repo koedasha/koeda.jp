@@ -25,9 +25,12 @@ module Hotpages::Page::Localizable
     end
   end
 
-  def expanded_base_path
-    unlocalized_path = super
-    site.default_locale?(locale) ? unlocalized_path : "#{locale}/#{unlocalized_path}"
+  def expanded_base_path(locale: self.locale)
+    unlocalized_path = super()
+
+    return unlocalized_path if locale.nil? || site.default_locale?(locale)
+
+    "#{locale}/#{unlocalized_path}"
   end
 
   def render = site.with_locale(locale) { super }

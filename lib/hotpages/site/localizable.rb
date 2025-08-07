@@ -22,8 +22,9 @@ module Hotpages::Site::Localizable
   end
 
   def locales = i18n_config.locales
+  def default_locale = i18n_config.default_locale
   def locales_path = root_path.join(i18n_config.locales_dir)
-  def default_locale?(locale) = i18n_config.default_locale.to_s == locale.to_s
+  def default_locale?(locale) = default_locale.to_s == locale.to_s
   def locales_without_default = locales.reject { default_locale?(_1) }
   def current_locale = Gettext.locale
   def current_locale=(locale)

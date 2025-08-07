@@ -18,10 +18,16 @@
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js"></link>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"></link>
 <script type="module" src="/assets/site.js?v=1f14465d"></script>
-  <link rel="stylesheet" href="/assets/site.css?v=dd76ff65"></link>
+  <link rel="stylesheet" href="/assets/site.css?v=cbd6921b"></link>
 </head>
 
 <body>
+  <nav id="locale-selector">
+    <details><summary>
+      <i data-lucide="languages"></i>
+      JA
+</summary><ul><li><a href="/en/apps/elapsed-times/privacy" class="locale-selector__item">EN</a></li></ul></details>  </nav>
+
     <header class="gradient-text">
       <h1><a href="/">Site</a></h1>
     </header>
@@ -42,7 +48,14 @@
 
   <turbo-frame id="remote-modal"></turbo-frame>
 
-  <script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons()</script>
+  <script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons();
+
+["turbo:frame-load", "hotpages:hot-reload"].forEach(function(event) {
+  document.addEventListener(event, function() {
+    lucide.createIcons();
+  });
+});
+</script>
 </body>
 
 </html>

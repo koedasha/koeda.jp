@@ -1,0 +1,40 @@
+#locale-selector {
+  max-width: var(--content-max-width);
+  margin: .4rem auto -1rem;
+  padding: 0 1rem;
+  text-align: right;
+
+  details {
+    --text-color: #aaa;
+    float: right;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    background-color: rgba(var(--secondary-color-rgb), 0.2);
+    padding: .4rem .8rem;
+    border-radius: 1.4rem;
+    vertical-align: middle;
+
+    summary {
+      list-style-type: none;
+
+      svg {
+        vertical-align: middle;
+        width: 1.2em;
+        height: 1.2em;
+      }
+    }
+
+    ul {
+      li {
+        list-style-type: none;
+
+        a {
+          display: block;
+          color: var(--text-color);
+        }
+      }
+    }
+  }
+}

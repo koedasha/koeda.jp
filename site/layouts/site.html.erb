@@ -12,6 +12,13 @@
 </head>
 
 <body>
+  <nav id="locale-selector">
+    <%= locale_selector_details_tag do |locale| %>
+      <%= icon_tag "languages" %>
+      <%= locale.upcase %>
+    <% end %>
+  </nav>
+
   <% if header? %>
     <header class="gradient-text">
       <h1><%= link_to site_name, "/" %></h1>

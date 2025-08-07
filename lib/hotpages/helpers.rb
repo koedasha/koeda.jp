@@ -5,6 +5,7 @@ module Hotpages::Helpers
     UrlHelper,
     AssetsHelper,
     TurboHelper,
-    MarkdownHelper
+    MarkdownHelper,
+    I18nHelper
   )
 end

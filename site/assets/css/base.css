@@ -7,6 +7,7 @@
   --light-background-color: var(--dark-foreground-color);
   --dark-background-color: var(--primary-gradient);
   --secondary-color: #aaa;
+  --secondary-color-rgb: 170, 170, 170;
 
   --foreground-color: var(--light-foreground-color);
   --paragraph-foreground-color: var(--light-paragraph-foreground-color);

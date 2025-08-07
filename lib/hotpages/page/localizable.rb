@@ -3,6 +3,7 @@ require "fast_gettext/translation"
 module Hotpages::Page::Localizable
   include Hotpages::Page::Expandable,
           Hotpages::Page::Renderable
+  include FastGettext::Translation
 
   class << self
     def included(base)
@@ -17,18 +18,11 @@ module Hotpages::Page::Localizable
       instances = super
       instances.flat_map do |instance|
         localized_instances = site.locales_without_default.map do |locale|
-          instance.dup.tap do
-            _1.locale = locale
-            _1.extend(FastGettext::Translation)
-          end
+          instance.dup.tap { _1.locale = locale }
         end
         [instance, *localized_instances]
       end
     end
-  end
-
-  def initialize(...)
-    self.extend(FastGettext::Translation)
   end
 
   def expanded_base_path

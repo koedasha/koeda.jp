@@ -38,7 +38,6 @@ class Hotpages::Page
 
     # Localizable
     @locale = locale || config.site.i18n.default_locale
-    super
   end
 
   def layout(layout_path)

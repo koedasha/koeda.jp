@@ -33,11 +33,7 @@ module Hotpages::Site::Localizable
   def with_locale(locale, &block)
     # FIXME: This is a workaround for FastGettext::Storage::NoTextDomainConfigured error
     Gettext.text_domain = GETTEXT_DOMAIN
-    previous_locale = current_locale
-    self.current_locale = locale
-    yield
-  ensure
-    self.current_locale = previous_locale
+    Gettext.with_locale(locale, &block)
   end
 
   private

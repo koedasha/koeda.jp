@@ -16,7 +16,7 @@ module Hotpages::Page::Instantiation
       File.file?(absolute_path) ? result << base_path :result
     end
 
-    base_path_exts_map = base_paths.group_by { |path| remove_ext(path) }.transform_values do |paths|
+    base_path_exts_map = base_paths.group_by { |path| remove_all_ext(path) }.transform_values do |paths|
       paths.map { |path| (File.basename(path).split('.')[1..] || []).join('.') }
     end
 
@@ -71,7 +71,7 @@ module Hotpages::Page::Instantiation
     end
   end
 
-  def remove_ext(path)
+  def remove_all_ext(path)
     basename = File.basename(path)
     basename_without_exts = basename.sub(/\..*$/, '')
     dirname = File.dirname(path)

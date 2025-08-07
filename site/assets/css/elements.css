@@ -5,8 +5,10 @@
   text-align: right;
 
   details {
+    position: fixed;
+    top: .8rem;
+    right: 1rem;
     --text-color: #aaa;
-    float: right;
     text-align: center;
     font-weight: bolder;
     font-size: 0.8rem;
@@ -15,12 +17,26 @@
     border-radius: 1rem;
     vertical-align: middle;
 
+    /* Animation */
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    max-height: 2.4rem;
+    opacity: 1;
+    &[open] {
+      max-height: 20rem;
+      opacity: 1;
+    }
+
     summary {
       list-style-type: none;
       padding: .4rem .8rem;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
 
       svg {
-        vertical-align: middle;
+        vertical-align: text-top;
         width: 1.2em;
         height: 1.2em;
       }
@@ -39,6 +55,13 @@
         a {
           display: block;
           color: var(--text-color);
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }

@@ -29,7 +29,7 @@ module Hotpages::DevServer::HotReloading
 
   def page_content(page)
     content = super
-    content.sub(/<\/head>/, "  <script src=\"/#{HOT_RELOADING_JS}\"></script>\n</head>")
+    content.sub(/<\/head>/, "  <script src=\"/#{HOT_RELOADING_JS}\" type=\"module\"></script>\n</head>")
   end
 
   def handle_request(req, res)
@@ -44,10 +44,12 @@ module Hotpages::DevServer::HotReloading
   end
 
   def handle_file_change(file_path)
+    file_path_to_notify = file_path.sub(site.root, "")
+
     if file_path.start_with?(site.assets_path.to_s)
       case file_path
       when /\.css$/
-        web_socket.broadcast(action: "reload:css")
+        web_socket.broadcast(action: "reload:css", path: file_path_to_notify)
       when /\.js$/
         web_socket.broadcast(action: "reload:js")
       end

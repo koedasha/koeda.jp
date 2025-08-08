@@ -5,8 +5,7 @@ class Product
     def all
       @products ||= [
         new(slug: "one", name: "Product 1", image: "product1.jpg", description: "Description for Product 1"),
-        new(slug: "two", name: "Product 2", image: "product2.jpg", description: "Description for Product 2"),
-        new(slug: "three", name: "Product 3", image: "product3.jpg", description: "Description for Product 3")
+        new(slug: "two", name: "Product 2", image: "product2.jpg", description: "Description for Product 2")
       ]
     end
   end

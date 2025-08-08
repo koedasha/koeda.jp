@@ -1,5 +1,5 @@
 :root {
-  --primary-gradient: linear-gradient(to bottom right, rgb(57, 117, 129), rgb(156, 133, 39));
+  --primary-gradient: linear-gradient(to bottom right, rgb(57, 129, 125) 39.08%, rgb(184, 181, 95));
 
   --light-foreground-color: #0f100f;
   --light-paragraph-foreground-color: #494e48;

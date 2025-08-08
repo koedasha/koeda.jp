@@ -9,7 +9,8 @@ module Hotpages::DevServer::HotReloading
 
     @web_socket = Hotpages::DevServer::WebSocket.new
     @web_socket_url = "ws://#{host}:#{port}"
-    @file_listener = Listen.to(site.root_path) do |modified_files, _added, _removed|
+    # Set wait_for_delay to 0.2 seconds for more stable hot reloading
+    @file_listener = Listen.to(site.root_path, wait_for_delay: 0.2) do |modified_files, _added, _removed|
       modified_files.each do |modified|
         handle_file_change(modified)
       end

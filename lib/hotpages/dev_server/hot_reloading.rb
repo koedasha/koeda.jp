@@ -8,6 +8,7 @@ module Hotpages::DevServer::HotReloading
     logger.info "Hot reloading enabled"
 
     @web_socket = Hotpages::DevServer::WebSocket.new
+    @web_socket_url = "ws://#{host}:#{port}"
     @file_listener = Listen.to(site.root_path) do |modified_files, _added, _removed|
       modified_files.each do |modified|
         handle_file_change(modified)
@@ -25,11 +26,16 @@ module Hotpages::DevServer::HotReloading
 
   private
 
-  attr_reader :web_socket, :file_listener
+  attr_reader :web_socket, :web_socket_url, :file_listener
 
   def page_content(page)
     content = super
-    content.sub(/<\/head>/, "  <script src=\"/#{HOT_RELOADING_JS}\" type=\"module\"></script>\n</head>")
+
+    hot_reload_scripts = <<~HTML
+      <script>window._HOTPAGES_HOT_RELOADING_WS_URL="#{web_socket_url}"</script>
+      <script src=\"/#{HOT_RELOADING_JS}\" type=\"module\"></script>
+    HTML
+    content.sub(/<\/head>/, "#{hot_reload_scripts}\n</head>")
   end
 
   def handle_request(req, res)

@@ -3,10 +3,12 @@ require "webrick"
 class Hotpages::DevServer
   def initialize(
     site:,
+    host: "localhost",
     port: Hotpages.config.dev_server.port,
     hot_reload: Hotpages.config.dev_server.hot_reloading_enabled
   )
     @site = site
+    @host = host
     @port = port
     @logger = WEBrick::Log.new()
 
@@ -28,7 +30,7 @@ class Hotpages::DevServer
 
   private
 
-  attr_reader :site, :config, :port, :logger
+  attr_reader :site, :config, :host, :port, :logger
 
   def server
     @server ||= WEBrick::HTTPServer.new(

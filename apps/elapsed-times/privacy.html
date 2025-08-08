@@ -18,16 +18,14 @@
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js"></link>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@hotwired/stimulus@latest/+esm"></link>
 <script type="module" src="/assets/site.js?v=1f14465d"></script>
-  <link rel="stylesheet" href="/assets/site.css?v=cbd6921b"></link>
+  <link rel="stylesheet" href="/assets/site.css?v=346f00df"></link>
 </head>
 
 <body>
-  <nav id="locale-selector" class="no-user-select">
-    <details><summary>
-      <i data-lucide="languages"></i>
-      JA
-</summary><ul><li><a href="/en/apps/elapsed-times/privacy" class="locale-selector__item">EN</a></li></ul></details>  </nav>
-
+  <div id="locale-selector" class="no-user-select"><details><summary>
+    <i data-lucide="languages"></i>
+    JA
+</summary><ul><li><a href="/en/apps/elapsed-times/privacy" class="">EN</a></li></ul></details></div>
     <header class="gradient-text">
       <h1><a href="/">Site</a></h1>
     </header>
@@ -50,7 +48,7 @@
 
   <script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons();
 
-["turbo:frame-load", "hotpages:hot-reload"].forEach(function(event) {
+["turbo:frame-load", "hotpages:reload:html"].forEach(function(event) {
   document.addEventListener(event, function() {
     lucide.createIcons();
   });

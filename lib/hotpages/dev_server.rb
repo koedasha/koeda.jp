@@ -105,13 +105,14 @@ class Hotpages::DevServer
     res.status = 404
     res["Content-Type"] = "text/html"
     res.body = <<~HTML
-      <body style="font-family:sans-serif; font-size:14px;">
+      <body style="font-family:sans-serif; font-size:14px; line-height:1.4;">
         <h1>404 Not Found</h1>
         <p>The requested resource was not found.</p>
         <p><strong>Path:</strong> #{req.path}</p>
         <p><strong>Unexpected result? Please check:</strong></p>
-        <ul>
-          <li>`segment_names` class/module method returns an array that includes the requested page name.</li>
+        <ul style="">
+          <li>`segments`' keys must not be the same in nested directories. e.g. This is invalid structure: `users/__id__/posts/__id__`</li>
+          <li>`segment_names` class/module method returns an array that includes the requested page/directory name.</li>
         </ul>
       </body>
     HTML

@@ -1,9 +1,13 @@
 @import "./css/reset.min.css";
 
+/* Global */
 @import "./css/base.css";
 @import "./css/utilities.css";
-@import "./css/elements.css";
 
+/* Components */
+@import "./css/locale_selector.css";
+
+/* Pages */
 @import "./css/index.css";
 @import "./css/apps.css";
 @import "./css/devs.css";

@@ -12,12 +12,10 @@
 </head>
 
 <body>
-  <nav id="locale-selector" class="no-user-select">
-    <%= locale_selector_details_tag do |locale| %>
-      <%= icon_tag "languages" %>
-      <%= locale.upcase %>
-    <% end %>
-  </nav>
+  <%= locale_selector_tag(id: "locale-selector", class: "no-user-select") do |locale| %>
+    <%= icon_tag "languages" %>
+    <%= locale.upcase %>
+  <% end %>
 
   <% if header? %>
     <header class="gradient-text">

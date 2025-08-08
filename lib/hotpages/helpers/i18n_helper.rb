@@ -1,24 +1,28 @@
 module Hotpages::Helpers::I18nHelper
-  def locale_selector_details_tag(
+  def locale_selector_tag(
     locales: site.locales,
     default_locale: site.default_locale,
     current_locale: self.locale,
     **options,
     &summary_body
   )
-    tag.details(options) do
-      tag.summary { summary_body ? summary_body.call(current_locale) : lcurrent_locale.upcase } +
-      tag.ul do
-        locales.reject { _1 == current_locale }.map do |locale|
-          tag.li do
-            tag.a(
-              href: localized_current_path(locale),
-              class: "locale-selector__item"
-            ) do
-              locale.upcase
+    item_class = options.delete(:item_class)
+
+    tag.div(options) do
+      tag.details do
+        tag.summary { summary_body ? summary_body.call(current_locale) : lcurrent_locale.upcase } +
+        tag.ul do
+          locales.reject { _1 == current_locale }.map do |locale|
+            tag.li do
+              tag.a(
+                href: localized_current_path(locale),
+                class: item_class
+              ) do
+                locale.upcase
+              end
             end
-          end
-        end.join
+          end.join
+        end
       end
     end
   end

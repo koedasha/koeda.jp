@@ -34,6 +34,9 @@
     font-weight: bold;
     font-size: 1.2rem;
   }
+  &:hover .app-col__name {
+    text-decoration: underline;
+  }
 
   .app-col__copy {
     color: var(--secondary-color);

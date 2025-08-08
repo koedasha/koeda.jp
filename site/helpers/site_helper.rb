@@ -5,7 +5,7 @@ module SiteHelper
       <<~JS
         lucide.createIcons();
 
-        ["turbo:frame-load", "hotpages:hot-reload"].forEach(function(event) {
+        ["turbo:frame-load", "hotpages:reload:html"].forEach(function(event) {
           document.addEventListener(event, function() {
             lucide.createIcons();
           });

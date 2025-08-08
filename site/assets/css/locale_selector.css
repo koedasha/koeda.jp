@@ -1,27 +1,25 @@
 #locale-selector {
-  max-width: var(--content-max-width);
-  margin: .4rem auto -1rem;
-  padding: 0 1rem;
-  text-align: right;
+  --text-color: #aaa;
+
+  display: inline-block;
+  position: absolute;
+  right: 1rem;
+
+  color: var(--text-color);
+  text-align: center;
+  font-weight: bolder;
+  font-size: 0.8rem;
+  background-color: rgba(var(--secondary-color-rgb), 0.2);
+  border-radius: 1rem;
+  vertical-align: middle;
 
   details {
-    position: absolute;
-    top: .8rem;
-    right: 1rem;
-    --text-color: #aaa;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 0.8rem;
-    color: var(--text-color);
-    background-color: rgba(var(--secondary-color-rgb), 0.2);
-    border-radius: 1rem;
-    vertical-align: middle;
-
     /* Animation */
     transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
     max-height: 2.4rem;
     opacity: 1;
+
     &[open] {
       max-height: 20rem;
       opacity: 1;
@@ -29,7 +27,9 @@
 
     summary {
       list-style-type: none;
+      margin: .1rem;
       padding: .4rem .8rem;
+      min-width: 3.4em;
 
       svg {
         vertical-align: text-top;
@@ -52,9 +52,6 @@
           display: block;
           padding: .4rem .8rem;
           color: var(--text-color);
-          &:hover {
-            text-decoration: none;
-          }
         }
       }
     }

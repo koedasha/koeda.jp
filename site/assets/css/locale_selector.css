@@ -1,21 +1,25 @@
 #locale-selector {
   --text-color: #aaa;
-
-  display: inline-block;
-  position: absolute;
-  top: 1.8rem;
-  right: 1rem;
-
-  cursor: pointer;
-  color: var(--text-color);
-  text-align: center;
-  font-weight: bolder;
-  font-size: 0.8rem;
-  background-color: rgba(var(--secondary-color-rgb), 0.2);
-  border-radius: 1rem;
-  vertical-align: middle;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  text-align: right;
+  position: relative;
 
   details {
+    display: inline-block;
+    position: absolute;
+    top: .3rem;
+    right: 1rem;
+
+    color: var(--text-color);
+    cursor: pointer;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 0.8rem;
+    background-color: rgba(var(--secondary-color-rgb), 0.2);
+    border-radius: 1rem;
+    vertical-align: middle;
+
     /* Animation */
     transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;

@@ -48,6 +48,8 @@ body {
     max-width: var(--content-max-width);
     padding: 0 1rem;
     margin: 1.4rem auto;
+    align-content: center;
+
     h1 {
       display: inline-block;
     }

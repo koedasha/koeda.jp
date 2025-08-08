@@ -1,6 +1,6 @@
 require "digest/sha1"
 
-# Very limited implementation of WebSocket for hot reloading
+# Very limited implementation of WebSocket for hot reloading to use with Webrick.
 # Supports only handshake and broadcasting
 class Hotpages::DevServer::WebSocket
   module DontCloseAfterNonKeepAliveResponse

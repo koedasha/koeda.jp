@@ -27,7 +27,7 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Build site with Hotpages
-        run: bin/generate
+        run: bin/gen
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

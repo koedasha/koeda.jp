@@ -6,6 +6,7 @@
   top: 1.8rem;
   right: 1rem;
 
+  cursor: pointer;
   color: var(--text-color);
   text-align: center;
   font-weight: bolder;

@@ -68,7 +68,7 @@ class Hotpages::DevServer
     res.body = content
   rescue Errno::ENOENT => e
     logger.error(e)
-    respond_with_not_found(req, res)
+    res.status = 404
   end
 
   def page_content(page) = page.render
@@ -109,6 +109,10 @@ class Hotpages::DevServer
         <h1>404 Not Found</h1>
         <p>The requested resource was not found.</p>
         <p><strong>Path:</strong> #{req.path}</p>
+        <p><strong>Unexpected result? Please check:</strong></p>
+        <ul>
+          <li>`segment_names` class/module method returns an array that includes the requested page name.</li>
+        </ul>
       </body>
     HTML
   end

@@ -46,10 +46,12 @@ module Hotpages::Helpers::UrlHelper
   def prefix_page_url(url)
     return url unless url.start_with?("/")
 
-    if locale && !site.default_locale?(locale)
-      "/#{locale}#{url}"
-    else
-      url
+    url = "/#{locale}#{url}" if locale && !site.default_locale?(locale)
+
+    if Hotpages.site.generating?
+      url = File.join(config.site.generator.links_base_url, url)
     end
+
+    url
   end
 end

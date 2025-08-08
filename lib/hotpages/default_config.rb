@@ -15,6 +15,11 @@ module Hotpages
       shared_dir: "shared",
       pages_dir: "pages",
       pages_namespace: "Pages",
+      generator: Configuration.new(
+        # Url prefix for page URLs when generating static files.
+        # Set this when deploying the site to a subdirectory.
+        links_base_url: ""
+      ),
       i18n: Configuration.new(
         locales: [],
         default_locale: nil,

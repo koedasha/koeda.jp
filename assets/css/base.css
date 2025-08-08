@@ -1,5 +1,7 @@
 :root {
-  --primary-gradient: linear-gradient(to bottom right, rgb(57, 129, 125) 39.08%, rgb(184, 181, 95));
+  --light-primary-gradient: linear-gradient(to bottom right, rgb(57, 129, 125) 40%, rgb(184, 181, 95));
+  --dark-primary-gradient: linear-gradient(to bottom right, rgb(45, 99, 96) 50%, rgb(160, 158, 83));
+  --primary-gradient: var(--light-primary-gradient);
 
   --light-foreground-color: #0f100f;
   --light-paragraph-foreground-color: #494e48;
@@ -20,6 +22,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --primary-gradient: var(--dark-primary-gradient);
     --foreground-color: var(--dark-foreground-color);
     --paragraph-foreground-color: var(--dark-foreground-color);
     --background-color: var(--dark-background-color);
@@ -66,5 +69,12 @@ body {
       margin: 1rem 0;
       font-size: 1.5rem;
     }
+  }
+
+  /* Lucide Icons placeholder */
+  i[data-lucide] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
   }
 }

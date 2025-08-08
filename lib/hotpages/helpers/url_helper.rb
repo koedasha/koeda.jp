@@ -15,10 +15,12 @@ module Hotpages::Helpers::UrlHelper
                   [nil, text_or_url]
                 end
 
-    if check_broken
-      if page_url?(url) && !page_exists?(url)
+    if page_url?(url)
+      if check_broken && !page_exists?(url)
         raise "page is not found: #{url}"
       end
+
+      url = prefix_page_url(url)
     end
 
     options[:href] ||= url
@@ -39,5 +41,15 @@ module Hotpages::Helpers::UrlHelper
     return false if url.start_with?("mailto:") # mailto link
 
     true
+  end
+
+  def prefix_page_url(url)
+    return url unless url.start_with?("/")
+
+    if locale && !site.default_locale?(locale)
+      "/#{locale}#{url}"
+    else
+      url
+    end
   end
 end

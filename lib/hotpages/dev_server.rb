@@ -133,7 +133,7 @@ class Hotpages::DevServer
         <p>The requested resource was not found.</p>
         <p><strong>Path:</strong> <code>#{req.path}</code></p>
         <p><strong>Unexpected result?</strong><br/>
-          <ol style="">
+          <ol>
             <li>Ensure the path is correct. Files whose names start with `_` are ignored.</li>
             <li>Ensure the ruby file defines page class or template file exists within the `pages` directory structure.</li>
             <li>For expanded pages, ensure a module or class with the `segment_names` class/module method exists for each expanded segment.</li>

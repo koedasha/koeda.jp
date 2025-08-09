@@ -105,15 +105,18 @@ class Hotpages::DevServer
     res.status = 404
     res["Content-Type"] = "text/html"
     res.body = <<~HTML
-      <body style="font-family:sans-serif; font-size:14px; line-height:1.4;">
+      <body style="font-family:sans-serif; font-size:1.2rem; line-height:1.4;">
         <h1>404 Not Found</h1>
         <p>The requested resource was not found.</p>
         <p><strong>Path:</strong> #{req.path}</p>
-        <p><strong>Unexpected result? Please check:</strong></p>
-        <ul style="">
-          <li>`segments`' keys must not be the same in nested directories. e.g. This is invalid structure: `users/__id__/posts/__id__`</li>
-          <li>`segment_names` class/module method returns an array that includes the requested page/directory name.</li>
-        </ul>
+        <p><strong>Unexpected result?</strong></p>
+        <ol style="">
+          <li>Make sure the path is correct.</li>
+          <li>Ensure the page class or template file exists under the `pages` directory structure.</li>
+          <li>For expanded pages, ensure module/class with `segment_names` class/module method exists for each expanded segment.</li>
+          <li>Ensure `segment_names` class/module method returns an array that includes the requested page/directory name.</li>
+          <li>Ensure `segments` key names are not duplicated within nested directory hierarchies. e.g. This is invalid structure: `users/__id__/posts/__id__`</li>
+        </ol>
       </body>
     HTML
   end

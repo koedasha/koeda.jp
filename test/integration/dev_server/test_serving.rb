@@ -67,6 +67,16 @@ class TestServing < Minitest::Test
     assert_equal "404", res.code, "Should not serve /robot.txt without extension"
   end
 
+  def test_not_serves_ignored_path
+    uri = URI("http://localhost:#{@@port}/products/_page")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "404", res.code, "Should not serve /products/_page"
+
+    uri = URI("http://localhost:#{@@port}/products/_product")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "404", res.code, "Should not serve /products/_product"
+  end
+
   private
 
   def assert_page_content(expected_path, actual_content)

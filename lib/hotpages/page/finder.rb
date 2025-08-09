@@ -1,6 +1,8 @@
 class Hotpages::Page::Finder
   using Hotpages::Refinements::String
 
+  IGNORED_PATH_REGEXP = Hotpages::Page::Instantiation::IGNORED_PATH_REGEXP
+
   def initialize(site)
     @site = site
     @page_base_class = site.config.page_base_class
@@ -83,6 +85,9 @@ class Hotpages::Page::Finder
     end
 
     base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
+
+    return nil if base_path =~ IGNORED_PATH_REGEXP
+
     files = Dir.glob("#{page_file_path}.*")
     files += [page_file_path] if File.file?(page_file_path)
     non_rb_exts = files

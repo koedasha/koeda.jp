@@ -135,7 +135,7 @@ class Hotpages::DevServer
         <p><strong>Unexpected result?</strong><br/>
           <ol style="">
             <li>Ensure the path is correct. Files whose names start with `_` are ignored.</li>
-            <li>Ensure the page class or template file exists within the `pages` directory structure.</li>
+            <li>Ensure the ruby file defines page class or template file exists within the `pages` directory structure.</li>
             <li>For expanded pages, ensure a module or class with the `segment_names` class/module method exists for each expanded segment.</li>
             <li>Ensure the `segment_names` class/module method returns an array that includes the requested page or directory name.</li>
             <li>Ensure `segments` key names are not duplicated within nested directory hierarchies. For example, this structure is invalid: `users/__id__/posts/__id__`.</li>

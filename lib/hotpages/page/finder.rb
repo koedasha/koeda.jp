@@ -62,13 +62,21 @@ class Hotpages::Page::Finder
         end
 
         if !expandable_const_found
-          return nil unless index == segment_names.size - 1
-
-          if generic_page_class = page_base_class.page_subclass_under(page_class.name.split("::"), root_namespace: Object)
-            page_class = generic_page_class
+          if index == segment_names.size - 1 # handle file
+            if phantom_page_class = page_base_class.page_subclass_under(page_class.name.split("::"), root_namespace: Object)
+              page_class = phantom_page_class
+              page_file_path += "/#{segment_name}"
+            else
+              return nil
+            end
+          else # handle directory
+            page_class =
+              if page_class.const_defined?(constant_name, false)
+                page_class.const_get(constant_name, false)
+              else
+                page_class.const_set(constant_name, Module.new)
+              end
             page_file_path += "/#{segment_name}"
-          else
-            return nil
           end
         end
       end

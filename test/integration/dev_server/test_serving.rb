@@ -6,21 +6,25 @@ class TestServing < Minitest::Test
   def setup
     return if @@setup_done
 
+    @@port = 12345
+    @@server_pid = fork do
+      server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: false)
+      trap("INT") { server.stop }
+      server.start
+    end
+
+    # Generation process creates constants under Pages namespace, so do this after server process is forked.
+    # This ensures that constants are properly initialized only within the DevServer process.
     Hotpages.site.generate
 
-    @@port = 12345
-    @@server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: false)
-    @@server_thread = Thread.new { @@server.start }
     @@setup_done = true
 
     sleep 0.1
   end
 
   Minitest.after_run do
-    if defined?(@@server_thread)
-      @@server.stop
-      @@server_thread.join
-      @@server = nil
+    if defined?(@@server_pid)
+      Process.kill("INT", @@server_pid)
       sleep 0.1
     end
   end

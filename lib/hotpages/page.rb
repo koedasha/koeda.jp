@@ -20,6 +20,13 @@ class Hotpages::Page
       @layout_path = layout_path
     end
     attr_accessor :layout_path
+
+    def include_all_site_helpers
+      site.helper_constants.each do |helper_module|
+        next if included_modules.include?(helper_module)
+        include helper_module
+      end
+    end
   end
 
   layout :site # Default layout path, can be overridden by individual pages
@@ -38,6 +45,9 @@ class Hotpages::Page
 
     # Localizable
     @locale = locale || config.site.i18n.default_locale
+
+    # Include helpers dynamically here
+    self.class.include_all_site_helpers
   end
 
   def layout(layout_path)

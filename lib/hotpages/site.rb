@@ -4,6 +4,7 @@ require "pathname"
 class Hotpages::Site
   extend Forwardable
   prepend Localizable
+  using Hotpages::Refinements::String
 
   class << self
     def config = @config ||= Hotpages.config
@@ -35,6 +36,14 @@ class Hotpages::Site
   def pages_namespace_module(ns_name = config.site.pages_namespace)
      Object.const_defined?(ns_name) ? Object.const_get(ns_name)
                                     : Object.const_set(ns_name, Module.new)
+  end
+
+  def helper_constants
+    Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
+      file_name = file.sub(helpers_path.to_s + "/", "").sub(/\.rb\z/, "")
+      const_name = file_name.classify
+      Object.const_defined?(const_name) && Object.const_get(const_name)
+    end
   end
 
   module Paths

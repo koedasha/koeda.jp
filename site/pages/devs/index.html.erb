@@ -1,0 +1,15 @@
+<article class="devs">
+  <h2>
+    <span><%= _ "アプリケーションを" %></span>
+    <span><%= _ "こえだ舎とつくる" %></span>
+  </h2>
+
+  <% contact = capture do %>
+    <% link_to "mailto:hi@koeda.jp", class: "devs__contact" do %>
+      <%= icon_tag("mail") %>
+      <span>hi@koeda.jp</span>
+    <% end %>
+  <% end %>
+
+  <%= render "content_#{locale}", contact: contact %>
+</article>

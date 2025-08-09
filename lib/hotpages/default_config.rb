@@ -29,7 +29,8 @@ module Hotpages
     ),
     dev_server: Configuration.new(
       port: 4000,
-      hot_reloading_enabled: true
+      hot_reloading_enabled: true,
+      backtrace_link_format: "vscode://file/%{file}:%{line}",
     )
   )
 end

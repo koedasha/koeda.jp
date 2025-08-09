@@ -32,6 +32,8 @@ class Hotpages::DevServer
 
   attr_reader :site, :config, :host, :port, :logger
 
+  ERROR_PAGE_BODY_STYLE = "font-family:sans-serif; font-size:1.1rem; line-height:1.4;"
+
   def server
     @server ||= WEBrick::HTTPServer.new(
       Port: port
@@ -88,35 +90,57 @@ class Hotpages::DevServer
   rescue Exception => e
     logger.error(e)
 
+    correction = if e.respond_to?(:corrections)
+      "<p><strong>Did you mean?:</strong> <code>#{e.corrections.join("</code>, <code>")}</code></p>"
+    else
+      ""
+    end
     res.status = 500
     res["Content-Type"] = "text/html"
     res.body = <<~HTML
-      <body style="font-family:sans-serif; font-size:14px;">
+      <body style="#{ERROR_PAGE_BODY_STYLE}">
         <h1>#{e.class.name}</h1>
         <p><strong>Message:</strong> #{e.message}</p>
+        #{correction}
         <p><strong>Path:</strong> #{req.path}</p>
-        <p><strong>Backtrace:</strong></p>
-        <pre>#{e.backtrace.join("\n")}</pre>
+        <p><strong>Backtrace:</strong><br/>
+          #{e.backtrace.map(&method(:render_backtrace_line)).join("\n")}
+        </p>
+        <small><i>Editor link is customizable by <code>dev_server.backtrace_link_format</code> config</i></small>
       </body>
     HTML
+  end
+
+  def render_backtrace_line(line)
+    link_format = Hotpages.config.dev_server.backtrace_link_format
+    file_with_line, context = line.split(":in")
+    file, line = file_with_line.split(":")
+
+    if link_format
+      href = link_format % { file:, line: }
+      "<a href=\"#{href}\">#{file}:#{line}</a>:in #{context}<br/>"
+    else
+      line
+    end
   end
 
   def respond_with_not_found(req, res)
     res.status = 404
     res["Content-Type"] = "text/html"
     res.body = <<~HTML
-      <body style="font-family:sans-serif; font-size:1.2rem; line-height:1.4;">
+      <body style="#{ERROR_PAGE_BODY_STYLE}">
         <h1>404 Not Found</h1>
         <p>The requested resource was not found.</p>
         <p><strong>Path:</strong> #{req.path}</p>
-        <p><strong>Unexpected result?</strong></p>
-        <ol style="">
-          <li>Make sure the path is correct.</li>
-          <li>Ensure the page class or template file exists under the `pages` directory structure.</li>
-          <li>For expanded pages, ensure module/class with `segment_names` class/module method exists for each expanded segment.</li>
-          <li>Ensure `segment_names` class/module method returns an array that includes the requested page/directory name.</li>
-          <li>Ensure `segments` key names are not duplicated within nested directory hierarchies. e.g. This is invalid structure: `users/__id__/posts/__id__`</li>
-        </ol>
+        <p><strong>Unexpected result?</strong><br/>
+          <ol style="">
+            <li>Make sure the path is correct.</li>
+            <li>Ensure the page class or template file exists under the `pages` directory structure.</li>
+            <li>For expanded pages, ensure module/class with `segment_names` class/module method exists for each expanded segment.</li>
+            <li>Ensure `segment_names` class/module method returns an array that includes the requested page/directory name.</li>
+            <li>Ensure `segments` key names are not duplicated within nested directory hierarchies. e.g. This is invalid structure: `users/__id__/posts/__id__`</li>
+          </ol>
+        </p>
       </body>
     HTML
   end

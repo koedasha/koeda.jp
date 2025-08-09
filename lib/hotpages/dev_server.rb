@@ -102,7 +102,7 @@ class Hotpages::DevServer
         <h1>#{e.class.name}</h1>
         <p><strong>Message:</strong> #{e.message}</p>
         #{correction}
-        <p><strong>Path:</strong> #{req.path}</p>
+        <p><strong>Path:</strong> <code>#{req.path}</code></p>
         <p><strong>Backtrace:</strong><br/>
           #{e.backtrace.map(&method(:render_backtrace_line)).join("\n")}
         </p>
@@ -131,7 +131,7 @@ class Hotpages::DevServer
       <body style="#{ERROR_PAGE_BODY_STYLE}">
         <h1>404 Not Found</h1>
         <p>The requested resource was not found.</p>
-        <p><strong>Path:</strong> #{req.path}</p>
+        <p><strong>Path:</strong> <code>#{req.path}</code></p>
         <p><strong>Unexpected result?</strong><br/>
           <ol style="">
             <li>Make sure the path is correct.</li>

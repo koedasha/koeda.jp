@@ -23,10 +23,14 @@ module Hotpages::Page::Instantiation
     if ns.const_defined?(class_name, false)
       ns.const_get(class_name, false)
     else
-      phantom_page_class = Class.new(phantom_parent_class) do
-        def self.phantom? = true
-    end
-      ns.const_set(phantom_class_name, phantom_page_class)
+      if ns.const_defined?(phantom_class_name, false)
+        ns.const_get(phantom_class_name, false)
+      else
+        phantom_page_class = Class.new(phantom_parent_class) do
+          def self.phantom? = true
+        end
+        ns.const_set(phantom_class_name, phantom_page_class)
+      end
     end
   rescue NameError
     nil

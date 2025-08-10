@@ -83,7 +83,8 @@ class Hotpages::Page::Finder
       end
     end
 
-    return nil unless page_class < Hotpages::Page
+    # page_class must be a Class, not a Module
+    return nil unless page_class.is_a?(Class)
 
     base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
 

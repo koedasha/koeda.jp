@@ -7,18 +7,19 @@ class TestHotReloading < Minitest::Test
     return if @@setup_done
 
     @@port = 12346
-    @@server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: true)
-    @@server_thread = Thread.new { @@server.start }
+    @@server_pid = fork do
+      server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: true)
+      trap("INT") { server.stop }
+      server.start
+    end
     @@setup_done = true
 
     sleep 0.1
   end
 
   Minitest.after_run do
-    if defined?(@@server_thread)
-      @@server.stop
-      @@server_thread.join
-      @@server = nil
+    if defined?(@@server_pid)
+      Process.kill("INT", @@server_pid)
       sleep 0.1
     end
   end

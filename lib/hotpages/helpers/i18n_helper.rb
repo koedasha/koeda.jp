@@ -10,7 +10,7 @@ module Hotpages::Helpers::I18nHelper
 
     tag.div(options) do
       tag.details do
-        tag.summary { summary_body ? summary_body.call(current_locale) : lcurrent_locale.upcase } +
+        tag.summary { summary_body ? summary_body.call(current_locale) : current_locale.upcase } +
         tag.ul do
           locales.reject { _1 == current_locale }.map do |locale|
             tag.li do
@@ -31,6 +31,7 @@ module Hotpages::Helpers::I18nHelper
 
   def localized_current_path(locale)
     base_path = expanded_base_path(locale: nil)
+    base_path.delete_suffix!("index")
 
     # TODO: better handling of base paths
     if site.default_locale?(locale)

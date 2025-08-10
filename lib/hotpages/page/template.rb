@@ -2,6 +2,7 @@ require "tilt"
 require "erubi/capture_block"
 
 Tilt.register(Tilt::PlainTemplate, "txt")
+Tilt.register(Tilt::PlainTemplate, "xml")
 
 class Hotpages::Page::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
@@ -17,6 +18,7 @@ class Hotpages::Page::Template
   end
 
   def render_file? = !base_path.nil?
+  def file_last_modified_at = render_file? ? File.mtime(absolute_path) : nil
   def rendered_to_html? = extension.start_with?("html")
   def render_in(context, locals = {}, &block) = tilt.render(context, locals, &block)
 

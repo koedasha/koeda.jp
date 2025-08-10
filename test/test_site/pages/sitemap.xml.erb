@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<% Page.all.each do |page| %>
+  <url>
+    <loc>https://example.com/<%= page.expanded_base_path_with_extension %></loc>
+    <% if page.last_modified_at %>
+    <lastmod><%= page.last_modified_at.strftime("%Y-%m-%d") %></lastmod>
+    <% end %>
+  </url>
+<% end %>
+</urlset>

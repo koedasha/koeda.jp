@@ -3,30 +3,9 @@ module Hotpages::Page::Instantiation
 
   IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
 
-  def from_absolute_paths(paths)
-    base_paths = paths.inject([]) do |result, path|
-      next result unless path.start_with?(site.pages_path.to_s)
-
-    base_path = path.sub(site.pages_path.to_s, "").delete_prefix("/")
-
-      next result if base_path =~ IGNORED_PATH_REGEXP
-
-      absolute_path = File.expand_path(path)
-
-      File.file?(absolute_path) ? result << base_path :result
-    end
-
-    base_path_exts_map = base_paths.group_by { |path| remove_all_ext(path) }.transform_values do |paths|
-      paths.map { |path| (File.basename(path).split('.')[1..] || []).join('.') }
-    end
-
-    base_path_exts_map.flat_map do |base_path, exts|
-      non_rb_exts = exts.reject { |ext| ext == "rb" }
-
-      raise "Multiple page templates found for #{base_path}: #{non_rb_exts.join(', ')}" if non_rb_exts.size > 1
-
-      from_base_path(base_path, template_extension: non_rb_exts.first) || []
-    end
+  def all
+    all_page_files = Dir.glob(site.pages_path.join("**/*"))
+    from_absolute_paths(all_page_files)
   end
 
   def page_subclass_under(
@@ -54,6 +33,32 @@ module Hotpages::Page::Instantiation
   end
 
   private
+
+  def from_absolute_paths(paths)
+    base_paths = paths.inject([]) do |result, path|
+      next result unless path.start_with?(site.pages_path.to_s)
+
+    base_path = path.sub(site.pages_path.to_s, "").delete_prefix("/")
+
+      next result if base_path =~ IGNORED_PATH_REGEXP
+
+      absolute_path = File.expand_path(path)
+
+      File.file?(absolute_path) ? result << base_path :result
+    end
+
+    base_path_exts_map = base_paths.group_by { |path| remove_all_ext(path) }.transform_values do |paths|
+      paths.map { |path| (File.basename(path).split('.')[1..] || []).join('.') }
+    end
+
+    base_path_exts_map.flat_map do |base_path, exts|
+      non_rb_exts = exts.reject { |ext| ext == "rb" }
+
+      raise "Multiple page templates found for #{base_path}: #{non_rb_exts.join(', ')}" if non_rb_exts.size > 1
+
+      from_base_path(base_path, template_extension: non_rb_exts.first) || []
+    end
+  end
 
   def from_base_path(base_path, template_extension:)
     class_name = base_path.classify

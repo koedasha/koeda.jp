@@ -1,4 +1,5 @@
 require "digest/sha1"
+require "json"
 
 # Very limited implementation of WebSocket for hot reloading to use with Webrick.
 # Supports only handshake and broadcasting

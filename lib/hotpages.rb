@@ -30,5 +30,7 @@ module Hotpages
       raise "Site is not set. Please call Hotpages.setup_site first." unless site
       @dev_server ||= Hotpages::DevServer.new(site: site)
     end
+
+    def page_base_class = Object.const_get(config.page_base_class_name)
   end
 end

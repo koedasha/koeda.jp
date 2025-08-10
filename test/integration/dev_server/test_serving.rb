@@ -77,6 +77,12 @@ class TestServing < Minitest::Test
     assert_equal "404", res.code, "Should not serve /products/_product"
   end
 
+  def test_not_serves_directory_without_trailing_slash
+    uri = URI("http://localhost:#{@@port}/posts/1/bar")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "404", res.code, "Should not serve /posts/1/bar without trailing slash"
+  end
+
   private
 
   def assert_page_content(expected_path, actual_content)

@@ -5,7 +5,6 @@ class Hotpages::Page::Finder
 
   def initialize(site)
     @site = site
-    @page_base_class = site.config.page_base_class
   end
 
   module Localizable
@@ -28,6 +27,7 @@ class Hotpages::Page::Finder
   # Generic finding logic for pages based on the requested path.
   # TODO: Static O(1) finding logic for pages generation with instances cache
   def find(requested_path)
+    page_base_class = Hotpages.page_base_class
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)
     extension = File.extname(requested_path)
@@ -65,7 +65,7 @@ class Hotpages::Page::Finder
 
         if !expandable_const_found
           if index == segment_names.size - 1 # handle file
-            if phantom_page_class = page_base_class.page_subclass_under(page_class.name.split("::"), root_namespace: Object)
+            if phantom_page_class = page_base_class.page_subclass_under(page_class.name.split("::")[1..])
               page_class = phantom_page_class
               page_file_path += "/#{segment_name}"
             else
@@ -83,6 +83,8 @@ class Hotpages::Page::Finder
         end
       end
     end
+
+    return nil unless page_class < page_base_class
 
     base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
 
@@ -109,7 +111,7 @@ class Hotpages::Page::Finder
 
   private
 
-  attr_reader :site, :page_base_class
+  attr_reader :site
 
   def normalize_path(path)
     path = path.delete_suffix(File.extname(path))

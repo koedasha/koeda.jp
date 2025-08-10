@@ -5,7 +5,6 @@ class Hotpages::Site::Generator
 
   def initialize(site:)
     @site = site
-    @page_base_class = site.config.page_base_class
     @generating = false
   end
 
@@ -24,12 +23,12 @@ class Hotpages::Site::Generator
 
   private
 
-  attr_reader :site, :page_base_class
+  attr_reader :site
   attr_accessor :generating
 
   def generate_pages
     all_page_files = Dir.glob(site.pages_path.join("**/*"))
-    page_instances = page_base_class.from_absolute_paths(all_page_files)
+    page_instances = Hotpages.page_base_class.from_absolute_paths(all_page_files)
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path_with_extension

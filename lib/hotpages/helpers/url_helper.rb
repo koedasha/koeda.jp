@@ -17,7 +17,7 @@ module Hotpages::Helpers::UrlHelper
 
     if page_url?(url)
       if check_broken && !page_exists?(url)
-        raise "page is not found: #{url}"
+        raise "Broken page link detected: #{url}"
       end
 
       url = prefix_page_url(url)

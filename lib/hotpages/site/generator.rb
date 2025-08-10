@@ -28,7 +28,7 @@ class Hotpages::Site::Generator
 
   def generate_pages
     all_page_files = Dir.glob(site.pages_path.join("**/*"))
-    page_instances = Hotpages.page_base_class.from_absolute_paths(all_page_files)
+    page_instances = Hotpages::Page.from_absolute_paths(all_page_files)
 
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path_with_extension

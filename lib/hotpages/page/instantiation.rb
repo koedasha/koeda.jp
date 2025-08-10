@@ -34,7 +34,7 @@ module Hotpages::Page::Instantiation
     class_name: "Page",
     phantom_class_name: "Page_",
     root_namespace: site.pages_namespace_module,
-    parent_class: Hotpages.page_base_class
+    phantom_parent_class: Hotpages.page_base_class
   )
     ns = namespaces.inject(root_namespace) do |ns, namespace|
       ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
@@ -44,9 +44,9 @@ module Hotpages::Page::Instantiation
     if ns.const_defined?(class_name, false)
       ns.const_get(class_name, false)
     else
-      phantom_page_class = Class.new(parent_class) do
+      phantom_page_class = Class.new(phantom_parent_class) do
         def self.phantom? = true
-      end
+    end
       ns.const_set(phantom_class_name, phantom_page_class)
     end
   rescue NameError

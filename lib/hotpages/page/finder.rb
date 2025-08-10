@@ -27,7 +27,6 @@ class Hotpages::Page::Finder
   # Generic finding logic for pages based on the requested path.
   # TODO: Static O(1) finding logic for pages generation with instances cache
   def find(requested_path)
-    page_base_class = Hotpages.page_base_class
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)
     extension = File.extname(requested_path)
@@ -65,7 +64,7 @@ class Hotpages::Page::Finder
 
         if !expandable_const_found
           if index == segment_names.size - 1 # handle file
-            if phantom_page_class = page_base_class.page_subclass_under(page_class.name.split("::")[1..])
+            if phantom_page_class = Hotpages::Page.page_subclass_under(page_class.name.split("::")[1..])
               page_class = phantom_page_class
               page_file_path += "/#{segment_name}"
             else
@@ -84,7 +83,7 @@ class Hotpages::Page::Finder
       end
     end
 
-    return nil unless page_class < page_base_class
+    return nil unless page_class < Hotpages::Page
 
     base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
 

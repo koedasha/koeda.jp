@@ -31,6 +31,6 @@ module Hotpages
       @dev_server ||= Hotpages::DevServer.new(site: site)
     end
 
-    def page_base_class = Object.const_get(config.page_base_class_name)
+    def page_base_class = Object.const_get(config.page_base_class_name, false)
   end
 end

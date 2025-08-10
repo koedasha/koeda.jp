@@ -1,7 +1,7 @@
 require "test_helper"
 
-class TestConfiguration < Minitest::Test
-  Config = Hotpages::Configuration
+class TestConfig < Minitest::Test
+  Config = Hotpages::Config
 
   def setup
     @defaults = {
@@ -11,7 +11,7 @@ class TestConfiguration < Minitest::Test
         bar: "bar"
       )
     }
-    @config = Hotpages::Configuration.new(@defaults)
+    @config = Hotpages::Config.new(@defaults)
   end
 
   def test_singleton_methods

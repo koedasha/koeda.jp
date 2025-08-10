@@ -3,7 +3,7 @@ require "rake/testtask"
 # Default task
 task default: :test
 
-# Test task configuration
+# Test task Config
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
   t.libs << "lib"

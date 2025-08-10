@@ -1,4 +1,4 @@
-class Hotpages::Configuration
+class Hotpages::Config
   def initialize(defaults)
     defaults.each do |key, value|
       self.define_singleton_method(key) do

@@ -1,4 +1,5 @@
 require "fileutils"
+require "benchmark"
 
 class Hotpages::Site::Generator
   CSS_IMPORT_REGEXP = /@import\s+(?:url\()?["']?([^"')]+)["']?\)?/.freeze
@@ -77,7 +78,7 @@ class Hotpages::Site::Generator
 
   def with_logging(label, path)
     puts "[#{label}] Generating #{path}..."
-    yield
-    puts "[#{label}] Wrote #{path}"
+    duration = Benchmark.realtime { yield }
+    puts "[#{label}] Wrote #{path} (#{(duration * 1000).round(4)} msec)"
   end
 end

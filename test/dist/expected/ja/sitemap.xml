@@ -9,119 +9,119 @@
     <lastmod>2025-07-27</lastmod>
   </url>
   <url>
-    <loc>https://example.com/index.html</loc>
-    <lastmod>2025-08-10</lastmod>
+    <loc>https://example.com/</loc>
+    <lastmod>2025-08-11</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/index.html</loc>
-    <lastmod>2025-08-10</lastmod>
+    <loc>https://example.com/ja/</loc>
+    <lastmod>2025-08-11</lastmod>
   </url>
   <url>
-    <loc>https://example.com/misc/just.html</loc>
+    <loc>https://example.com/misc/just</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/misc/just.html</loc>
+    <loc>https://example.com/ja/misc/just</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/misc/markdown.html</loc>
+    <loc>https://example.com/misc/markdown</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/misc/markdown.html</loc>
+    <loc>https://example.com/ja/misc/markdown</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/misc/markdown_helper.html</loc>
+    <loc>https://example.com/misc/markdown_helper</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/misc/markdown_helper.html</loc>
+    <loc>https://example.com/ja/misc/markdown_helper</loc>
     <lastmod>2025-07-27</lastmod>
   </url>
   <url>
-    <loc>https://example.com/misc/no_layout.html</loc>
+    <loc>https://example.com/misc/no_layout</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/misc/no_layout.html</loc>
+    <loc>https://example.com/ja/misc/no_layout</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/misc/no_ruby.html</loc>
+    <loc>https://example.com/misc/no_ruby</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/misc/no_ruby.html</loc>
+    <loc>https://example.com/ja/misc/no_ruby</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/posts/1/foo/index.html</loc>
+    <loc>https://example.com/posts/1/foo/</loc>
     <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/posts/1/foo/index.html</loc>
+    <loc>https://example.com/ja/posts/1/foo/</loc>
     <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://example.com/posts/1/bar/index.html</loc>
+    <loc>https://example.com/posts/1/bar/</loc>
     <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/posts/1/bar/index.html</loc>
+    <loc>https://example.com/ja/posts/1/bar/</loc>
     <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://example.com/products/one.html</loc>
+    <loc>https://example.com/products/one</loc>
     <lastmod>2025-07-25</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/products/one.html</loc>
+    <loc>https://example.com/ja/products/one</loc>
     <lastmod>2025-07-25</lastmod>
   </url>
   <url>
-    <loc>https://example.com/products/two.html</loc>
+    <loc>https://example.com/products/two</loc>
     <lastmod>2025-07-25</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/products/two.html</loc>
+    <loc>https://example.com/ja/products/two</loc>
     <lastmod>2025-07-25</lastmod>
   </url>
   <url>
-    <loc>https://example.com/products/about.html</loc>
+    <loc>https://example.com/products/about</loc>
     <lastmod>2025-07-30</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/products/about.html</loc>
+    <loc>https://example.com/ja/products/about</loc>
     <lastmod>2025-07-30</lastmod>
   </url>
   <url>
-    <loc>https://example.com/products/index.html</loc>
+    <loc>https://example.com/products/</loc>
   </url>
   <url>
-    <loc>https://example.com/ja/products/index.html</loc>
+    <loc>https://example.com/ja/products/</loc>
   </url>
   <url>
-    <loc>https://example.com/products.html</loc>
+    <loc>https://example.com/products</loc>
   </url>
   <url>
-    <loc>https://example.com/ja/products.html</loc>
+    <loc>https://example.com/ja/products</loc>
   </url>
   <url>
-    <loc>https://example.com/robot.txt</loc>
+    <loc>https://example.com/robot</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/robot.txt</loc>
+    <loc>https://example.com/ja/robot</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/sitemap.xml</loc>
-    <lastmod>2025-08-10</lastmod>
+    <loc>https://example.com/sitemap</loc>
+    <lastmod>2025-08-11</lastmod>
   </url>
   <url>
-    <loc>https://example.com/ja/sitemap.xml</loc>
-    <lastmod>2025-08-10</lastmod>
+    <loc>https://example.com/ja/sitemap</loc>
+    <lastmod>2025-08-11</lastmod>
   </url>
 </urlset>

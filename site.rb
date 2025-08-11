@@ -1,4 +1,7 @@
 require "#{__dir__}/lib/hotpages"
+require "tilt"
+
+Tilt.register(Tilt::KramdownTemplate, "md")
 
 class Site < Hotpages::Site
   config.site.root = File.join(__dir__, "site")

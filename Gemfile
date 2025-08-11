@@ -2,14 +2,16 @@
 
 source "https://rubygems.org"
 
-gem "rubocop-rails-omakase", require: false
-
+# For hotpages development
 gem "erubi"
 gem "fast_gettext"
-gem "kramdown"
 gem "listen"
 gem "minitest"
 gem "rake"
+gem "rubocop-rails-omakase", require: false
 gem "tilt"
 gem "webrick"
 gem "zeitwerk"
+
+# For site development
+gem "kramdown"

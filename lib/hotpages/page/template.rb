@@ -5,15 +5,15 @@ Tilt.register(Tilt::PlainTemplate, "txt")
 Tilt.register(Tilt::PlainTemplate, "xml")
 
 class Hotpages::Page::Template
-  ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }
+  ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }.freeze
 
   def initialize(extension, base_path: nil, directory: nil, &body)
     @extension = extension || ""
     @base_path = base_path
     @directory = directory
 
-    @name = [base_path, extension].compact.join(".").chomp(".")
-    @absolute_path = File.join(*[directory, @name].compact)
+    @name = [ base_path, extension ].compact.join(".").chomp(".")
+    @absolute_path = File.join(*[ directory, @name ].compact)
     @body = body
   end
 
@@ -36,10 +36,10 @@ class Hotpages::Page::Template
       Tilt::PlainTemplate.new(absolute_path, &block)
     elsif extensions.length > 1
       options = if extensions.include?("erb")
-                  { "erb" => ERB_OPTIONS }
-                else
-                  {}
-                end
+        { "erb" => ERB_OPTIONS }
+      else
+        {}
+      end
 
       # TODO: Correctly handle registering pipelines
       Tilt.register_pipeline(extension, options)

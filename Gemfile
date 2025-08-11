@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+gem "rubocop-rails-omakase", require: false
+
 gem "erubi"
 gem "fast_gettext"
 gem "kramdown"

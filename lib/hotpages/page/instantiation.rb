@@ -52,7 +52,7 @@ module Hotpages::Page::Instantiation
     end
 
     base_path_exts_map = base_paths.group_by { |path| remove_all_ext(path) }.transform_values do |paths|
-      paths.map { |path| (File.basename(path).split('.')[1..] || []).join('.') }
+      paths.map { |path| (File.basename(path).split(".")[1..] || []).join(".") }
     end
 
     base_path_exts_map.flat_map do |base_path, exts|
@@ -83,8 +83,8 @@ module Hotpages::Page::Instantiation
 
   def remove_all_ext(path)
     basename = File.basename(path)
-    basename_without_exts = basename.sub(/\..*$/, '')
+    basename_without_exts = basename.sub(/\..*$/, "")
     dirname = File.dirname(path)
-    File.join(*[dirname == "." ? nil : dirname, basename_without_exts].compact)
+    File.join(*[ dirname == "." ? nil : dirname, basename_without_exts ].compact)
   end
 end

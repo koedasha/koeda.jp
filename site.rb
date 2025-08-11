@@ -9,4 +9,6 @@ class Site < Hotpages::Site
   config.site.i18n.default_locale = "ja"
 end
 
-Hotpages.setup_site(Site)
+Hotpages.setup_site(Site) do |site|
+  site.phantom_page_base_class = Page
+end

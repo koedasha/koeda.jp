@@ -33,6 +33,8 @@ class Hotpages::Site
 
   delegate %i[ generate generating? ] => :generator
 
+  attr_accessor :phantom_page_base_class
+
   def pages_namespace_module(ns_name = config.site.pages_namespace)
      Object.const_defined?(ns_name) ? Object.const_get(ns_name)
                                     : Object.const_set(ns_name, Module.new)

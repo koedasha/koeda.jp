@@ -18,19 +18,19 @@ module Hotpages
       site.teardown if site
     end
 
-    attr_accessor :site
     def config = @config ||= DEFAULT_CONFIG
 
-    def setup_site(site_class)
+    attr_accessor :site
+    def setup_site(site_class, &after_setup)
       self.site = site_class.new
       site.setup
+
+      yield(site) if block_given?
     end
 
     def dev_server
       raise "Site is not set. Please call Hotpages.setup_site first." unless site
       @dev_server ||= Hotpages::DevServer.new(site: site)
     end
-
-    def page_base_class = Object.const_get(config.page_base_class_name, false)
   end
 end

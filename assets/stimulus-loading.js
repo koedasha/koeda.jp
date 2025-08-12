@@ -1,3 +1,5 @@
+// stimulus-loading.js from stimulus-rails v1.3.4
+
 // Copyright (c) 2021 Basecamp
 
 // Permission is hereby granted, free of charge, to any person obtaining

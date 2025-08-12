@@ -10,9 +10,9 @@ module Hotpages::DevServer::HotReloading
     @web_socket = Hotpages::DevServer::WebSocket.new
     @web_socket_url = "ws://#{host}:#{port}"
     # Set wait_for_delay to 0.2 seconds for more stable hot reloading
-    @file_listener = Listen.to(site.root_path, wait_for_delay: 0.2) do |modified_files, _added, _removed|
-      modified_files.each do |modified|
-        handle_file_change(modified)
+    @file_listener = Listen.to(site.root_path, wait_for_delay: 0.2) do |modified, added, removed|
+      (modified + added + removed).each do |changed_file|
+        handle_file_change(changed_file)
       end
     end
     @file_listener.start
@@ -58,7 +58,7 @@ module Hotpages::DevServer::HotReloading
       when /\.css$/
         web_socket.broadcast(action: "reload:css", path: file_path_to_notify)
       when /\.js$/
-        web_socket.broadcast(action: "reload:js")
+        web_socket.broadcast(action: "reload:js", path: file_path_to_notify)
       end
     else
       web_socket.broadcast(action: "reload:html")

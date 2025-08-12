@@ -61,6 +61,6 @@ class TestHotReloading < Minitest::Test
     # JS
     FileUtils.touch Hotpages.site.assets_path.join("site.js")
     response = client_socket.readpartial(1024)
-    assert_match %r{{"action":"reload:js"}}, response
+    assert_match %r{{"action":"reload:js","path":"/assets/site.js"}}, response
   end
 end

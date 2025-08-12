@@ -1,3 +1,5 @@
+// stimulus-loading.js from stimulus-rails v1.3.4
+
 // Copyright (c) 2021 Basecamp
 
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -27,7 +29,6 @@ const controllerAttribute = "data-controller"
 // Eager load all controllers registered beneath the `under` path in the import map to the passed application instance.
 export function eagerLoadControllersFrom(under, application) {
   const paths = Object.keys(parseImportmapJson()).filter(path => path.match(new RegExp(`^${under}/.*_controller$`)))
-  console.log(`Eager loading controllers from "${under}":`, paths)
   paths.forEach(path => registerControllerFromPath(path, under, application))
 }
 
@@ -42,7 +43,6 @@ function registerControllerFromPath(path, under, application) {
     .replace(/\//g, "--")
     .replace(/_/g, "-")
 
-  console.log(`Eager loading controller: ${name} (${path})`)
   if (canRegisterController(name, application)) {
     import(path)
       .then(module => registerController(name, module, application))

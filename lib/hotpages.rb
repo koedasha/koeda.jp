@@ -11,6 +11,10 @@ module Hotpages
   class << self
     def reload
       loader.reload
+    rescue Zeitwerk::SetupRequired
+      loader.setup
+    ensure
+      loader.reload
     end
 
     def teardown

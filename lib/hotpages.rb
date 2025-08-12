@@ -3,7 +3,6 @@ require "tilt" # For registering templates in setup_site methods' after_setup bl
 
 module Hotpages
   def self.loader = @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|
-    loader.inflector.inflect "default_config" => "DEFAULT_CONFIG"
     loader.enable_reloading
   end
   self.loader.setup
@@ -23,7 +22,7 @@ module Hotpages
       site.teardown if site
     end
 
-    def config = @config ||= DEFAULT_CONFIG
+    def config = @config ||= Config.defaults
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)

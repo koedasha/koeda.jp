@@ -1,4 +1,5 @@
 require "zeitwerk"
+require "tilt" # For registering templates in setup_site methods' after_setup block
 
 module Hotpages
   def self.loader = @loader ||= Zeitwerk::Loader.for_gem.tap do |loader|
@@ -26,6 +27,8 @@ module Hotpages
       site.setup
 
       yield(site) if block_given?
+
+      site
     end
 
     def dev_server

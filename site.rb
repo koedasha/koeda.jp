@@ -1,7 +1,4 @@
 require "#{__dir__}/lib/hotpages"
-require "tilt"
-
-Tilt.register(Tilt::KramdownTemplate, "md")
 
 class Site < Hotpages::Site
   config.site.root = File.join(__dir__, "site")
@@ -10,5 +7,6 @@ class Site < Hotpages::Site
 end
 
 Hotpages.setup_site(Site) do |site|
+  Tilt.register(Tilt::KramdownTemplate, "md")
   site.phantom_page_base_class = Page
 end

@@ -11,6 +11,7 @@ class Hotpages::DevServer
     @host = host
     @port = port
     @logger = WEBrick::Log.new()
+    @assets_prefix = Hotpages.config.assets.prefix
 
     self.extend(HotReloading) if hot_reload
   end
@@ -30,7 +31,7 @@ class Hotpages::DevServer
 
   private
 
-  attr_reader :site, :config, :host, :port, :logger
+  attr_reader :site, :config, :host, :port, :logger, :assets_prefix
 
   ERROR_PAGE_BODY_STYLE = "font-family:sans-serif; font-size:1.1rem; line-height:1.4;"
 
@@ -54,7 +55,7 @@ class Hotpages::DevServer
   end
 
   def handle_request(req, res)
-    if req.path.start_with?("/#{site.assets_dir}/")
+    if req.path.start_with?(assets_prefix)
       handle_assets_request(req, res)
     else
       handle_page_request(req, res)
@@ -62,10 +63,17 @@ class Hotpages::DevServer
   end
 
   def handle_assets_request(req, res)
-    ext = File.extname(req.path)
-    asset_file_path = site.root_path.join(req.path.delete_prefix("/"))
+    asset_file_path = Hotpages.assets.find do |base_path, file|
+      file.delete_prefix(base_path.to_s + "/") == req.path.delete_prefix(assets_prefix)
+    end&.last
+
+    return res.status = 404 unless asset_file_path
+
     content = File.read(asset_file_path)
-    mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, '')] || "application/octet-stream"
+
+    ext = File.extname(req.path)
+    mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, "")] || "application/octet-stream"
+
     res["Content-Type"] = mime_type
     res.body = content
   rescue Errno::ENOENT => e

@@ -41,19 +41,18 @@ class Hotpages::Site::Generator
   end
 
   def generate_assets(
-    src: site.assets_path,
     dist: site.dist_path.join(site.assets_dir)
   )
     # Process CSSs
-    Dir.glob(src.join("**/*.css")).each do |css_file|
-      dist_file = css_file.sub(src.to_s, dist.to_s)
+    Hotpages.assets(".css").each do |base_path, css_file|
+      dist_file = css_file.sub(base_path.to_s, dist.to_s)
       with_logging("ASSET(CSS)", dist_file) do
         content = File.read(css_file)
         # Add cache buster to @import URLs
         content = content.gsub(CSS_IMPORT_REGEXP) do |match|
           url = $1
           asset = Hotpages::Asset.new(url, directory: File.dirname(css_file))
-          match.gsub(url, asset.digested_location)
+          match.gsub(url, asset.digested_url)
         end
 
         write_file(dist_file, content)
@@ -61,9 +60,9 @@ class Hotpages::Site::Generator
     end
 
     # Copy other asset files as-is
-    Dir.glob(src.join("**/*")).each do |file|
+    Hotpages.assets.each do |base_path, file|
       next if File.directory?(file) || file.end_with?(".css")
-      dist_file = file.sub(src.to_s, dist.to_s)
+      dist_file = file.sub(base_path.to_s, dist.to_s)
       with_logging("ASSET", dist_file) do
         FileUtils.mkdir_p(File.dirname(dist_file))
         FileUtils.cp(file, dist_file)

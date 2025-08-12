@@ -31,6 +31,19 @@ module Hotpages
       site
     end
 
+    def assets_path = File.join(__dir__, "hotpages/assets")
+    def assets_paths = [ assets_path, site.assets_path ].compact
+    def assets(filter_ext = nil)
+      Enumerator.new do |yielder|
+        assets_paths.each do |path|
+          Dir.glob(File.join(path, "**", "*#{filter_ext}")).select do |file|
+            next unless File.file?(file)
+            yielder << [ path, file ]
+          end
+        end
+      end
+    end
+
     def dev_server
       raise "Site is not set. Please call Hotpages.setup_site first." unless site
       @dev_server ||= Hotpages::DevServer.new(site: site)

@@ -32,9 +32,8 @@ class Hotpages::Page
   layout :site # Default layout path, can be overridden by individual pages
 
   attr_reader :base_path, :segments, :name, :site, :config, :template_extension, :layout_path
-  attr_accessor :locale
 
-  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil, locale: nil)
+  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
     @segments = segments
     @name = name || base_path.split("/").last

@@ -84,6 +84,9 @@ module Hotpages::Extensions::Localization
       end
     end
 
+    attr_writer :locale
+    def locale = @locale || config.site.i18n.default_locale
+
     def expanded_base_path(locale: self.locale)
       unlocalized_path = super()
 

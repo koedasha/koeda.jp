@@ -42,7 +42,7 @@ module Hotpages::Extension
   end
 
   def spec = @spec ||= Spec.new
-  def prepending(with, to:) = spec.prepending(with, to:)
+  def prepending(with = self.name, to:) = spec.prepending(with, to:)
 
   def setup!(zeitwerk_loader)
     spec.apply_all!

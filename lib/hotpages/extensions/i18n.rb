@@ -8,7 +8,7 @@ module Hotpages::Extensions::I18n
   prepending "#{name}::PageFinder", to: "Hotpages::Page::Finder"
   prepending "#{name}::Site", to: "Hotpages::Site"
   prepending "#{name}::UrlHelper", to: "Hotpages::Helpers::UrlHelper"
-  add_helpers "#{name}::Helper"
+  add_helper "#{name}::Helper"
 
   module Config
     module ClassMethods

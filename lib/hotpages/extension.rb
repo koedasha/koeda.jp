@@ -42,6 +42,7 @@ module Hotpages::Extension
   def spec = @spec ||= Spec.new
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
   def add_helpers(*added_helpers) = helpers.concat(added_helpers)
+  def add_helper(added_helper) = add_helpers(added_helper)
 
   using Hotpages::Refinements::String
   def setup!(hotpages_module)

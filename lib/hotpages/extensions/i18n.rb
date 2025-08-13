@@ -7,6 +7,7 @@ module Hotpages::Extensions::I18n
   prepending "#{name}::Page", to: "Hotpages::Page"
   prepending "#{name}::PageFinder", to: "Hotpages::Page::Finder"
   prepending "#{name}::Site", to: "Hotpages::Site"
+  prepending "#{name}::UrlHelper", to: "Hotpages::Helpers::UrlHelper"
   add_helpers "#{name}::Helper"
 
   module Config
@@ -108,6 +109,20 @@ module Hotpages::Extensions::I18n
         end
       else
         super(requested_path)
+      end
+    end
+  end
+
+  module UrlHelper
+    private
+
+    def prefix_page_url(url)
+      url = super
+
+      if locale && !site.default_locale?(locale)
+        "/#{locale}#{url}"
+      else
+        url
       end
     end
   end

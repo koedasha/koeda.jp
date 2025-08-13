@@ -7,11 +7,6 @@ module Hotpages
   end
   self.loader.setup
 
-  EXTENSIONS = [
-    Extensions::I18n
-  ]
-  EXTENSIONS.each { _1.setup!(self.loader) }
-
   class << self
     def reload
       loader.reload
@@ -27,7 +22,14 @@ module Hotpages
       site.teardown if site
     end
 
+    def extensions = @extensions ||= [
+      Extensions::I18n
+    ]
+    def remove_extension(extension) = extensions.delete(extension)
+
     def config = @config ||= Config.defaults
+
+    def init = extensions.each { _1.setup!(loader) }
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)
@@ -39,6 +41,7 @@ module Hotpages
       site
     end
 
+    # TODO: move assets related methods to Site
     def assets_path = File.join(__dir__, "hotpages/assets")
     def assets_paths = [ assets_path, site.assets_path ].compact
     def assets(filter_ext = nil)

@@ -26,7 +26,7 @@ module Hotpages::Extension
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
 
     def apply_all! = entries_by_base.each { |_, entries| entries.each(&:apply!) }
-    def apply!(base) = entries_by_base[base]&.each(&:apply!)
+    def apply_on!(base) = entries_by_base[base]&.each(&:apply!)
 
     def bases = entries_by_base.keys
 
@@ -48,7 +48,7 @@ module Hotpages::Extension
     spec.apply_all!
     spec.bases.each do |base|
       hotpages_module.loader.on_load(base) do |klass, _abspath|
-        spec.apply!(klass.name)
+        spec.apply_on!(klass.name)
       end
     end
 

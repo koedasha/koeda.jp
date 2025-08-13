@@ -41,14 +41,21 @@ module Hotpages::Extension
 
   def spec = @spec ||= Spec.new
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
+  def add_helpers(*added_helpers) = helpers.concat(added_helpers)
 
-  def setup!(zeitwerk_loader)
+  using Hotpages::Refinements::String
+  def setup!(hotpages_module)
     spec.apply_all!
-
     spec.bases.each do |base|
-      zeitwerk_loader.on_load(base) do |klass, _abspath|
+      hotpages_module.loader.on_load(base) do |klass, _abspath|
         spec.apply!(klass.name)
       end
     end
+
+    hotpages_module.extension_helpers.concat(helpers.map(&:constantize))
   end
+
+  private
+
+  def helpers = @helpers ||= []
 end

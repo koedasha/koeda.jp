@@ -39,12 +39,14 @@ class Hotpages::Site
                                     : Object.const_set(ns_name, Module.new)
   end
 
+  using Hotpages::Refinements::String
   def helper_constants
-    Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
+    site_helpers = Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
       file_name = file.sub(helpers_path.to_s + "/", "").sub(/\.rb\z/, "")
-      const_name = file_name.classify
-      Object.const_defined?(const_name) && Object.const_get(const_name)
+      file_name.classify.constantize
     end
+
+    site_helpers + Hotpages.extension_helpers
   end
 
   module Paths

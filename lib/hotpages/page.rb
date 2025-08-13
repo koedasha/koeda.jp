@@ -21,7 +21,7 @@ class Hotpages::Page
     end
     attr_accessor :layout_path
 
-    def include_all_site_helpers
+    def include_all_helpers
       site.helper_constants.each do |helper_module|
         next if included_modules.include?(helper_module)
         include helper_module
@@ -43,7 +43,7 @@ class Hotpages::Page
     @layout_path = layout || self.class.layout_path
 
     # Include helpers dynamically here
-    self.class.include_all_site_helpers
+    self.class.include_all_helpers
   end
 
   def layout(layout_path)

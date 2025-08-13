@@ -26,10 +26,11 @@ module Hotpages
       Extensions::I18n
     ]
     def remove_extension(extension) = extensions.delete(extension)
+    def extension_helpers = @extension_helpers ||= []
 
     def config = @config ||= Config.defaults
 
-    def init = extensions.each { _1.setup!(loader) }
+    def init = extensions.each { _1.setup!(self) }
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)

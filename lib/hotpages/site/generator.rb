@@ -33,7 +33,8 @@ class Hotpages::Site::Generator
     page_instances.each do |page_instance|
       path_to_write = page_instance.expanded_base_path_with_extension
       file_path = site.dist_path.join(path_to_write)
-      with_logging("PAGE(locale:#{page_instance.locale || "none"})", file_path) do
+      locale_string = page_instance.respond_to?(:locale) ? " (locale: #{page_instance.locale || 'none'})" : ""
+      with_logging("PAGE#{locale_string}", file_path) do
         content = page_instance.render
         write_file(file_path, content)
       end

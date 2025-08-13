@@ -3,10 +3,12 @@ module Hotpages::Extension
     Entry = Data.define(:type, :base, :with) do
       def apply!
         base, with = get_consts
+        pp "Applying extension: #{with.name} to #{base.name} (#{type})"
         case type
         when :prepend
           base.prepend(with)
           if with.const_defined?(:ClassMethods, false)
+            pp "Adding ClassMethods to #{base.name}"
             base.extend(with::ClassMethods)
           end
         else

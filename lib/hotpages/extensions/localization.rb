@@ -3,9 +3,28 @@ require "fast_gettext"
 module Hotpages::Extensions::Localization
   extend Hotpages::Extension
 
+  prepending "Localization::LocalizableConfig", to: "Hotpages::Config"
   prepending "Localization::LocalizablePage", to: "Hotpages::Page"
   prepending "Localization::LocalizablePageFinder", to: "Hotpages::Page::Finder"
   prepending "Localization::LocalizableSite", to: "Hotpages::Site"
+
+  module LocalizableConfig
+    module ClassMethods
+      def defaults
+        pp "Creating default configuration for localization"
+        super.tap do |config|
+          config.site.add(
+            i18n: new(
+              locales: %w[ en ],
+              default_locale: "en",
+              locales_dir: "locales",
+              locale_file_format: :yaml
+            )
+          )
+        end
+      end
+    end
+  end
 
   module LocalizableSite
     GETTEXT_DOMAIN = "hotpages_site"

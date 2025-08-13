@@ -10,7 +10,11 @@ module Hotpages
   EXTENSIONS = [
     Extensions::Localization
   ]
-  EXTENSIONS.each { _1.setup!(self.loader) }
+  # EXTENSIONS.each { _1.setup!(self.loader) }
+  EXTENSIONS.each do
+    pp "Setting up extension: #{_1.name}"
+     _1.setup!(self.loader)
+  end
 
   class << self
     def reload

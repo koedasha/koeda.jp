@@ -1,5 +1,7 @@
 module Hotpages::Extension
   class Spec
+    using Hotpages::Refinements::String
+
     Entry = Data.define(:type, :base, :with) do
       def apply!
         base, with = get_consts
@@ -17,9 +19,7 @@ module Hotpages::Extension
       private
 
       def get_consts
-        b = Object.const_get(base, false)
-        w = Object.const_get(with, false)
-        [ b, w ]
+        [ base.constantize, with.constantize ]
       end
     end
 

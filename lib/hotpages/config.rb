@@ -2,10 +2,7 @@ class Hotpages::Config
   class << self
     def defaults
       new(
-        importmaps: {
-          "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.13/dist/turbo.es2017-esm.min.js",
-          "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm"
-        },
+        importmaps: {},
         assets: new(
           prefix: "/assets/",
         ),

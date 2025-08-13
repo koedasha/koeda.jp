@@ -63,7 +63,7 @@ class Hotpages::DevServer
   end
 
   def handle_assets_request(req, res)
-    asset_file_path = Hotpages.assets.find do |base_path, file|
+    asset_file_path = site.assets.find do |base_path, file|
       file.delete_prefix(base_path.to_s + "/") == req.path.delete_prefix(assets_prefix)
     end&.last
 

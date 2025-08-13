@@ -39,7 +39,18 @@ class Hotpages::Site
                                     : Object.const_set(ns_name, Module.new)
   end
 
-  using Hotpages::Refinements::String
+  def assets_paths = [ assets_path ]
+  def assets(filter_ext = nil)
+    Enumerator.new do |yielder|
+      assets_paths.each do |path|
+        Dir.glob(File.join(path, "**", "*#{filter_ext}")).select do |file|
+          next unless File.file?(file)
+          yielder << [ path, file ]
+        end
+      end
+    end
+  end
+
   def helper_constants
     site_helpers = Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
       file_name = file.sub(helpers_path.to_s + "/", "").sub(/\.rb\z/, "")

@@ -45,7 +45,7 @@ class Hotpages::Site::Generator
     dist: site.dist_path.join(site.assets_dir)
   )
     # Process CSSs
-    Hotpages.assets(".css").each do |base_path, css_file|
+    site.assets(".css").each do |base_path, css_file|
       dist_file = css_file.sub(base_path.to_s, dist.to_s)
       with_logging("ASSET(CSS)", dist_file) do
         content = File.read(css_file)
@@ -61,7 +61,7 @@ class Hotpages::Site::Generator
     end
 
     # Copy other asset files as-is
-    Hotpages.assets.each do |base_path, file|
+    site.assets.each do |base_path, file|
       next if File.directory?(file) || file.end_with?(".css")
       dist_file = file.sub(base_path.to_s, dist.to_s)
       with_logging("ASSET", dist_file) do

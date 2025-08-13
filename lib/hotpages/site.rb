@@ -3,7 +3,6 @@ require "pathname"
 
 class Hotpages::Site
   extend Forwardable
-  prepend Localizable
   using Hotpages::Refinements::String
 
   class << self

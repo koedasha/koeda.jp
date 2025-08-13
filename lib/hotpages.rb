@@ -7,6 +7,11 @@ module Hotpages
   end
   self.loader.setup
 
+  EXTENSIONS = [
+    Extensions::Localization
+  ]
+  EXTENSIONS.each { _1.setup!(self.loader) }
+
   class << self
     def reload
       loader.reload

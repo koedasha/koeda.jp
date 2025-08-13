@@ -42,9 +42,6 @@ module Hotpages
       site
     end
 
-    # TODO: move assets related methods to Site
-    # def assets_path = File.join(__dir__, "hotpages/assets")
-
     def dev_server
       raise "Site is not set. Please call Hotpages.setup_site first." unless site
       @dev_server ||= Hotpages::DevServer.new(site: site)

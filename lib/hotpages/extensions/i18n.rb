@@ -1,17 +1,16 @@
 require "fast_gettext"
 
-module Hotpages::Extensions::Localization
+module Hotpages::Extensions::I18n
   extend Hotpages::Extension
 
-  prepending "Localization::LocalizableConfig", to: "Hotpages::Config"
-  prepending "Localization::LocalizablePage", to: "Hotpages::Page"
-  prepending "Localization::LocalizablePageFinder", to: "Hotpages::Page::Finder"
-  prepending "Localization::LocalizableSite", to: "Hotpages::Site"
+  prepending "#{name}::Config", to: "Hotpages::Config"
+  prepending "#{name}::Page", to: "Hotpages::Page"
+  prepending "#{name}::PageFinder", to: "Hotpages::Page::Finder"
+  prepending "#{name}::Site", to: "Hotpages::Site"
 
-  module LocalizableConfig
+  module Config
     module ClassMethods
       def defaults
-        pp "Creating default configuration for localization"
         super.tap do |config|
           config.site.add(
             i18n: new(
@@ -26,7 +25,7 @@ module Hotpages::Extensions::Localization
     end
   end
 
-  module LocalizableSite
+  module Site
     GETTEXT_DOMAIN = "hotpages_site"
     Gettext = FastGettext
 
@@ -67,12 +66,10 @@ module Hotpages::Extensions::Localization
     def i18n_config = config.site.i18n
   end
 
-  module LocalizablePage
+  module Page
     include FastGettext::Translation
 
     module ClassMethods
-      include Hotpages::Page::Expandable::ClassMethods
-
       def expand_instances_for(...)
         instances = super
         instances.flat_map do |instance|
@@ -98,7 +95,7 @@ module Hotpages::Extensions::Localization
     def render = site.with_locale(locale) { super }
   end
 
-  module LocalizablePageFinder
+  module PageFinder
     def find(requested_path)
       locale_regexp = %r{\A/?(#{site.locales.join("|")})/}
 

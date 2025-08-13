@@ -24,12 +24,6 @@ class Hotpages::Config
             # Set this when deploying the site to a subdirectory.
             links_base_url: ""
           )
-          # i18n: new(
-          #   locales: [],
-          #   default_locale: nil,
-          #   locales_dir: "locales",
-          #   locale_file_format: :yaml
-          # )
         ),
         dev_server: new(
           port: 4000,
@@ -46,8 +40,8 @@ class Hotpages::Config
     end
   end
 
-  def add(**others)
-    others.each do |key, value|
+  def add(**configs)
+    configs.each do |key, value|
       define_attribute(key, value)
     end
     self

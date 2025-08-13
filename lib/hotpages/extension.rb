@@ -3,13 +3,11 @@ module Hotpages::Extension
     Entry = Data.define(:type, :base, :with) do
       def apply!
         base, with = get_consts
-        pp "Applying extension: #{with.name} to #{base.name} (#{type})"
         case type
         when :prepend
           base.prepend(with)
           if with.const_defined?(:ClassMethods, false)
-            pp "Adding ClassMethods to #{base.name}"
-            base.extend(with::ClassMethods)
+            base.singleton_class.prepend(with::ClassMethods)
           end
         else
           raise "Unknown extension type: #{type}"
@@ -19,8 +17,8 @@ module Hotpages::Extension
       private
 
       def get_consts
-        b = Object.const_get(base)
-        w = Hotpages::Extensions.const_get(with, false)
+        b = Object.const_get(base, false)
+        w = Object.const_get(with, false)
         [ b, w ]
       end
     end
@@ -28,7 +26,7 @@ module Hotpages::Extension
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
 
     def apply_all! = entries_by_base.each { |_, entries| entries.each(&:apply!) }
-    def apply_to!(base) = entries_by_base[base]&.each(&:apply!)
+    def apply!(base) = entries_by_base[base]&.each(&:apply!)
 
     def bases = entries_by_base.keys
 
@@ -49,7 +47,7 @@ module Hotpages::Extension
 
     spec.bases.each do |base|
       zeitwerk_loader.on_load(base) do |klass, _abspath|
-        spec.apply_to!(klass.name)
+        spec.apply!(klass.name)
       end
     end
   end

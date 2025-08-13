@@ -23,7 +23,8 @@ module Hotpages
     end
 
     def extensions = @extensions ||= [
-      Extensions::I18n, Extensions::Hotwire
+      Extensions::I18n,
+      Extensions::Hotwire
     ]
     def remove_extension(extension) = extensions.delete(extension)
     def extension_helpers = @extension_helpers ||= []

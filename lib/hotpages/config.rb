@@ -2,10 +2,7 @@ class Hotpages::Config
   class << self
     def defaults
       new(
-        importmaps: {
-          "@hotwired/turbo": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.13/dist/turbo.es2017-esm.min.js",
-          "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm"
-        },
+        importmaps: {},
         assets: new(
           prefix: "/assets/",
         ),
@@ -23,12 +20,6 @@ class Hotpages::Config
             # Url prefix for page URLs when generating static files.
             # Set this when deploying the site to a subdirectory.
             links_base_url: ""
-          ),
-          i18n: new(
-            locales: [],
-            default_locale: nil,
-            locales_dir: "locales",
-            locale_file_format: :yaml
           )
         ),
         dev_server: new(
@@ -42,16 +33,15 @@ class Hotpages::Config
 
   def initialize(defaults)
     defaults.each do |key, value|
-      self.define_singleton_method(key) do
-        instance_variable_get("@#{key}")
-      end
-
-      instance_variable_set("@#{key}", value)
-
-      self.define_singleton_method("#{key}=") do |new_value|
-        instance_variable_set("@#{key}", new_value)
-      end
+      define_attribute(key, value)
     end
+  end
+
+  def add(**configs)
+    configs.each do |key, value|
+      define_attribute(key, value)
+    end
+    self
   end
 
   def to_h
@@ -69,5 +59,19 @@ class Hotpages::Config
     end
 
     hash
+  end
+
+  private
+
+  def define_attribute(name, value)
+    self.define_singleton_method(name) do
+      instance_variable_get("@#{name}")
+    end
+
+    instance_variable_set("@#{name}", value)
+
+    self.define_singleton_method("#{name}=") do |new_value|
+      instance_variable_set("@#{name}", new_value)
+    end
   end
 end

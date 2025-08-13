@@ -7,23 +7,6 @@ class Hotpages::Page::Finder
     @site = site
   end
 
-  module Localizable
-    def find(requested_path)
-      locale_regexp = %r{\A/?(#{site.locales.join("|")})/}
-
-      if site.locales.any? && requested_path =~ locale_regexp
-        locale = $1
-        unlocalized_path = "/" + requested_path.sub(locale_regexp, "")
-        super(unlocalized_path).tap do |page|
-          page.locale = locale if page
-        end
-      else
-        super(requested_path)
-      end
-    end
-  end
-  prepend Localizable
-
   # Generic finding logic for pages based on the requested path.
   # TODO: Static O(1) finding logic for pages generation with instances cache
   def find(requested_path)

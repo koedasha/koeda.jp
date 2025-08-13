@@ -26,7 +26,7 @@ module Hotpages::Page::Expandable
 
         next nil if names.nil?
 
-        [namespace.underscore.to_sym, names]
+        [ namespace.underscore.to_sym, names ]
       end.compact.to_h
 
       # Not expanded
@@ -63,10 +63,10 @@ module Hotpages::Page::Expandable
 
   def expanded_base_path_with_extension
     ext = if template_extension.nil?
-            "html"
-          else
-            template_extension.split(".").first
-          end
-    [expanded_base_path, ext].compact.join(".")
+      "html"
+    else
+      template_extension.split(".").first
+    end
+    [ expanded_base_path, ext ].compact.join(".")
   end
 end

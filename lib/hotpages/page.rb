@@ -2,7 +2,7 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable, Instantiation
-  include Expandable, Localizable, Renderable
+  include Expandable, Renderable
   include Hotpages::Helpers
 
   class << self
@@ -21,7 +21,7 @@ class Hotpages::Page
     end
     attr_accessor :layout_path
 
-    def include_all_site_helpers
+    def include_all_helpers
       site.helper_constants.each do |helper_module|
         next if included_modules.include?(helper_module)
         include helper_module
@@ -32,9 +32,8 @@ class Hotpages::Page
   layout :site # Default layout path, can be overridden by individual pages
 
   attr_reader :base_path, :segments, :name, :site, :config, :template_extension, :layout_path
-  attr_accessor :locale
 
-  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil, locale: nil)
+  def initialize(base_path:, segments: {}, name: nil, template_extension: nil, layout: nil)
     @base_path = base_path
     @segments = segments
     @name = name || base_path.split("/").last
@@ -43,11 +42,8 @@ class Hotpages::Page
     @template_extension = template_extension
     @layout_path = layout || self.class.layout_path
 
-    # Localizable
-    @locale = locale || config.site.i18n.default_locale
-
     # Include helpers dynamically here
-    self.class.include_all_site_helpers
+    self.class.include_all_helpers
   end
 
   def layout(layout_path)

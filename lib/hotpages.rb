@@ -22,7 +22,16 @@ module Hotpages
       site.teardown if site
     end
 
+    def extensions = @extensions ||= [
+      Extensions::I18n,
+      Extensions::Hotwire
+    ]
+    def remove_extension(extension) = extensions.delete(extension)
+    def extension_helpers = @extension_helpers ||= []
+
     def config = @config ||= Config.defaults
+
+    def init = extensions.each { _1.setup!(self) }
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)
@@ -32,19 +41,6 @@ module Hotpages
       yield(site) if block_given?
 
       site
-    end
-
-    def assets_path = File.join(__dir__, "hotpages/assets")
-    def assets_paths = [ assets_path, site.assets_path ].compact
-    def assets(filter_ext = nil)
-      Enumerator.new do |yielder|
-        assets_paths.each do |path|
-          Dir.glob(File.join(path, "**", "*#{filter_ext}")).select do |file|
-            next unless File.file?(file)
-            yielder << [ path, file ]
-          end
-        end
-      end
     end
 
     def dev_server

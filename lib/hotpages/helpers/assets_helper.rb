@@ -27,7 +27,7 @@ module Hotpages::Helpers::AssetsHelper
 
   def javascript_importmap_tags(entrypoint: "site.js")
     file_imports =
-      Hotpages.assets(".js").each.with_object({}) do |(base_path, file), imports|
+      site.assets(".js").each.with_object({}) do |(base_path, file), imports|
         relative_path = file.sub(base_path.to_s, "").delete_prefix("/")
         next if relative_path == entrypoint
         imports[relative_path.delete_suffix(".js").to_sym] = asset_path(relative_path, directory: base_path)

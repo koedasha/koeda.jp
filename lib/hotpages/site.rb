@@ -52,12 +52,10 @@ class Hotpages::Site
   end
 
   def helper_constants
-    site_helpers = Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
+    Dir.glob(helpers_path.join("**/*_helper.rb")).map do |file|
       file_name = file.sub(helpers_path.to_s + "/", "").sub(/\.rb\z/, "")
       file_name.classify.constantize
     end
-
-    site_helpers + Hotpages.extension_helpers
   end
 
   module Paths

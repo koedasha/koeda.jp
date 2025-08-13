@@ -27,11 +27,18 @@ module Hotpages
       Extensions::Hotwire
     ]
     def remove_extension(extension) = extensions.delete(extension)
-    def extension_helpers = @extension_helpers ||= []
+    def setup_extensions!
+      # Load all extensions here and add Entry to Spec by referencing them
+      extensions
+
+      Extension.setup!
+    end
 
     def config = @config ||= Config.defaults
 
-    def init = extensions.each { _1.setup!(self) }
+    def init
+      setup_extensions!
+    end
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)

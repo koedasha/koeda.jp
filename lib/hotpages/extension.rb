@@ -1,6 +1,10 @@
+require "singleton"
+
 module Hotpages::Extension
+  using Hotpages::Refinements::String
+
   class Spec
-    using Hotpages::Refinements::String
+    include Singleton
 
     Entry = Data.define(:type, :base, :with) do
       def apply!
@@ -10,6 +14,11 @@ module Hotpages::Extension
           base.prepend(with)
           if with.const_defined?(:ClassMethods, false)
             base.singleton_class.prepend(with::ClassMethods)
+          end
+        when :include
+          base.include(with)
+          if with.const_defined?(:ClassMethods, false)
+            base.extend(with)
           end
         else
           raise "Unknown extension type: #{type}"
@@ -24,6 +33,11 @@ module Hotpages::Extension
     end
 
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
+    def add_helpers(*added_helpers)
+      added_helpers.each do |helper|
+        add_entry(Entry.new(:include, "Hotpages::Page", helper))
+      end
+    end
 
     def apply_all! = entries_by_base.each { |_, entries| entries.each(&:apply!) }
     def apply_on!(base) = entries_by_base[base]&.each(&:apply!)
@@ -39,24 +53,19 @@ module Hotpages::Extension
     end
   end
 
-  def spec = @spec ||= Spec.new
-  def prepending(with = self.name, to:) = spec.prepending(with, to:)
-  def add_helpers(*added_helpers) = helpers.concat(added_helpers)
-  def add_helper(added_helper) = add_helpers(added_helper)
-
-  using Hotpages::Refinements::String
-  def setup!(hotpages_module)
-    spec.apply_all!
-    spec.bases.each do |base|
-      hotpages_module.loader.on_load(base) do |klass, _abspath|
-        spec.apply_on!(klass.name)
+  class << self
+    def setup!(loader: Hotpages.loader, spec: Spec.instance)
+      spec.apply_all!
+      spec.bases.each do |base|
+        loader.on_load(base) do |klass, _abspath|
+          spec.apply_on!(klass.name)
+        end
       end
     end
-
-    hotpages_module.extension_helpers.concat(helpers.map(&:constantize))
   end
 
-  private
-
-  def helpers = @helpers ||= []
+  def spec = @spec ||= Spec.instance
+  def prepending(with = self.name, to:) = spec.prepending(with, to:)
+  def add_helpers(*added_helpers) = spec.add_helpers(*added_helpers)
+  def add_helper(added_helper) = add_helpers(added_helper)
 end

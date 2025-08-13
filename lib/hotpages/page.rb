@@ -42,9 +42,6 @@ class Hotpages::Page
     @template_extension = template_extension
     @layout_path = layout || self.class.layout_path
 
-    # Localizable
-    @locale = locale || config.site.i18n.default_locale
-
     # Include helpers dynamically here
     self.class.include_all_site_helpers
   end

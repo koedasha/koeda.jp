@@ -20,7 +20,7 @@ module Hotpages::Extensions::I18n
               default_locale: "en",
               locales_dir: "locales",
               locale_file_format: :yaml,
-              unlocalized_path_patterns: [ /CNAME$/, /sitemap.xml$/ ]
+              unlocalized_path_patterns: [ /CNAME\z/, /sitemap.xml\z/, /robot.txt\z/ ]
             )
           )
         end

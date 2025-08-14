@@ -84,8 +84,9 @@ class Hotpages::Page::Finder
 
     return nil if page_class.phantom? && !page.template_file_exist?
 
-    if "#{page_path}#{extension}" == page.expanded_base_path_with_extension ||
-        page_path == page.expanded_base_path_with_extension # For paths without extension
+    page_url = page.expanded_url(omit_html_ext: false, omit_index: false)
+    if "#{page_path}#{extension}" == page_url ||
+        page_path == page_url # For paths without extension
       page
     else
       nil

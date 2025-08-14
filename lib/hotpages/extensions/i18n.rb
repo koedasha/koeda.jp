@@ -92,7 +92,7 @@ module Hotpages::Extensions::I18n
     def locale = @locale || config.site.i18n.default_locale
     def localizable?
       config.site.i18n.unlocalized_path_patterns.none? do |unlocalized_path_pattern|
-        expanded_base_path_with_extension =~ unlocalized_path_pattern
+        expanded_url =~ unlocalized_path_pattern
       end
     end
 

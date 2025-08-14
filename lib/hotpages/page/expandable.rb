@@ -61,12 +61,18 @@ module Hotpages::Page::Expandable
     File.join(*expanded_segments)
   end
 
-  def expanded_base_path_with_extension
+  def expanded_url(omit_html_ext: true, omit_index: true)
     ext = if template_extension.nil?
       "html"
     else
       template_extension.split(".").first
     end
-    [ expanded_base_path, ext ].compact.join(".")
+
+    url = [ expanded_base_path, ext ].compact.join(".")
+
+    url = url.delete_suffix("index.html") if omit_index && url.end_with?("/index.html")
+    url = url.delete_suffix(".html") if omit_html_ext
+
+    url
   end
 end

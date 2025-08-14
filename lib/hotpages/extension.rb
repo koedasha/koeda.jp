@@ -64,7 +64,7 @@ module Hotpages::Extension
     end
   end
 
-  def spec = @spec ||= Spec.instance
+  def spec = Spec.instance
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
   def add_helpers(*added_helpers) = spec.add_helpers(*added_helpers)
   def add_helper(added_helper) = add_helpers(added_helper)

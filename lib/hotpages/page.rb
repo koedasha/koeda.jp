@@ -55,17 +55,4 @@ class Hotpages::Page
           "please provide body method or template file."
   end
   def body_type = "html.erb"
-
-  def last_modified_at
-    [ page_template.file_last_modified_at,
-      ruby_file_last_modified_at ]
-      .compact.max
-  end
-
-  private
-
-  def ruby_file_last_modified_at
-    path = site.pages_path.join(base_path, ".rb")
-    File.file?(path) ? File.mtime(path) : nil
-  end
 end

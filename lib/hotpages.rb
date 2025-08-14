@@ -24,7 +24,8 @@ module Hotpages
 
     def extensions = @extensions ||= [
       Extensions::I18n,
-      Extensions::Hotwire
+      Extensions::Hotwire,
+      Extensions::PageMtime
     ]
     def remove_extension(extension) = extensions.delete(extension)
     def setup_extensions!

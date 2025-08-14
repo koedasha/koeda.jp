@@ -33,6 +33,7 @@ module Hotpages::Extension
     end
 
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
+    def including(with, to:) = add_entry(Entry.new(:include, to, with))
     def add_helpers(*added_helpers)
       added_helpers.each do |helper|
         add_entry(Entry.new(:include, "Hotpages::Page", helper))
@@ -65,7 +66,9 @@ module Hotpages::Extension
   end
 
   def spec = Spec.instance
+
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
+  def including(with = self.name, to:) = spec.including(with, to:)
   def add_helpers(*added_helpers) = spec.add_helpers(*added_helpers)
   def add_helper(added_helper) = add_helpers(added_helper)
 end

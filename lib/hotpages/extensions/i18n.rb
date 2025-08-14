@@ -127,13 +127,15 @@ module Hotpages::Extensions::I18n
     private
 
     def prefix_page_url(url)
-      url = super
+      return url unless url.start_with?("/")
 
-      if locale && !site.default_locale?(locale)
+      url = if locale && !site.default_locale?(locale)
         "/#{locale}#{url}"
       else
         url
       end
+
+      super(url)
     end
   end
 

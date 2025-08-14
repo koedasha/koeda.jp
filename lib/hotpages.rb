@@ -8,6 +8,8 @@ module Hotpages
   self.loader.setup
 
   class << self
+    def eager_load = loader.eager_load
+
     def reload
       loader.reload
     rescue Zeitwerk::SetupRequired

@@ -18,8 +18,11 @@ class Hotpages::DevServer
 
   def start(gem_development: false)
     @gem_development = gem_development
-    # TDOO: eager_load Hotpages libs when gem development is off
+
     logger.info "Starting development server on port #{port}..."
+
+    Hotpages.eager_load unless gem_development
+
     setup_routes
     server.start
   end

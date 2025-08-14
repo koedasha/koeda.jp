@@ -19,7 +19,8 @@ module Hotpages::Extensions::I18n
               locales: %w[ en ],
               default_locale: "en",
               locales_dir: "locales",
-              locale_file_format: :yaml
+              locale_file_format: :yaml,
+              unlocalized_path_patterns: [ /CNAME$/, /sitemap.xml$/ ]
             )
           )
         end
@@ -75,16 +76,25 @@ module Hotpages::Extensions::I18n
       def expand_instances_for(...)
         instances = super
         instances.flat_map do |instance|
-          localized_instances = site.locales_without_default.map do |locale|
-            instance.dup.tap { _1.locale = locale }
+          if instance.localizable?
+            localized_instances = site.locales_without_default.map do |locale|
+              instance.dup.tap { _1.locale = locale }
+            end
+            [ instance, *localized_instances ]
+          else
+            [ instance ]
           end
-          [ instance, *localized_instances ]
         end
       end
     end
 
     attr_writer :locale
     def locale = @locale || config.site.i18n.default_locale
+    def localizable?
+      config.site.i18n.unlocalized_path_patterns.none? do |unlocalized_path_pattern|
+        expanded_base_path_with_extension =~ unlocalized_path_pattern
+      end
+    end
 
     def expanded_base_path(locale: self.locale)
       unlocalized_path = super()

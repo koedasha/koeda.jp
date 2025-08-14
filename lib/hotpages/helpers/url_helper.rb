@@ -10,10 +10,10 @@ module Hotpages::Helpers::UrlHelper
     &block
   )
     text, url = if url_or_nil
-                  [text_or_url, url_or_nil]
-                else
-                  [nil, text_or_url]
-                end
+      [ text_or_url, url_or_nil ]
+    else
+      [ nil, text_or_url ]
+    end
 
     if page_url?(url)
       if check_broken && !page_exists?(url)

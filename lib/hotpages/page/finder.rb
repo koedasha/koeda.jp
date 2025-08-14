@@ -74,9 +74,9 @@ class Hotpages::Page::Finder
     return nil if base_path =~ IGNORED_PATH_REGEXP
 
     files = Dir.glob("#{page_file_path}.*")
-    files += [page_file_path] if File.file?(page_file_path)
+    files += [ page_file_path ] if File.file?(page_file_path)
     non_rb_exts = files
-      .map { |path| File.basename(path).split('.')[1..].join('.') }
+      .map { |path| File.basename(path).split(".")[1..].join(".") }
       .reject { _1 == "rb" }
     template_extension = non_rb_exts.empty? ? nil : non_rb_exts.first
 
@@ -99,7 +99,7 @@ class Hotpages::Page::Finder
   def normalize_path(path)
     path = path.delete_suffix(File.extname(path))
     path = "#{path}index" if path.end_with?("/")
-    path = path.sub(%r{^/}, '') # Remove leading slash if present
+    path = path.sub(%r{^/}, "") # Remove leading slash if present
     path
   end
 end

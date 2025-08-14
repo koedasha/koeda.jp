@@ -28,7 +28,7 @@ class Hotpages::DevServer::WebSocket
 
   def handshake(req, res)
     ws_key = req.header["sec-websocket-key"].first
-    response_key = Digest::SHA1.base64digest([ws_key, "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"].join)
+    response_key = Digest::SHA1.base64digest([ ws_key, "258EAFA5-E914-47DA-95CA-C5AB0DC85B11" ].join)
 
     res.status = 101
     res.upgrade!("websocket")
@@ -41,7 +41,7 @@ class Hotpages::DevServer::WebSocket
 
   def broadcast(message)
     json = JSON.generate(message)
-    output = [0b10000001, json.size, json]
+    output = [ 0b10000001, json.size, json ]
     data = output.pack("CCA#{json.size}")
 
     sockets.each do |socket|

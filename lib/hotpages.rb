@@ -7,6 +7,12 @@ module Hotpages
   end
   self.loader.setup
 
+  DEFAULT_EXTENSIONS = [
+    Extensions::I18n,
+    Extensions::Hotwire,
+    Extensions::PageMtime
+  ]
+
   class << self
     def eager_load = loader.eager_load
 
@@ -24,23 +30,13 @@ module Hotpages
       site.teardown if site
     end
 
-    def extensions = @extensions ||= [
-      Extensions::I18n,
-      Extensions::Hotwire,
-      Extensions::PageMtime
-    ]
+    def extensions = @extensions ||= DEFAULT_EXTENSIONS
     def remove_extension(extension) = extensions.delete(extension)
-    def setup_extensions!
-      # Load all extensions here and add Entry to Spec by referencing them
-      extensions
-
-      Extension.setup!
-    end
 
     def config = @config ||= Config.defaults
 
     def init
-      setup_extensions!
+      Extension.setup!
     end
 
     attr_accessor :site

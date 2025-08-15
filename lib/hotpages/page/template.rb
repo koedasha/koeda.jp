@@ -13,7 +13,7 @@ class Hotpages::Page::Template
     @directory = directory
 
     @name = [ base_path, extension ].compact.join(".").chomp(".")
-    @absolute_path = File.join(*[ directory, @name ].compact)
+    @abs_name = File.join(*[ directory, @name ].compact)
     @body = body
   end
 
@@ -23,7 +23,7 @@ class Hotpages::Page::Template
 
   private
 
-  attr_reader :extension, :base_path, :directory, :name, :absolute_path, :body
+  attr_reader :extension, :base_path, :directory, :name, :abs_name, :body
 
   def extensions = @extensions ||= extension.split(".")
 
@@ -32,7 +32,7 @@ class Hotpages::Page::Template
   def new_tilt(&block)
     if extensions.empty?
       # When extension is not provided, use PlainTemplate
-      Tilt::PlainTemplate.new(absolute_path, &block)
+      Tilt::PlainTemplate.new(abs_name, &block)
     elsif extensions.length > 1
       options = if extensions.include?("erb")
         { "erb" => ERB_OPTIONS }
@@ -42,11 +42,11 @@ class Hotpages::Page::Template
 
       # TODO: Correctly handle registering pipelines
       Tilt.register_pipeline(extension, options)
-      Tilt.new(absolute_path, &block)
+      Tilt.new(abs_name, &block)
     elsif extensions.include?("erb")
-      Tilt.new(absolute_path, **ERB_OPTIONS, &block)
+      Tilt.new(abs_name, **ERB_OPTIONS, &block)
     else
-      Tilt.new(absolute_path, &block)
+      Tilt.new(abs_name, &block)
     end
   end
 end

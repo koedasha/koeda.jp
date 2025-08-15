@@ -20,6 +20,6 @@ module Hotpages::Extensions::PageMtime
   end
 
   module Template
-    def file_last_modified_at = render_file? ? File.mtime(absolute_path) : nil
+    def file_last_modified_at = render_file? ? File.mtime(abs_name) : nil
   end
 end

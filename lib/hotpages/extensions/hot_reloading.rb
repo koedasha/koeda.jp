@@ -14,7 +14,7 @@ module Hotpages::Extensions::HotReloading
     @web_socket = WebSocket.new
     @web_socket_url = "ws://#{host}:#{port}"
     # Set wait_for_delay to 0.2 seconds for more stable hot reloading
-    @file_listener = Listen.to(site.root_path, wait_for_delay: 0.2) do |modified, added, removed|
+    @file_listener = Listen.to(site.root, wait_for_delay: 0.2) do |modified, added, removed|
       (modified + added + removed).each do |changed_file|
         handle_file_change(changed_file)
       end
@@ -55,7 +55,7 @@ module Hotpages::Extensions::HotReloading
   end
 
   def handle_file_change(file_path)
-    file_path_to_notify = file_path.sub(site.root, "")
+    file_path_to_notify = file_path.sub(site.root.to_s, "")
 
     if file_path.start_with?(site.assets_path.to_s)
       case file_path

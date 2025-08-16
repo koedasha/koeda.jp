@@ -8,7 +8,11 @@ class Hotpages::Site
   class << self
     def inherited(base)
       super
+
       Hotpages::Extension.setup!
+
+      base_class_location = Object.const_source_location(base.name).first
+      config.site.root = Pathname.new(base_class_location).join("../site")
     end
 
     def config = @config ||= Hotpages.config
@@ -70,14 +74,13 @@ class Hotpages::Site
       root dist_dir models_dir helpers_dir layouts_dir assets_dir pages_dir shared_dir
     ] => :site_config
 
-    def root_path = @root_path ||= Pathname.new(root)
-    def dist_path = root_path.join(dist_dir)
-    def models_path = root_path.join(models_dir)
-    def helpers_path = root_path.join(helpers_dir)
-    def layouts_path = root_path.join(layouts_dir)
-    def assets_path = root_path.join(assets_dir)
-    def pages_path = root_path.join(pages_dir)
-    def shared_path = root_path.join(shared_dir)
+    def dist_path = root.join(dist_dir)
+    def models_path = root.join(models_dir)
+    def helpers_path = root.join(helpers_dir)
+    def layouts_path = root.join(layouts_dir)
+    def assets_path = root.join(assets_dir)
+    def pages_path = root.join(pages_dir)
+    def shared_path = root.join(shared_dir)
 
     private
 

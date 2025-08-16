@@ -10,7 +10,7 @@ class Hotpages::Site::Loader
       loader.push_dir(site.models_path)
       loader.push_dir(site.helpers_path)
       loader.push_dir(site.shared_path)
-      loader.collapse(site.root_path.join("*/concerns"))
+      loader.collapse(site.root.join("*/concerns"))
       loader.enable_reloading
     end
   end

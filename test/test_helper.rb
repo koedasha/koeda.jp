@@ -8,10 +8,6 @@ class TestSite < Hotpages::Site
   config.site.i18n.default_locale = "en"
 end
 
-Hotpages.setup_site(TestSite) do |site|
-  site.phantom_page_base_class = Page
-end
-
 Minitest.after_run do
   Hotpages.teardown
 end

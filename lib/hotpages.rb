@@ -36,19 +36,11 @@ module Hotpages
 
     def config = @config ||= Config.defaults
 
-    attr_accessor :site
-    def setup_site(site_class, &after_setup)
-      self.site = site_class.new
-      site.setup
-
-      yield(site) if block_given?
-
-      site
-    end
+    attr_accessor :site_class
+    def site = @site ||= Site.instance.tap(&:setup)
 
     def dev_server
-      raise "Site is not set. Please call Hotpages.setup_site first." unless site
-      @dev_server ||= Hotpages::DevServer.new(site: site)
+      @dev_server ||= Hotpages::DevServer.new(site:)
     end
   end
 end

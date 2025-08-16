@@ -1,13 +1,17 @@
+require "singleton"
 require "forwardable"
 require "pathname"
 
 class Hotpages::Site
+  include Singleton
   extend Forwardable
   using Hotpages::Refinements::String
 
   class << self
     def inherited(base)
       super
+
+      Hotpages.site_class = base
 
       Hotpages::Extension.setup!
 
@@ -16,6 +20,11 @@ class Hotpages::Site
     end
 
     def config = @config ||= Hotpages.config
+
+    attr_writer :phantom_page_base_class
+    def phantom_page_base_class(default_class_name: "Page")
+      @phantom_page_base_class || default_class_name.constantize
+    end
   end
 
   attr_reader :config
@@ -40,8 +49,6 @@ class Hotpages::Site
   end
 
   delegate %i[ generate generating? ] => :generator
-
-  attr_accessor :phantom_page_base_class
 
   def pages_namespace_module(ns_name = config.site.pages_namespace)
      Object.const_defined?(ns_name) ? Object.const_get(ns_name)

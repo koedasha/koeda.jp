@@ -31,6 +31,7 @@ module Hotpages
       site.teardown if site
     end
 
+    # To add/remove extensions, modify this array before calling Extension.setup!
     def extensions = @extensions ||= DEFAULT_EXTENSIONS
 
     def config = @config ||= Config.defaults

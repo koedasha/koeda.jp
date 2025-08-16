@@ -1,11 +1,7 @@
-require "singleton"
-
 module Hotpages::Extension
   using Hotpages::Refinements::String
 
   class Spec
-    include Singleton
-
     Entry = Data.define(:type, :base, :with) do
       def apply!
         base, with = get_consts
@@ -50,17 +46,21 @@ module Hotpages::Extension
   end
 
   class << self
-    def setup!(loader: Hotpages.loader, spec: Spec.instance)
-      spec.apply_all!
-      spec.bases.each do |base|
-        loader.on_load(base) do |klass, _abspath|
-          spec.apply_on!(klass.name)
-        end
-      end
+    def setup!(extensions: Hotpages.extensions, loader: Hotpages.loader)
+      extensions.each { _1.setup!(loader) }
     end
   end
 
-  def spec = Spec.instance
+  def spec = @spec ||= Spec.new
+
+  def setup!(loader)
+    spec.apply_all!
+    spec.bases.each do |base|
+      loader.on_load(base) do |klass, _abspath|
+        spec.apply_on!(klass.name)
+      end
+    end
+  end
 
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
   def including(with = self.name, to:) = spec.including(with, to:)

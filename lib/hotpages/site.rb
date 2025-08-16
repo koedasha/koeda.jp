@@ -20,11 +20,6 @@ class Hotpages::Site
     end
 
     def config = @config ||= Hotpages.config
-
-    attr_writer :phantom_page_base_class
-    def phantom_page_base_class(default_class_name: "Page")
-      @phantom_page_base_class || default_class_name.constantize
-    end
   end
 
   attr_reader :config
@@ -53,6 +48,10 @@ class Hotpages::Site
   def pages_namespace_module(ns_name = config.site.pages_namespace)
      Object.const_defined?(ns_name) ? Object.const_get(ns_name)
                                     : Object.const_set(ns_name, Module.new)
+  end
+
+  def phantom_page_base_class(class_name: config.site.phantom_page_base_class_name)
+    class_name.constantize
   end
 
   def assets_paths = [ assets_path ]

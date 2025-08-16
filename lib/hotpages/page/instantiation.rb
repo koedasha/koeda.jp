@@ -13,7 +13,7 @@ module Hotpages::Page::Instantiation
     class_name: "Page",
     phantom_class_name: "Page_",
     root_namespace: site.pages_namespace_module,
-    phantom_base_class: Hotpages.site_class.phantom_page_base_class
+    phantom_base_class: Hotpages.site.phantom_page_base_class
   )
     ns = namespaces.inject(root_namespace) do |ns, namespace|
       ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :

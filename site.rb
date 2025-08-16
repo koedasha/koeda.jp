@@ -1,7 +1,5 @@
 require "#{__dir__}/lib/hotpages"
 
-Hotpages::Extension.setup!
-
 class Site < Hotpages::Site
   config.site.root = File.join(__dir__, "site")
   config.site.i18n.locales = %w[ ja en ]

@@ -6,6 +6,11 @@ class Hotpages::Site
   using Hotpages::Refinements::String
 
   class << self
+    def inherited(base)
+      super
+      Hotpages::Extension.setup!
+    end
+
     def config = @config ||= Hotpages.config
   end
 

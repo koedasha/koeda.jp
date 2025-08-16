@@ -4,16 +4,13 @@ class Hotpages::DevServer
   def initialize(
     site:,
     host: "localhost",
-    port: Hotpages.config.dev_server.port,
-    hot_reload: Hotpages.config.dev_server.hot_reloading_enabled
+    port: Hotpages.config.dev_server.port
   )
     @site = site
     @host = host
     @port = port
     @logger = WEBrick::Log.new()
     @assets_prefix = Hotpages.config.assets.prefix
-
-    self.extend(HotReloading) if hot_reload
   end
 
   def start(gem_development: false)

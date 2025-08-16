@@ -10,7 +10,8 @@ module Hotpages
   DEFAULT_EXTENSIONS = [
     Extensions::I18n,
     Extensions::Hotwire,
-    Extensions::PageMtime
+    Extensions::PageMtime,
+    Extensions::HotReloading
   ]
 
   class << self
@@ -31,13 +32,8 @@ module Hotpages
     end
 
     def extensions = @extensions ||= DEFAULT_EXTENSIONS
-    def remove_extension(extension) = extensions.delete(extension)
 
     def config = @config ||= Config.defaults
-
-    def init
-      Extension.setup!
-    end
 
     attr_accessor :site
     def setup_site(site_class, &after_setup)

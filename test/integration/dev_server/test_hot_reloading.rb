@@ -8,7 +8,7 @@ class TestHotReloading < Minitest::Test
 
     @@port = 12346
     @@server_pid = fork do
-      server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port, hot_reload: true)
+      server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port)
       trap("TERM") { server.stop }
       server.start
     end

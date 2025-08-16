@@ -1,13 +1,17 @@
 require "listen"
 
-# TODO: JS support / E2E Testing
-module Hotpages::DevServer::HotReloading
+# TODO: E2E Testing
+module Hotpages::Extensions::HotReloading
+  extend Hotpages::Extension
+
+  prepending to: "Hotpages::DevServer"
+
   HOT_RELOADING_JS = "_hot_reloading.js"
 
   def start(gem_development: false)
     logger.info "Hot reloading enabled"
 
-    @web_socket = Hotpages::DevServer::WebSocket.new
+    @web_socket = WebSocket.new
     @web_socket_url = "ws://#{host}:#{port}"
     # Set wait_for_delay to 0.2 seconds for more stable hot reloading
     @file_listener = Listen.to(site.root_path, wait_for_delay: 0.2) do |modified, added, removed|
@@ -42,7 +46,7 @@ module Hotpages::DevServer::HotReloading
   def handle_request(req, res)
     if req.path == "/#{HOT_RELOADING_JS}"
       res["Content-Type"] = "application/javascript"
-      res.body = File.read(File.join(__dir__, HOT_RELOADING_JS))
+      res.body = File.read(File.join(__dir__, "hot_reloading", HOT_RELOADING_JS))
     elsif web_socket.handshake_request?(req)
       web_socket.handshake(req, res)
     else

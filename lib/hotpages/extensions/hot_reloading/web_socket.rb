@@ -3,7 +3,7 @@ require "json"
 
 # Very limited implementation of WebSocket for hot reloading to use with Webrick.
 # Supports only handshake and broadcasting
-class Hotpages::DevServer::WebSocket
+class Hotpages::Extensions::HotReloading::WebSocket
   module DontCloseAfterNonKeepAliveResponse
     def web_socket_closed? = !!@_ws_closed
     def close_web_socket

@@ -34,11 +34,6 @@ module Hotpages::Extension
 
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
     def including(with, to:) = add_entry(Entry.new(:include, to, with))
-    def add_helpers(*added_helpers)
-      added_helpers.each do |helper|
-        add_entry(Entry.new(:include, "Hotpages::Page", helper))
-      end
-    end
 
     def apply_all! = entries_by_base.each { |_, entries| entries.each(&:apply!) }
     def apply_on!(base) = entries_by_base[base]&.each(&:apply!)
@@ -69,6 +64,11 @@ module Hotpages::Extension
 
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
   def including(with = self.name, to:) = spec.including(with, to:)
-  def add_helpers(*added_helpers) = spec.add_helpers(*added_helpers)
-  def add_helper(added_helper) = add_helpers(added_helper)
+
+  def add_helpers(*added_helpers)
+    added_helpers.each do |helper|
+      including(helper, to: "Hotpages::Page")
+    end
+  end
+  def add_helper(added_helper = self.name) = add_helpers(added_helper)
 end

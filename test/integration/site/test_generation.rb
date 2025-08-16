@@ -13,8 +13,8 @@ class TestSiteGeneration < Minitest::Test
     expected_files = Dir.glob("#{expected_dist}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
     actual_files = Dir.glob("#{actual_dist}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
 
-    expected_relative_files = expected_files.map { |f| f.sub(/^#{Regexp.escape(expected_dist)}\//, '') }.sort
-    actual_relative_files = actual_files.map { |f| f.sub(/^#{Regexp.escape(actual_dist)}\//, '') }.sort
+    expected_relative_files = expected_files.map { |f| f.sub(/^#{Regexp.escape(expected_dist)}\//, "") }.sort
+    actual_relative_files = actual_files.map { |f| f.sub(/^#{Regexp.escape(actual_dist)}\//, "") }.sort
 
     assert_equal expected_relative_files, actual_relative_files
 

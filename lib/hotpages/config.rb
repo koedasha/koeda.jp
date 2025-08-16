@@ -24,7 +24,6 @@ class Hotpages::Config
         ),
         dev_server: new(
           port: 4000,
-          hot_reloading_enabled: true,
           backtrace_link_format: "vscode://file/%{file}:%{line}",
         )
       )

@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require "#{__dir__}/../lib/hotpages"
 
-Hotpages.init
+Hotpages::Extension.setup!
 
 class TestSite < Hotpages::Site
   config.site.root = File.join(__dir__, "test_site")

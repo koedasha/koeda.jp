@@ -1,6 +1,6 @@
 require "#{__dir__}/lib/hotpages"
 
-Hotpages.init
+Hotpages::Extension.setup!
 
 class Site < Hotpages::Site
   config.site.root = File.join(__dir__, "site")

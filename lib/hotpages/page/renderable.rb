@@ -32,5 +32,5 @@ module Hotpages::Page::Renderable
 
   private
 
-  def rendering_context = @rendering_context ||= Page::RenderingContext.new(self)
+  def rendering_context = @rendering_context ||= Hotpages::Page::RenderingContext.new(self)
 end

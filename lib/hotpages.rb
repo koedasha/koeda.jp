@@ -37,7 +37,7 @@ module Hotpages
     def config = @config ||= Config.defaults
 
     attr_accessor :site_class
-    def site = @site ||= Site.instance.tap(&:setup)
+    def site = @site ||= site_class.instance.tap(&:setup)
 
     def dev_server
       @dev_server ||= Hotpages::DevServer.new(site:)

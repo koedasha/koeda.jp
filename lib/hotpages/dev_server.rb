@@ -119,16 +119,16 @@ class Hotpages::DevServer
     HTML
   end
 
-  def render_backtrace_line(line)
+  def render_backtrace_line(backtrace)
     link_format = Hotpages.config.dev_server.backtrace_link_format
-    file_with_line, context = line.split(":in")
-    file, line = file_with_line.split(":")
 
     if link_format
+      file_with_line, context = backtrace.split(":in")
+      file, line = file_with_line.split(":")
       href = link_format % { file:, line: }
       "<a href=\"#{href}\">#{file}:#{line}</a>:in #{context}<br/>"
     else
-      line
+      backtrace
     end
   end
 

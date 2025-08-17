@@ -78,7 +78,8 @@ class Hotpages::Site
 
     delegate %i[ root directory ] => :site_config
 
-    def dist_path = root.join(directory.dist)
+    def dist_path = root.join(site_config.dist_path)
+
     def pages_path = root.join(directory.pages)
     def models_path = root.join(directory.models)
     def layouts_path = root.join(directory.layouts)

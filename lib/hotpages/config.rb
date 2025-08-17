@@ -9,8 +9,8 @@ class Hotpages::Config
         site: new(
           # The root path property is set by the framework, but can be overridden when defining the Site.
           root: nil,
+          dist_path: "../_site",
           directory: new(
-            dist: "../_site",
             pages: "pages",
             models: "models",
             layouts: "layouts",

@@ -53,7 +53,7 @@ module Hotpages::Extensions::I18n
     def default_locale = i18n_config.default_locale
     def locales_path = root.join(i18n_config.locales_directory)
     def default_locale?(locale) = default_locale.to_s == locale.to_s
-    def locales_without_default = locales.reject { default_locale?(_1) }
+    def locales_without_default = locales.reject { default_locale?(it) }
     def current_locale = Gettext.locale
     def current_locale=(locale)
       Gettext.locale = locale
@@ -78,7 +78,7 @@ module Hotpages::Extensions::I18n
         instances.flat_map do |instance|
           if instance.localizable?
             localized_instances = site.locales_without_default.map do |locale|
-              instance.dup.tap { _1.locale = locale }
+              instance.dup.tap { it.locale = locale }
             end
             [ instance, *localized_instances ]
           else
@@ -153,7 +153,7 @@ module Hotpages::Extensions::I18n
         tag.details do
           tag.summary { summary_body ? summary_body.call(current_locale) : current_locale.upcase } +
           tag.ul do
-            locales.reject { _1 == current_locale }.map do |locale|
+            locales.reject { it == current_locale }.map do |locale|
               tag.li do
                 tag.a(
                   href: localized_current_path(locale),

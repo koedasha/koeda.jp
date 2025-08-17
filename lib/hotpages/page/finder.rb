@@ -35,7 +35,7 @@ class Hotpages::Page::Finder
           next if !const.respond_to?(:segment_names) || !const.segment_names
 
           seg_names = const.segment_names.sort
-          if seg_names.bsearch { _1.to_s >= segment_name }.to_s == segment_name
+          if seg_names.bsearch { it.to_s >= segment_name }.to_s == segment_name
             page_class = const
             page_file_path += "/__#{const_name.to_s.underscore}__"
             name = segment_name
@@ -77,7 +77,7 @@ class Hotpages::Page::Finder
     files += [ page_file_path ] if File.file?(page_file_path)
     non_rb_exts = files
       .map { |path| File.basename(path).split(".")[1..].join(".") }
-      .reject { _1 == "rb" }
+      .reject { it == "rb" }
     template_extension = non_rb_exts.empty? ? nil : non_rb_exts.first
 
     page = page_class.new(base_path:, segments:, name:, template_extension:)

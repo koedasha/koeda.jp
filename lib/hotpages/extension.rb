@@ -47,7 +47,7 @@ module Hotpages::Extension
 
   class << self
     def setup!(extensions: Hotpages.extensions, loader: Hotpages.loader)
-      extensions.each { _1.setup!(loader) }
+      extensions.each { it.setup!(loader) }
     end
   end
 

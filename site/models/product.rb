@@ -12,7 +12,7 @@ Product = Data.define(:slug, :image, :name_ja, :copy_ja) do
       ]
     end
 
-    def segment_names = all.map { _1.slug }
+    def segment_names = all.map { it.slug }
 
     def find_by_slug(slug)
       all.find { |product| product.slug == slug }

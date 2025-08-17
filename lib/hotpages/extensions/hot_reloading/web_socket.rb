@@ -35,7 +35,7 @@ class Hotpages::Extensions::HotReloading::WebSocket
     res["Sec-WebSocket-Accept"] = response_key
 
     sockets << req.instance_variable_get(:@socket).tap do
-      _1.extend(DontCloseAfterNonKeepAliveResponse)
+      it.extend(DontCloseAfterNonKeepAliveResponse)
     end
   end
 

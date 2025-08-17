@@ -32,10 +32,10 @@ class Hotpages::Page::Template::Finder
       !dirname.start_with?("/") ? File.join(base_dir, dirname, underscore_basename) : nil,
       File.join(root_dir, dirname, basename),
       File.join(root_dir, dirname, underscore_basename)
-    ].compact.map { File.expand_path(_1) }
+    ].compact.map { File.expand_path(it) }
 
     search_paths.each do |path|
-      if file = Dir.glob("#{path}.*").find { File.file?(_1) }
+      if file = Dir.glob("#{path}.*").find { File.file?(it) }
         return PathData.from_absolute_path(file)
       else
         next

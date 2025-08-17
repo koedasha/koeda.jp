@@ -45,7 +45,7 @@ class TestHotReloading < Minitest::Test
       "Connection: upgrade",
       "Upgrade: websocket"
     ]
-    assert_equal expected_response, response.split("\r\n").reject { _1.start_with?("Server: ", "Date: ") }
+    assert_equal expected_response, response.split("\r\n").reject { it.start_with?("Server: ", "Date: ") }
 
     # Notify file changes
     # HTML

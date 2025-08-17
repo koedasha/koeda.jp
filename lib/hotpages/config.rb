@@ -7,14 +7,17 @@ class Hotpages::Config
           prefix: "/assets/",
         ),
         site: new(
+          # The root path property is set by the framework, but can be overridden when defining the Site.
           root: nil,
-          dist_dir: "../_site",
-          models_dir: "models",
-          helpers_dir: "helpers",
-          layouts_dir: "layouts",
-          assets_dir: "assets",
-          shared_dir: "shared",
-          pages_dir: "pages",
+          directory: new(
+            dist: "../_site",
+            pages: "pages",
+            models: "models",
+            layouts: "layouts",
+            helpers: "helpers",
+            assets: "assets",
+            shared: "shared"
+          ),
           pages_namespace: "Pages",
           phantom_page_base_class_name: "Page",
           generator: new(

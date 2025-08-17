@@ -76,17 +76,15 @@ class Hotpages::Site
   module Paths
     extend Forwardable
 
-    delegate %i[
-      root dist_dir models_dir helpers_dir layouts_dir assets_dir pages_dir shared_dir
-    ] => :site_config
+    delegate %i[ root directory ] => :site_config
 
-    def dist_path = root.join(dist_dir)
-    def models_path = root.join(models_dir)
-    def helpers_path = root.join(helpers_dir)
-    def layouts_path = root.join(layouts_dir)
-    def assets_path = root.join(assets_dir)
-    def pages_path = root.join(pages_dir)
-    def shared_path = root.join(shared_dir)
+    def dist_path = root.join(directory.dist)
+    def pages_path = root.join(directory.pages)
+    def models_path = root.join(directory.models)
+    def layouts_path = root.join(directory.layouts)
+    def helpers_path = root.join(directory.helpers)
+    def assets_path = root.join(directory.assets)
+    def shared_path = root.join(directory.shared)
 
     private
 

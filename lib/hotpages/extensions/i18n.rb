@@ -18,7 +18,7 @@ module Hotpages::Extensions::I18n
             i18n: new(
               locales: %w[ en ],
               default_locale: "en",
-              locales_dir: "locales",
+              locales_directory: "locales",
               locale_file_format: :yaml,
               unlocalized_path_patterns: [ /CNAME\z/, /sitemap.xml\z/, /robot.txt\z/ ]
             )
@@ -51,7 +51,7 @@ module Hotpages::Extensions::I18n
 
     def locales = i18n_config.locales
     def default_locale = i18n_config.default_locale
-    def locales_path = root.join(i18n_config.locales_dir)
+    def locales_path = root.join(i18n_config.locales_directory)
     def default_locale?(locale) = default_locale.to_s == locale.to_s
     def locales_without_default = locales.reject { default_locale?(_1) }
     def current_locale = Gettext.locale

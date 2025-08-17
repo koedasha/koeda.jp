@@ -24,7 +24,7 @@ module Hotpages::Page::Renderable
     rendering_context.cached_page_content = page_content
 
     if render_layout?
-      rendering_context.render(File.join(site.layouts_dir, layout_path.to_s))
+      rendering_context.render(File.join(site.directory.layouts, layout_path.to_s))
     else
       page_content
     end

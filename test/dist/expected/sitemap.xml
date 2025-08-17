@@ -6,11 +6,11 @@
   </url>
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-17</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/</loc>
-    <lastmod>2025-08-16</lastmod>
+    <lastmod>2025-08-17</lastmod>
   </url>
   <url>
     <loc>https://example.com/misc/just</loc>
@@ -105,11 +105,11 @@
     <loc>https://example.com/ja/products</loc>
   </url>
   <url>
-    <loc>https://example.com/robot</loc>
+    <loc>https://example.com/robot.txt</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
   <url>
-    <loc>https://example.com/sitemap</loc>
-    <lastmod>2025-08-11</lastmod>
+    <loc>https://example.com/sitemap.xml</loc>
+    <lastmod>2025-08-17</lastmod>
   </url>
 </urlset>

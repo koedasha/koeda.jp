@@ -70,7 +70,8 @@ module Hotpages::Page::Expandable
 
     url = [ expanded_base_path, ext ].compact.join(".")
 
-    url = url.delete_suffix("index.html") if omit_index && url.end_with?("/index.html")
+    url = url.delete_suffix("index.html") \
+      if omit_index && (url == "index.html" || url.end_with?("/index.html"))
     url = url.delete_suffix(".html") if omit_html_ext
 
     url

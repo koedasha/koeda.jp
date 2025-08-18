@@ -4,10 +4,10 @@ module Hotpages::Page::Renderable
 
   def page_template
     @page_template ||= begin
-      if !template_extension.nil? # `nil` if no template file is provided
-        Hotpages::Page::Template.new(@template_extension, base_path:, directory: site.pages_path)
-      else
+      if template_extension.nil? # `nil` if no template file is provided
         Hotpages::Page::Template.new(body_type) { body }
+      else
+        Hotpages::Page::Template.new(@template_extension, base_path:, directory: site.pages_path)
       end
     end
   end

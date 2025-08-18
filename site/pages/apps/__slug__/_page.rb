@@ -1,10 +1,14 @@
 class Pages::Apps::Slug::Page < Page
   layout :apps
 
-  def before_render
+  before_render :set_contents
+
+  def app = Product.find_by_slug(segments[:slug])
+
+  private
+
+  def set_contents
     content_for :app_name, app.name_ja
     content_for :app_image, app.image
   end
-
-  def app = Product.find_by_slug(segments[:slug])
 end

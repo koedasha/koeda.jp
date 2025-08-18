@@ -2,6 +2,7 @@ require "forwardable"
 
 class Hotpages::Page
   extend Forwardable, Instantiation
+  include Hotpages::Support::Hooks
   include Expandable, Renderable
   include Hotpages::Helpers
 
@@ -13,6 +14,7 @@ class Hotpages::Page
     def config = Hotpages.config
 
     def inherited(subclass)
+      super
       subclass.layout_path = self.layout_path.dup if self.layout_path
     end
 
@@ -28,6 +30,8 @@ class Hotpages::Page
       end
     end
   end
+
+  define_hook :render
 
   layout :site # Default layout path, can be overridden by individual pages
 

@@ -12,21 +12,18 @@ module Hotpages::Page::Renderable
     end
   end
 
-  # Rendering hook, can be overridden by subclasses
-  def before_render; end
-
   def render
-    before_render
+    with_calling_hooks(:render) do
+      # For capturing contents for rendering, render page first
+      page_content = page_template.render_in(rendering_context)
 
-    # For capturing contents for rendering, render page first
-    page_content = page_template.render_in(rendering_context)
+      rendering_context.cached_page_content = page_content
 
-    rendering_context.cached_page_content = page_content
-
-    if render_layout?
-      rendering_context.render(File.join(site.directory.layouts, layout_path.to_s))
-    else
-      page_content
+      if render_layout?
+        rendering_context.render(File.join(site.directory.layouts, layout_path.to_s))
+      else
+        page_content
+      end
     end
   end
 

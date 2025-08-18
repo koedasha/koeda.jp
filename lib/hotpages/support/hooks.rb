@@ -1,9 +1,14 @@
 module Hotpages::Support::Hooks
-  TYPES = {
-    before: "before",
-    after: "after",
-    around: "around"
-  }
+  Type = Data.define(:type) do
+    class << self
+      def before = new(:before)
+      def after = new(:after)
+      def around = new(:around)
+      def all = [ before, after, around ]
+    end
+
+    def name_for(hook) = "#{type}_#{hook}"
+  end
 
   class << self
     def included(base)
@@ -12,12 +17,12 @@ module Hotpages::Support::Hooks
   end
 
   def with_calling_hooks(hook_name, &block)
-    self.class.hooks["#{TYPES[:before]}_#{hook_name}"].each do |meth_name|
+    self.class.hooks[Type.before.name_for(hook_name)].each do |meth_name|
       method(meth_name).call
     end
 
     # Around hooks are called in reverse order of their definition (from the last defined to the first).
-    around_methods = self.class.hooks["#{TYPES[:around]}_#{hook_name}"].map do |meth_name|
+    around_methods = self.class.hooks[Type.around.name_for(hook_name)].map do |meth_name|
       method(meth_name)
     end
     result = nil
@@ -37,7 +42,7 @@ module Hotpages::Support::Hooks
       result = block.call
     end
 
-    self.class.hooks["#{TYPES[:after]}_#{hook_name}"].each do |meth_name|
+    self.class.hooks[Type.after.name_for(hook_name)].each do |meth_name|
       method(meth_name).call
     end
 
@@ -58,8 +63,8 @@ module Hotpages::Support::Hooks
     def define_hook(hook_name) = define_hooks(hook_name)
     def define_hooks(*hook_names)
       hook_names.each do |name|
-        TYPES.each do |_, type|
-          registered_name = "#{type}_#{name}"
+        Type.all.each do |type|
+          registered_name = type.name_for(name)
           hooks[registered_name] = []
           define_singleton_method registered_name do |hook_method_name|
             hooks[registered_name] << hook_method_name

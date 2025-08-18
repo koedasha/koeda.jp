@@ -24,7 +24,7 @@ class Hotpages::Config
           generator: new(
             # Url prefix for page URLs when generating static files.
             # Set this when deploying the site to a subdirectory.
-            links_base_url: ""
+            links_url_prefix: ""
           )
         ),
         dev_server: new(

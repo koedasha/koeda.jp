@@ -47,7 +47,7 @@ module Hotpages::Helpers::UrlHelper
     return url unless url.start_with?("/")
 
     if Hotpages.site.generating?
-      url = File.join(config.site.generator.links_base_url, url)
+      url = File.join(config.site.generator.links_url_prefix, url)
     end
 
     url

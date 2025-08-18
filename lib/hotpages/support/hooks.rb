@@ -56,9 +56,7 @@ module Hotpages::Support::Hooks
     end
 
     def hooks = @hooks ||= {}
-    def hooks=(hooks)
-      @hooks = hooks
-    end
+    attr_writer :hooks
 
     def define_hook(hook_name) = define_hooks(hook_name)
     def define_hooks(*hook_names)

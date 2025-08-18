@@ -1,5 +1,5 @@
 module Hotpages::Extension
-  using Hotpages::Refinements::String
+  using Hotpages::Support::StringInflections
 
   class Spec
     Entry = Data.define(:type, :base, :with) do

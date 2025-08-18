@@ -5,7 +5,7 @@ require "pathname"
 class Hotpages::Site
   include Singleton
   extend Forwardable
-  using Hotpages::Refinements::String
+  using Hotpages::Support::StringInflections
 
   class << self
     def inherited(base)

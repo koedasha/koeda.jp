@@ -1,5 +1,5 @@
 module Hotpages::Page::Instantiation
-  using Hotpages::Refinements::String
+  using Hotpages::Support::StringInflections
 
   IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
 

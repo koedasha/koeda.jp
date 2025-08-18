@@ -1,5 +1,5 @@
 class Hotpages::Page::Finder
-  using Hotpages::Refinements::String
+  using Hotpages::Support::StringInflections
 
   IGNORED_PATH_REGEXP = Hotpages::Page::Instantiation::IGNORED_PATH_REGEXP
 

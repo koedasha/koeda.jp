@@ -1,5 +1,5 @@
 module Hotpages::Page::Expandable
-  using Hotpages::Refinements::String
+  using Hotpages::Support::StringInflections
 
   EXPANDABLE_SEGMENT_REGEXP = /\A__(.+)__/.freeze
 

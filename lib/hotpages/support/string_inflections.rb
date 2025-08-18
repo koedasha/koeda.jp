@@ -1,4 +1,4 @@
-module Hotpages::Refinements::String
+module Hotpages::Support::StringInflections
   refine String do
     def underscore
       gsub(/::/, "/")

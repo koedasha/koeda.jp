@@ -32,6 +32,8 @@ module Hotpages
     end
 
     # To add/remove extensions, modify this array before calling Extension.setup!
+    # Extensions order is important, because initialization is performed in the order defined
+    # and this affects prepended/included modules' order.
     def extensions = @extensions ||= DEFAULT_EXTENSIONS
 
     def config = @config ||= Config.defaults

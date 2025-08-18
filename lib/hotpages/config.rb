@@ -7,8 +7,9 @@ class Hotpages::Config
           prefix: "/assets/",
         ),
         site: new(
-          # The root path property is set by the framework, but can be overridden when defining the Site.
+          # The root path property is set by the framework. Can be overridden when defining the Site.
           root: nil,
+          # dist_path should be relative to the root, or absolute path.
           dist_path: "../_site",
           directory: new(
             pages: "pages",

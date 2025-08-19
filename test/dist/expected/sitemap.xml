@@ -6,11 +6,11 @@
   </url>
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-19</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-19</lastmod>
   </url>
   <url>
     <loc>https://example.com/misc/just</loc>
@@ -51,6 +51,12 @@
   <url>
     <loc>https://example.com/ja/misc/no_ruby</loc>
     <lastmod>2025-07-17</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/misc/render_hooks</loc>
+  </url>
+  <url>
+    <loc>https://example.com/ja/misc/render_hooks</loc>
   </url>
   <url>
     <loc>https://example.com/posts/1/foo/</loc>

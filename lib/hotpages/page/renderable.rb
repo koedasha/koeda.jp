@@ -13,7 +13,12 @@ module Hotpages::Page::Renderable
   end
 
   def render
+    # Rendering flow starts from here
+    self.rendering_context = Hotpages::Page::RenderingContext.new(self)
+
     with_calling_hooks(:render) do
+      rendering_context.copy_page_instance_variables!
+
       # For capturing contents for rendering, render page first
       page_content = page_template.render_in(rendering_context)
 
@@ -29,5 +34,5 @@ module Hotpages::Page::Renderable
 
   private
 
-  def rendering_context = @rendering_context ||= Hotpages::Page::RenderingContext.new(self)
+  attr_accessor :rendering_context
 end

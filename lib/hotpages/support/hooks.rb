@@ -16,39 +16,6 @@ module Hotpages::Support::Hooks
     end
   end
 
-  def with_calling_hooks(hook_name, &block)
-    self.class.hooks[Type.before.key(hook_name)].each do |meth_name|
-      method(meth_name).call
-    end
-
-    # Around hooks are called in reverse order of their definition (from the last defined to the first).
-    around_methods = self.class.hooks[Type.around.key(hook_name)].map do |meth_name|
-      method(meth_name)
-    end
-    result = nil
-    if around_methods.any?
-      around_methods.inject(block) do |inner, outer|
-        Proc.new do
-          outer.call do
-            if inner == block
-              result = block.call
-            else
-              inner.call
-            end
-          end
-        end
-      end.call
-    else
-      result = block.call
-    end
-
-    self.class.hooks[Type.after.key(hook_name)].each do |meth_name|
-      method(meth_name).call
-    end
-
-    result
-  end
-
   module ClassMethods
     def inherited(subclass)
       super
@@ -64,11 +31,59 @@ module Hotpages::Support::Hooks
         Type.all.each do |type|
           registered_name = type.key(name)
           hooks[registered_name] = []
-          define_singleton_method registered_name do |hook_method_name|
-            hooks[registered_name] << hook_method_name
+          define_singleton_method registered_name do |method_name = nil, &block|
+            hooks[registered_name] << (method_name || block)
           end
         end
       end
+    end
+  end
+
+  def with_calling_hooks(hook_name, &block)
+    self.class.hooks[Type.before.key(hook_name)].each do |hook_content|
+      callable_hook_content(hook_content).call
+    end
+
+    # Around hooks are called in reverse order of their definition (from the last defined to the first).
+    around_methods = self.class.hooks[Type.around.key(hook_name)].map do |hook_content|
+      callable_hook_content(hook_content)
+    end
+    result = nil
+    if around_methods.any?
+      around_methods.inject(block) do |inner, outer|
+        proc do
+          outer.call(
+            proc do
+              if inner == block
+                result = block.call
+              else
+                inner.call
+              end
+            end
+          )
+        end
+      end.call
+    else
+      result = block.call
+    end
+
+    self.class.hooks[Type.after.key(hook_name)].each do |hook_content|
+      callable_hook_content(hook_content).call
+    end
+
+    result
+  end
+
+  private
+
+  def callable_hook_content(hook_content)
+    case hook_content
+    when Symbol
+      method(hook_content)
+    when Proc
+      ->(*args) { instance_exec(*args, &hook_content) }
+    else
+      raise "Unsupported hook: #{hook_content.inspect}"
     end
   end
 end

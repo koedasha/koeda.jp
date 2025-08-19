@@ -15,6 +15,8 @@ class Hotpages::Page::RenderingContext
   def render(template_path, **locals, &block)
     template = template_finder.find!(template_path)
 
+    copy_page_instance_variables!
+
     # TODO: block ignored warnings
     if block_given?
       template.render_in(self, locals, &block)
@@ -26,6 +28,13 @@ class Hotpages::Page::RenderingContext
           cached_page_content
         end
       end
+    end
+  end
+
+  def copy_page_instance_variables!
+    page.instance_variables.each do |name|
+      value = page.instance_variable_get(name)
+      instance_variable_set(name, value)
     end
   end
 

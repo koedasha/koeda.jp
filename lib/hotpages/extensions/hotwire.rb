@@ -6,20 +6,12 @@ module Hotpages::Extensions::Hotwire
     "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm"
   }
 
-  prepending "#{name}::Config", to: "Hotpages::Config"
-  prepending "#{name}::Site", to: "Hotpages::Site"
+  prepending to: "Hotpages::Site"
 
-  module Config
-    module ClassMethods
-      def defaults
-        super.tap do |config|
-          config.importmaps.merge!(IMPORTMAPS)
-        end
-      end
+  def self.prepended(site_class)
+    site_class.after_setup do
+      self.assets_paths << "#{__dir__}/hotwire"
+      config.importmaps.merge!(IMPORTMAPS)
     end
-  end
-
-  module Site
-    def assets_paths = super << "#{__dir__}/hotwire"
   end
 end

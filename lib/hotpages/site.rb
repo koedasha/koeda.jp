@@ -3,17 +3,17 @@ require "forwardable"
 require "pathname"
 
 class Hotpages::Site
-  include Singleton
+  include Singleton, Hotpages::Support::Hooks
   extend Forwardable
   using Hotpages::Support::StringInflections
 
   class << self
     def inherited(base)
+      Hotpages::Extension.setup!
+
       super
 
       Hotpages.site_class = base
-
-      Hotpages::Extension.setup!
 
       base_class_location = Object.const_source_location(base.name).first
       config.site.root = Pathname.new(base_class_location).join("../site")
@@ -23,6 +23,7 @@ class Hotpages::Site
   end
 
   attr_reader :config
+  define_hook :setup
 
   def initialize
     @config = self.class.config
@@ -31,7 +32,9 @@ class Hotpages::Site
   end
 
   def setup
-    loader.setup
+    with_calling_hooks :setup do
+      loader.setup
+    end
   end
 
   def teardown
@@ -54,7 +57,7 @@ class Hotpages::Site
     class_name.constantize
   end
 
-  def assets_paths = [ assets_path ]
+  def assets_paths = @assets_paths ||= [ assets_path ]
   def assets(filter_ext = nil)
     Enumerator.new do |yielder|
       assets_paths.each do |path|

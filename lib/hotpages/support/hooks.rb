@@ -1,6 +1,4 @@
 module Hotpages::Support::Hooks
-  using Hotpages::Support::DeepDup
-
   Type = Data.define(:type) do
     class << self
       def before = new(:before)
@@ -19,6 +17,8 @@ module Hotpages::Support::Hooks
   end
 
   module ClassMethods
+    using Hotpages::Support::DeepDup
+
     def inherited(subclass)
       super
       subclass.hooks = self.hooks.deep_dup

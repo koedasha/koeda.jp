@@ -7,6 +7,7 @@ class Hotpages::Page::RenderingContext
     @template_finder = Hotpages::Page::Template::Finder.new(page.base_path, page.site)
     @cached_page_content = nil
     @captured_contents = {}
+    @buf = ""
   end
 
   def buffer = @buf
@@ -14,8 +15,6 @@ class Hotpages::Page::RenderingContext
   # TODO: support ruby objects responds to `render_in`
   def render(template_path, **locals, &block)
     template = template_finder.find!(template_path)
-
-    copy_page_instance_variables!
 
     # TODO: block ignored warnings
     if block_given?
@@ -32,9 +31,11 @@ class Hotpages::Page::RenderingContext
   end
 
   def copy_page_instance_variables!
-    page.instance_variables.each do |name|
-      value = page.instance_variable_get(name)
-      instance_variable_set(name, value)
+    with_protecting_original_instance_variables do
+      page.instance_variables.each do |name|
+        value = page.instance_variable_get(name)
+        instance_variable_set(name, value)
+      end
     end
   end
 
@@ -48,5 +49,16 @@ class Hotpages::Page::RenderingContext
 
   def method_missing(method, *args, **kwargs, &block)
     page.send(method, *args, **kwargs, &block)
+  end
+
+  def with_protecting_original_instance_variables
+    @original_instance_variables = instance_variables unless @original_instance_variables
+    same_name_ivars = @original_instance_variables & page.instance_variables
+
+    if same_name_ivars.any?
+      raise "These variables are already defined in rendering context: #{same_name_ivars}"
+    end
+
+    yield
   end
 end

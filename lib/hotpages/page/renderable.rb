@@ -13,7 +13,7 @@ module Hotpages::Page::Renderable
   end
 
   def render
-    # Rendering flow starts from here
+    # Page rendering flow starts from here
     self.rendering_context = Hotpages::Page::RenderingContext.new(self)
 
     with_calling_hooks(:render) do

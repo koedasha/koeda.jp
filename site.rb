@@ -7,6 +7,7 @@ Tilt.register(Tilt::KramdownTemplate, "md")
 Hotpages.loader.push_dir("#{__dir__}/site/extensions")
 Hotpages.reload
 Hotpages.extensions << TemplatePathAnnotation
+Hotpages.extensions << LucideIcons
 
 class Site < Hotpages::Site
   config.site.i18n.locales = %w[ ja en ]

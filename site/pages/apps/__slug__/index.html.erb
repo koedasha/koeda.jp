@@ -1,3 +1,6 @@
-<article>
-  <%= render_markdown app.copy_ja %>
+<article class="app">
+  <%= image_tag app.screenshot_ja, alt: "#{app.name_ja} screen shot" %>
+  <div class="app__desc">
+    <%= render_markdown app.desc_ja %>
+  </div>
 </article>

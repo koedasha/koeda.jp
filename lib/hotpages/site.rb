@@ -44,6 +44,10 @@ class Hotpages::Site
 
   def reload
     loader.reload
+  rescue Zeitwerk::SetupRequired
+    loader.setup
+  ensure
+    loader.reload
   end
 
   delegate %i[ generate generating? ] => :generator

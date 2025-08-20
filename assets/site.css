@@ -2,12 +2,12 @@
 
 /* Global */
 @import "./css/base.css?v=a088efb3";
-@import "./css/utilities.css?v=afb83619";
+@import "./css/utilities.css?v=6d581140";
 
 /* Components */
 @import "./css/locale_selector.css?v=e9c0e60e";
 
 /* Pages */
-@import "./css/index.css?v=833d3d7a";
+@import "./css/index.css?v=9fb7a453";
 @import "./css/apps.css?v=ce943f99";
 @import "./css/devs.css?v=b366328e";

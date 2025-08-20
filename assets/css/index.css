@@ -2,35 +2,56 @@ article#index {
   font-family: 'Poppins', sans-serif;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   text-align: center;
   height: 100vh;
   flex-direction: column;
 
-  h1 {
-    margin-bottom: 1rem;
-    font-size: 4rem;
+  section.hero {
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 4rem;
+    }
+
+    ul#businesses {
+      font-size: 36px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: block;
+      }
+
+      li + li::before {
+        content: "&";
+        display: block;
+        font-size: 1.8rem;
+      }
+    }
   }
 
-  ul#businesses {
-    font-size: 2.4rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  section.profile {
+    dl {
+      max-width: 24rem;
+      font-size: .9em;
 
-    li {
-      display: block;
-    }
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 10px;
+      row-gap: 5px;
 
-    li + li::before {
-      content: "&";
-      display: block;
-      font-size: 1.8rem;
-    }
-
-    a {
-      text-decoration: underline;
+      dt {
+        color: var(--secondary-color);
+        text-align: right;
+      }
+      dt, dd {
+        display: inline;
+      }
+      dd {
+        text-align: left;
+      }
     }
   }
 }

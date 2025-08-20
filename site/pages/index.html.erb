@@ -1,11 +1,26 @@
 <article id="index">
-  <h1 class="gradient-text">Site</h1>
-  <ul id="businesses" class="gradient-text">
-    <li>
-      <%= link_to "Apps", "/apps" %>
-    </li>
-    <li>
-      <%= link_to "Development Service", "/devs/" %>
-    </li>
-  </ul>
+  <section class="hero">
+    <h1 class="gradient-text">Site</h1>
+    <ul id="businesses" class="gradient-text">
+      <li>
+        <%= link_to "Apps", "/apps", class: "underline" %>
+      </li>
+      <li>
+        <%= link_to "Development Service", "/devs/", class: "underline" %>
+      </li>
+    </ul>
+  </section>
+
+  <section class="profile">
+    <dl>
+      <dt><%= _ "事業名" %></dt>
+      <dd><%= _ "こえだ舎（Koeda-sha）" %></dd>
+
+      <dt><%= _ "住所" %></dt>
+      <dd>〒150-0044 <%= _ "東京都渋谷区円山町5番3号" %></br><%= _ "MIEUX渋谷ビル8階" %></dd>
+
+      <dt><%= _ "お問い合せ" %></dt>
+      <dd><a href="mailto:info@koeda.jp">info@koeda.jp</a></dd>
+    </dl>
+  </section>
 </article>

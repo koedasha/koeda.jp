@@ -48,3 +48,20 @@
     width: 100%;
   }
 }
+
+.app {
+  .app__desc {
+    p {
+      margin-bottom: .6rem;
+    }
+  }
+
+  img {
+    width: 50%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border-radius: .8rem;
+    border: 1px solid #e0e0e0;
+  }
+}

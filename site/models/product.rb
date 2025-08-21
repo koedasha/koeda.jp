@@ -21,7 +21,8 @@ Product = Data.define(
           グループにまとめた複数のタイマーでの同時計測やメモ機能、充実した通知機能により、さまざまな時間を測りたいシーンでお使いいただけます。
           MD
           store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
-          screenshot_ja: "elapsed-times-screenshot-ja.png"
+          # screenshot_ja: "elapsed-times-screenshot-ja.png"
+          screenshot_ja: "ph.png"
         )
       ]
     end

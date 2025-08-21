@@ -10,6 +10,8 @@ article#index {
   min-height: 100vh;
 
   section.hero {
+    margin-top: 7rem;
+
     h1 {
       margin-bottom: 1rem;
       font-size: 4rem;
@@ -35,6 +37,7 @@ article#index {
 
   section.profile {
     margin-top: 7rem;
+
     dl {
       max-width: 24rem;
       font-size: .9em;

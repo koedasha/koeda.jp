@@ -22,7 +22,7 @@ Product = Data.define(
           MD
           store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
           # screenshot_ja: "elapsed-times-screenshot-ja.png"
-          screenshot_ja: "ph.png"
+          screenshot_ja: "ph.svg"
         )
       ]
     end

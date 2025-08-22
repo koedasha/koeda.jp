@@ -35,7 +35,7 @@ class Hotpages::Page::Template::Finder
     ].compact.map { File.expand_path(it) }
 
     search_paths.each do |path|
-      if file = Dir.glob("#{path}.*").find { File.file?(it) }
+      if file = Dir.glob([ path, "#{path}.*" ]).find { File.file?(it) }
         return PathData.from_absolute_path(file)
       else
         next

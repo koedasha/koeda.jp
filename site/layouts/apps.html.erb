@@ -1,8 +1,10 @@
 <% content_for :inner_layout_content do %>
   <nav class="app-nav">
     <h2>
-      <%= image_tag(content_for(:app_image), alt: content_for(:app_name), class: "app-col__icon") %>
-      <%= content_for :app_name %>
+      <%= link_to "/apps/#{app.slug}/" do %>
+        <%= image_tag(content_for(:app_image), alt: content_for(:app_name), class: "app-col__icon") %>
+        <%= content_for :app_name %>
+      <% end %>
     </h2>
   </nav>
   <main>

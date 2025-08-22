@@ -67,4 +67,20 @@
       width: 85%;
     }
   }
+
+  .app__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+
+    margin-top: 3rem;
+
+    list-style-type: none;
+
+    a {
+      color: var(--secondary-color);
+    }
+  }
 }

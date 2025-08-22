@@ -3,6 +3,7 @@
 /* Global */
 @import "./css/base.css";
 @import "./css/utilities.css";
+@import "./css/docs.css";
 
 /* Components */
 @import "./css/locale_selector.css";

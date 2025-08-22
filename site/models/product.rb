@@ -33,4 +33,16 @@ Product = Data.define(
       all.find { |product| product.slug == slug }
     end
   end
+
+  def terms(locale:)
+    # TODO: localize
+    # "shared/apps/#{slug.gsub("-", "_")}/terms_#{locale}"
+    "shared/apps/#{slug.gsub("-", "_")}/terms_ja"
+  end
+
+  def privacy(locale:)
+    # TODO: localize
+    # "shared/apps/#{slug.gsub("-", "_")}/privacy_#{locale}"
+    "shared/apps/#{slug.gsub("-", "_")}/privacy_ja"
+  end
 end

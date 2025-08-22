@@ -1,0 +1,19 @@
+.doc {
+  h2 {
+    margin: 2rem 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    color: var(--paragraph-foreground-color);
+    text-indent: 1em;
+    margin: 0.6rem 0;
+  }
+
+  ol, ul {
+    color: var(--paragraph-foreground-color);
+    li {
+      margin: 0.4rem 0 0.4rem 1.5rem;
+    }
+  }
+}

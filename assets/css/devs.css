@@ -51,7 +51,7 @@ article.devs {
   }
   p {
     color: var(--paragraph-foreground-color);
-    text-indent: 0.5em;
+    text-indent: 1em;
     margin-bottom: 0.6rem;
   }
 }

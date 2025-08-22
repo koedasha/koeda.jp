@@ -1,13 +1,13 @@
 @import "./css/reset.min.css?v=4db263f1";
 
 /* Global */
-@import "./css/base.css?v=a088efb3";
+@import "./css/base.css?v=d27cf8b4";
 @import "./css/utilities.css?v=6d581140";
 
 /* Components */
 @import "./css/locale_selector.css?v=e9c0e60e";
 
 /* Pages */
-@import "./css/index.css?v=6d371cd6";
+@import "./css/index.css?v=2fbdc67a";
 @import "./css/apps.css?v=d98f9d7d";
 @import "./css/devs.css?v=b366328e";

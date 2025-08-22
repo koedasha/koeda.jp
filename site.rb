@@ -1,7 +1,6 @@
 require "#{__dir__}/lib/hotpages"
 require "tilt"
-
-Tilt.register(Tilt::KramdownTemplate, "md")
+require "kramdown"
 
 # TODO: loader setup for site specific extensions
 Hotpages.loader.push_dir("#{__dir__}/site/extensions")

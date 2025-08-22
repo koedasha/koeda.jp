@@ -32,7 +32,13 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Sans",
+    "Noto Sans JP",
+    Meiryo,
+    sans-serif;
+
   min-height: 100vh;
   line-height: 1.6;
   background: var(--background-color);
@@ -48,6 +54,8 @@ body {
   }
 
   header {
+    font-family: "Helvetica Neue" sans-serif;
+
     max-width: var(--content-max-width);
     padding: 0 1rem;
     margin: 1.4rem auto;

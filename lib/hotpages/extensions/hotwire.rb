@@ -8,10 +8,13 @@ module Hotpages::Extensions::Hotwire
 
   prepending to: "Hotpages::Site"
 
+  configure do |config|
+    config.importmaps.merge!(IMPORTMAPS)
+  end
+
   def self.prepended(site_class)
-    site_class.after_setup do
-      self.assets_paths << "#{__dir__}/hotwire"
-      config.importmaps.merge!(IMPORTMAPS)
+    site_class.after_initialize do |site|
+      site.assets_paths << "#{__dir__}/hotwire"
     end
   end
 end

@@ -3,29 +3,22 @@ require "fast_gettext"
 module Hotpages::Extensions::I18n
   extend Hotpages::Extension
 
-  prepending "#{name}::Config", to: "Hotpages::Config"
   prepending "#{name}::Page", to: "Hotpages::Page"
   prepending "#{name}::PageFinder", to: "Hotpages::Page::Finder"
   prepending "#{name}::Site", to: "Hotpages::Site"
   prepending "#{name}::UrlHelper", to: "Hotpages::Helpers::UrlHelper"
   add_helper "#{name}::Helper"
 
-  module Config
-    module ClassMethods
-      def defaults
-        super.tap do |config|
-          config.site.add(
-            i18n: new(
-              locales: %w[ en ],
-              default_locale: "en",
-              locales_directory: "locales",
-              locale_file_format: :yaml,
-              unlocalized_path_patterns: [ /CNAME\z/, /sitemap.xml\z/, /robot.txt\z/ ]
-            )
-          )
-        end
-      end
-    end
+  configure do |config|
+    config.site.add(
+      i18n: Hotpages::Config.new(
+        locales: %w[ en ],
+        default_locale: "en",
+        locales_directory: "locales",
+        locale_file_format: :yaml,
+        unlocalized_path_patterns: [ /CNAME\z/, /sitemap.xml\z/, /robot.txt\z/ ]
+      )
+    )
   end
 
   module Site

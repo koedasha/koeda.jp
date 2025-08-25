@@ -23,18 +23,18 @@ class Hotpages::Site
   end
 
   attr_reader :config
-  define_hook :setup
+  define_hook :initialize, only: :after
 
   def initialize
-    @config = self.class.config
-    @loader = Loader.new(site: self)
-    @generator = Generator.new(site: self)
+    with_calling_hooks :initialize do
+      @config = self.class.config
+      @loader = Loader.new(site: self)
+      @generator = Generator.new(site: self)
+    end
   end
 
   def setup
-    with_calling_hooks :setup do
-      loader.setup
-    end
+    loader.setup
   end
 
   def teardown

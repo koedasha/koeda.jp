@@ -44,16 +44,20 @@ module Hotpages::Extension
       entries_by_base[entry.base] << entry
     end
   end
+  private_constant :Spec
 
   class << self
-    def setup(extensions: Hotpages.extensions, loader: Hotpages.loader)
-      extensions.each { it.setup(loader) }
+    def setup(extensions: Hotpages.extensions, config: Hotpages.config, loader: Hotpages.loader)
+      extensions.each { it.setup(config, loader) }
     end
   end
 
+  attr_accessor :configure_proc
   def spec = @spec ||= Spec.new
 
-  def setup(loader)
+  def setup(config, loader)
+    configure_proc&.call(config)
+
     spec.apply_all
     spec.bases.each do |base|
       loader.on_load(base) do |klass, _abspath|
@@ -64,6 +68,8 @@ module Hotpages::Extension
 
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
   def including(with = self.name, to:) = spec.including(with, to:)
+
+  def configure(&configure_proc) = self.configure_proc = configure_proc
 
   def add_helpers(*added_helpers)
     added_helpers.each do |helper|

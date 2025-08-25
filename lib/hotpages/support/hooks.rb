@@ -8,7 +8,9 @@ module Hotpages::Support::Hooks
     end
 
     def key(hook) = "#{type}_#{hook}"
+    def in?(*types) = types.include?(type)
   end
+  private_constant :Type
 
   class << self
     def included(base)
@@ -17,42 +19,53 @@ module Hotpages::Support::Hooks
   end
 
   module ClassMethods
-    using Hotpages::Support::DeepDup
-
     def inherited(subclass)
       super
-      subclass.hooks = self.hooks.deep_dup
+
+      self.hooks.each do |key, hooks|
+        # hooks array should be dupped, but inner procs aren't
+        subclass.hooks[key] = hooks.dup
+      end
     end
 
     def hooks = @hooks ||= {}
     attr_writer :hooks
 
-    def define_hook(hook_name) = define_hooks(hook_name)
-    def define_hooks(*hook_names)
-      hook_names.each do |name|
-        Type.all.each do |type|
-          registered_name = type.key(name)
-          hooks[registered_name] = []
-          define_singleton_method registered_name do |method_name = nil, &block|
+    def define_hook(hook_name, only: nil)
+      Type.all.each do |type|
+        registered_name = type.key(hook_name)
+        hooks[registered_name] = []
+
+        if only.nil? || type.in?(only)
+          define_singleton_method(registered_name) do |method_name = nil, &block|
             hooks[registered_name] << (method_name || block)
           end
         end
       end
     end
+    def define_hooks(*hook_names, only: nil)
+      hook_names.each do |name|
+        define_hook(name, only:)
+      end
+    end
   end
 
   def with_calling_hooks(hook_name, &block)
+    unless self.class.hooks[Type.before.key(hook_name)]
+      raise "Hooks for `#{hook_name}` is not registered."
+    end
+
     self.class.hooks[Type.before.key(hook_name)].each do |hook_content|
       callable_hook_content(hook_content).call
     end
 
     # Around hooks are called in reverse order of their definition (from the last defined to the first).
-    around_methods = self.class.hooks[Type.around.key(hook_name)].map do |hook_content|
+    around_hooks = self.class.hooks[Type.around.key(hook_name)].map do |hook_content|
       callable_hook_content(hook_content)
     end
     result = nil
-    if around_methods.any?
-      around_methods.inject(block) do |inner, outer|
+    if around_hooks.any?
+      around_hooks.inject(block) do |inner, outer|
         proc do
           outer.call(
             proc do
@@ -83,7 +96,7 @@ module Hotpages::Support::Hooks
     when Symbol
       method(hook_content)
     when Proc
-      ->(*args) { instance_exec(*args, &hook_content) }
+      ->(inner_proc = nil) { instance_exec(*[ self, inner_proc ].compact, &hook_content) }
     else
       raise "Unsupported hook: #{hook_content.inspect}"
     end

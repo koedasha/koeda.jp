@@ -1,5 +1,5 @@
 class Pages::Misc::RenderHooks < Page
-  around_render do |block|
+  around_render do |page, block|
     @li1 = "around render 1"
     block.call
     @li2 = "around render 2 (This should not be rendered)"

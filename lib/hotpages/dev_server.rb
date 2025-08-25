@@ -37,7 +37,7 @@ class Hotpages::DevServer
 
   def server
     @server ||= WEBrick::HTTPServer.new(
-      Port: port
+      Port: port, Logger: logger
     )
   end
 

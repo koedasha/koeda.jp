@@ -14,7 +14,7 @@ module Hotpages::Extensions::PageMtime
     private
 
     def ruby_file_last_modified_at
-      path = site.pages_path.join(base_path, ".rb")
+      path = site.pages_path.join(base_path).sub_ext(".rb")
       File.file?(path) ? File.mtime(path) : nil
     end
   end

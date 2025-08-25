@@ -10,7 +10,8 @@ module Hotpages
     Extensions::I18n,
     Extensions::Hotwire,
     Extensions::PageMtime,
-    Extensions::HotReloading
+    Extensions::HotReloading,
+    Extensions::TemplatePathAnnotation
   ]
 
   class << self

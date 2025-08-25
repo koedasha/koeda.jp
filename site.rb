@@ -5,7 +5,6 @@ require "kramdown"
 # TODO: loader setup for site specific extensions
 Hotpages.loader.push_dir("#{__dir__}/site/extensions")
 Hotpages.reload
-Hotpages.extensions << TemplatePathAnnotation
 Hotpages.extensions << LucideIcons
 
 class Site < Hotpages::Site

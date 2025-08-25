@@ -3,7 +3,7 @@ module Hotpages::Extension
 
   class Spec
     Entry = Data.define(:type, :base, :with) do
-      def apply!
+      def apply
         base, with = get_consts
         case type
         when :prepend
@@ -31,8 +31,8 @@ module Hotpages::Extension
     def prepending(with, to:) = add_entry(Entry.new(:prepend, to, with))
     def including(with, to:) = add_entry(Entry.new(:include, to, with))
 
-    def apply_all! = entries_by_base.each { |_, entries| entries.each(&:apply!) }
-    def apply_on!(base) = entries_by_base[base]&.each(&:apply!)
+    def apply_all = entries_by_base.each { |_, entries| entries.each(&:apply) }
+    def apply_on(base) = entries_by_base[base]&.each(&:apply)
 
     def bases = entries_by_base.keys
 
@@ -46,18 +46,18 @@ module Hotpages::Extension
   end
 
   class << self
-    def setup!(extensions: Hotpages.extensions, loader: Hotpages.loader)
-      extensions.each { it.setup!(loader) }
+    def setup(extensions: Hotpages.extensions, loader: Hotpages.loader)
+      extensions.each { it.setup(loader) }
     end
   end
 
   def spec = @spec ||= Spec.new
 
-  def setup!(loader)
-    spec.apply_all!
+  def setup(loader)
+    spec.apply_all
     spec.bases.each do |base|
       loader.on_load(base) do |klass, _abspath|
-        spec.apply_on!(klass.name)
+        spec.apply_on(klass.name)
       end
     end
   end

@@ -9,7 +9,7 @@ class Hotpages::Site
 
   class << self
     def inherited(base)
-      Hotpages::Extension.setup!
+      Hotpages::Extension.setup
 
       super
 

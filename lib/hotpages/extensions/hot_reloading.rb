@@ -25,22 +25,30 @@ module Hotpages::Extensions::HotReloading
     super
   end
 
+  def stop
+    super
+    file_changes_streams.each { it.close }
+  end
+
   private
 
   attr_reader :file_changes_streams, :file_listener
 
+  # By setting res.chunked = true and assigning this object to res.body, WEBrick::HTTPResponse will call readpartial and set it as the response.
+  # However, EOFError (with normal readpartial) or Errno::EPIPE (when an empty string is set to the buffer) can occur, making it unable to maintain the connection.
+  # By assigning an instance of this class to res.body, the SSE connection can be maintained.
+  # Confirmed with WEBrick v1.9.1
   class FileChangesStream < StringIO
-    def readpartial(len, buf = "")
+    def readpartial(len, buf = +"")
       partial = nil
 
-      # TODO: Cannot stop serving with INT
-      while !partial
+      while !closed? && !partial
         rewind
         partial = read_nonblock(len, buf, exception: false)
         sleep 0.1
       end
 
-      self.string.clear
+      string.clear
 
       partial
     end
@@ -93,10 +101,11 @@ module Hotpages::Extensions::HotReloading
   end
 
   def broadcast_file_change(payload)
-    file_changes_streams.each do
-      it.write("data: #{JSON.generate(payload)}\n\n")
+    file_changes_streams.each do |stream|
+      stream.write("data: #{JSON.generate(payload)}\n\n")
     rescue IOError
-      file_changes_streams.delete(it)
+      stream.close
+      file_changes_streams.delete(stream)
     end
   end
 end

@@ -5,12 +5,12 @@ module Hotpages::Extensions::TemplatePathAnnotation
 
   def render_in(context, locals = {}, &block)
     content = super
-    return content if Hotpages.site.generating?
+    return content if !rendered_to_html? || Hotpages.site.generating?
 
-    [
-      "<!-- BEGIN #{abs_name} -->",
-      content,
-      "<!-- END #{abs_name} -->"
-    ].join("\n")
+    <<~HTML.chomp
+      <!-- BEGIN #{abs_name} -->
+      #{content}
+      <!-- END #{abs_name} -->
+    HTML
   end
 end

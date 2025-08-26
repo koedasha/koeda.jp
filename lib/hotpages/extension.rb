@@ -61,7 +61,7 @@ module Hotpages::Extension
     spec.apply_all
     spec.bases.each do |base|
       loader.on_load(base) do |klass, _abspath|
-        spec.apply_on(klass.name)
+        spec.apply_on(klass.name) unless reload_disabled?
       end
     end
   end
@@ -71,10 +71,10 @@ module Hotpages::Extension
 
   def configure(&configure_proc) = self.configure_proc = configure_proc
 
-  def add_helpers(*added_helpers)
-    added_helpers.each do |helper|
-      including(helper, to: "Hotpages::Page")
-    end
-  end
-  def add_helper(added_helper = self.name) = add_helpers(added_helper)
+  def add_helper(added_helper = self.name) = including(added_helper, to: "Hotpages::Page")
+  def add_helpers(*added_helpers) = added_helpers.each { add_helper(it) }
+
+  # Disable after reloading. For testing purpose.
+  def disable_reload = @reload_disabled = true
+  def reload_disabled? = !!@reload_disabled
 end

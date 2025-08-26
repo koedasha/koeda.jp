@@ -26,3 +26,12 @@ Rake::TestTask.new(:test_unit) do |t|
   t.test_files = FileList["test/lib/**/test_*.rb"]
   t.verbose = true
 end
+
+task "test:dist:replace_expected_with_actual" do
+  unless Dir.exist?("test/dist/actual")
+    raise "dist/actual is not exist"
+  end
+
+  rm_rf "test/dist/expected"
+  mv "test/dist/actual", "test/dist/expected"
+end

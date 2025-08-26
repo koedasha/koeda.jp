@@ -13,6 +13,8 @@ class TestServing < Minitest::Test
 
     @@port = 12345
     @@server_pid = fork do
+      Hotpages::Extensions::TemplatePathAnnotation.disable_reload
+      Hotpages.reload
       # In order to match the generated HTML content without HotReload script tags.
       Hotpages::DevServer.prepend(RemoveHotReloadingScripts)
       server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port)

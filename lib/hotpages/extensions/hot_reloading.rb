@@ -13,7 +13,7 @@ module Hotpages::Extensions::HotReloading
   def start(gem_development: false)
     logger.info "Hot reloading enabled"
 
-    @file_changes_streams = []
+    @file_change_streams = []
     # Set wait_for_delay to 0.2 seconds for more stable hot reloading
     @file_listener = Listen.to(site.root, wait_for_delay: 0.2) do |modified, added, removed|
       (modified + added + removed).each do |changed_file|
@@ -27,18 +27,20 @@ module Hotpages::Extensions::HotReloading
 
   def stop
     super
-    file_changes_streams.each { it.close }
+    file_change_streams.each { it.close }
   end
 
   private
 
-  attr_reader :file_changes_streams, :file_listener
+  attr_reader :file_change_streams, :file_listener
 
-  # By setting res.chunked = true and assigning this object to res.body, WEBrick::HTTPResponse will call readpartial and set it as the response.
-  # However, EOFError (with normal readpartial) or Errno::EPIPE (when an empty string is set to the buffer) can occur, making it unable to maintain the connection.
+  # By setting res.chunked = true and assigning object responds to readpartial to res.body,
+  # WEBrick::HTTPResponse will call readpartial and set its results as the chunked response.
+  # However, EOFError (with normal readpartial) or Errno::EPIPE (when an empty string is set to the buffer) can occur,
+  # making it unable to maintain the connection.
   # By assigning an instance of this class to res.body, the SSE connection can be maintained.
-  # Confirmed with WEBrick v1.9.1
-  class FileChangesStream < StringIO
+  # This behavior was confirmed with WEBrick v1.9.1
+  class FileChangeStream < StringIO
     def readpartial(len, buf = +"")
       partial = nil
 
@@ -78,8 +80,8 @@ module Hotpages::Extensions::HotReloading
       res.chunked = true
       res.keep_alive = true
 
-      FileChangesStream.new.tap do |stream|
-        file_changes_streams << stream
+      FileChangeStream.new.tap do |stream|
+        file_change_streams << stream
         res.body = stream
       end
     end
@@ -101,11 +103,11 @@ module Hotpages::Extensions::HotReloading
   end
 
   def broadcast_file_change(payload)
-    file_changes_streams.each do |stream|
+    file_change_streams.each do |stream|
       stream.write("data: #{JSON.generate(payload)}\n\n")
     rescue IOError
       stream.close
-      file_changes_streams.delete(stream)
+      file_change_streams.delete(stream)
     end
   end
 end

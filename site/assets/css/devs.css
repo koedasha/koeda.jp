@@ -65,7 +65,7 @@ article.devs {
       }
       dd {
         font-size: 0.9rem;
-        ul {
+        ul { /* tech icons */
           display: block;
           padding: .4rem 0;
           border-top: solid 1px var(--secondary-background-color);
@@ -75,10 +75,9 @@ article.devs {
             display: inline;
             margin: 0;
             padding: .3rem;
-            vertical-align: top;
-            svg {
-              vertical-align: top;
-              width: 20px;
+            svg, span {
+              vertical-align: bottom;
+              max-height: 24px;
             }
           }
         }

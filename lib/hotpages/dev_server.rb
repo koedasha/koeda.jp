@@ -9,7 +9,7 @@ class Hotpages::DevServer
     @site = site
     @host = host
     @port = port
-    @logger = WEBrick::Log.new()
+    @logger = WEBrick::Log.new(STDOUT)
     @assets_prefix = Hotpages.config.assets.prefix
   end
 

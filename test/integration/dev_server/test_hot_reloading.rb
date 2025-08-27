@@ -24,26 +24,24 @@ class TestHotReloading < Minitest::Test
     end
   end
 
-  def test_websocket_broadcasting
+  def test_sse_broadcasting
     client_socket = TCPSocket.new("localhost", @@port)
-    # Handshake
-    ws_key = "\u0005\x94\xDE\u0015\xE5ߝ\xF3y\xAFhb5j\xE5\xAC"
-    client_socket.write(
-      "GET / HTTP/1.1\r\n" \
-      "Host: localhost:#{@@port}\r\n" \
-      "Upgrade: websocket\r\n" \
-      "Connection: Upgrade\r\n" \
-      "Sec-WebSocket-Key: #{ws_key}\r\n" \
-      "Sec-WebSocket-Version: 13\r\n" \
-      "\r\n"
-    )
+
+    # Initial request
+    client_socket.write <<~REQ
+      GET #{Hotpages::Extensions::HotReloading::FILE_CHANGES_PATH} HTTP/1.1\r
+      Host: localhost:#{@@port}\r
+      Accept: text/event-stream\r
+      Cache-Control: no-cache\r
+      Connection: keep-alive\r
+      \r
+    REQ
     response = client_socket.readpartial(1024)
     expected_response = [
-      "HTTP/1.1 101 Switching Protocols",
-      "Cache-Control: no-store",
-      "Sec-Websocket-Accept: URl35r+QDG0yinZSZgNLSWrT+MA=",
-      "Connection: upgrade",
-      "Upgrade: websocket"
+      "HTTP/1.1 200 OK",
+      "Content-Type: text/event-stream",
+      "Transfer-Encoding: chunked",
+      "Connection: Keep-Alive"
     ]
     assert_equal expected_response, response.split("\r\n").reject { it.start_with?("Server: ", "Date: ") }
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
+require "bundler/setup"
 require "#{__dir__}/../site"
+
 dev_server = Hotpages.dev_server
 trap("INT") { dev_server.stop }
 # dev_server.start(gem_development: true) # For gem developer

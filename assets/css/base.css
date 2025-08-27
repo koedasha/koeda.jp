@@ -10,6 +10,7 @@
   --dark-background-color: var(--primary-gradient);
   --secondary-color: #bababa;
   --secondary-color-rgb: 186, 186, 186;
+  --secondary-background-color: rgba(var(--secondary-color-rgb), 0.2);
 
   --foreground-color: var(--light-foreground-color);
   --paragraph-foreground-color: var(--light-paragraph-foreground-color);

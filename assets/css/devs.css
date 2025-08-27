@@ -34,10 +34,6 @@ article.devs {
     svg {
       margin-right: 0.3rem;
     }
-    span {
-      display: inline-block;
-      padding-top: 0.1rem;
-    }
   }
 
   h3 {
@@ -49,9 +45,85 @@ article.devs {
     text-align: center;
     flex-direction: column;
   }
-  p {
+  p, ul, ol, dl, a {
     color: var(--paragraph-foreground-color);
     text-indent: 1em;
     margin-bottom: 0.6rem;
+  }
+
+  #works {
+    & + p + dl {
+      dt, dd {
+        margin: 0;
+      }
+      dt {
+        margin-top: 2rem;
+        margin-bottom: .6rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-indent: 0;
+      }
+      dd {
+        font-size: 0.9rem;
+        ul {
+          display: block;
+          padding: .4rem 0;
+          border-top: solid 1px var(--secondary-background-color);
+          margin-top: .6rem;
+          list-style-type: none;
+          li {
+            display: inline;
+            margin: 0;
+            padding: .3rem;
+            vertical-align: top;
+            svg {
+              vertical-align: top;
+              width: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #members {
+    & + dl {
+      dt, dd {
+        margin: 0;
+      }
+      dt {
+        background: var(--secondary-background-color);
+        border-radius: 1rem 1rem 0 0;
+        padding: 1rem 1rem 0rem 1rem;
+
+        text-indent: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      dd {
+        background: var(--secondary-background-color);
+        border-radius: 0 0 1rem 1rem;
+        padding: 0 1rem 1rem 1rem;
+
+        text-indent: 0;
+        font-size: 0.9rem;
+        p {
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+        ul {
+          margin: 0;
+          padding: 0;
+          text-indent: 0;
+          list-style-type: none;
+          li:not(:last-child)::after {
+            content: " /";
+          }
+          li {
+            display: inline;
+          }
+        }
+      }
+    }
   }
 }

@@ -67,17 +67,18 @@ article.devs {
         font-size: 0.9rem;
         ul { /* tech icons */
           display: block;
-          padding: .4rem 0;
+          text-align: right;
+          padding: .4rem;
           border-top: solid 1px var(--secondary-background-color);
           margin-top: .6rem;
           list-style-type: none;
           li {
             display: inline;
             margin: 0;
-            padding: .3rem;
+            padding: .4rem;
             svg, span {
               vertical-align: bottom;
-              max-height: 24px;
+              max-height: 20px;
             }
           }
         }

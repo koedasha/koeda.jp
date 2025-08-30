@@ -9,4 +9,9 @@ eagerLoadControllersFrom("controllers", application)
 application.debug = false
 window.Stimulus   = application
 
+// Ensure scroll to top on page navigation
+document.addEventListener("turbo:load", () => {
+  window.scrollTo(0, 0)
+})
+
 export { application }

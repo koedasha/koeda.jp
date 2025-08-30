@@ -21,6 +21,9 @@ module Hotpages::Helpers::UrlHelper
       end
 
       url = prefix_page_url(url)
+      
+      # Add data attributes for scroll-to-top behavior on internal page navigation
+      options[:"data-turbo-action"] ||= "advance"
     end
 
     options[:href] ||= url

@@ -7,6 +7,7 @@ module Hotpages::Extensions::Hotwire
   }
 
   prepending to: "Hotpages::Site"
+  add_helper "#{name}::TurboHelper"
 
   configure do |config|
     config.importmaps.merge!(IMPORTMAPS)

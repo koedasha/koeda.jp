@@ -44,7 +44,7 @@ class Hotpages::DevServer
   def gem_development? = !!@gem_development
 
   def page_finder
-    @page_finder ||= Hotpages::Page::Finder.new(site)
+    @page_finder ||= Hotpages::PageFinder.new(site)
   end
 
   def setup_routes

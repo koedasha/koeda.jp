@@ -4,7 +4,7 @@ module Hotpages::Extensions::I18n
   extend Hotpages::Extension
 
   prepending "#{name}::Page", to: "Hotpages::Page"
-  prepending "#{name}::PageFinder", to: "Hotpages::Page::Finder"
+  prepending "#{name}::PageFinder", to: "Hotpages::PageFinder"
   prepending "#{name}::Site", to: "Hotpages::Site"
   prepending "#{name}::UrlHelper", to: "Hotpages::Helpers::UrlHelper"
   add_helper "#{name}::Helper"

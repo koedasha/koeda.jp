@@ -33,9 +33,6 @@ module Hotpages::Extension
     def including(with, to:) = add_entry(Entry.new(:include, to, with))
 
     def apply_all = entries_by_base.each { |_, entries| entries.each(&:apply) }
-    def apply_on(base) = entries_by_base[base]&.each(&:apply)
-
-    def bases = entries_by_base.keys
 
     private
 
@@ -48,23 +45,17 @@ module Hotpages::Extension
   private_constant :Spec
 
   class << self
-    def setup(extensions: Hotpages.extensions, config: Hotpages.config, loader: Hotpages.loader)
-      extensions.each { it.setup(config, loader) }
+    def setup(extensions: Hotpages.extensions, config: Hotpages.config)
+      extensions.each { it.setup(config) }
     end
   end
 
   attr_accessor :configure_proc
   def spec = @spec ||= Spec.new
 
-  def setup(config, loader)
+  def setup(config)
     configure_proc&.call(config)
-
     spec.apply_all
-    spec.bases.each do |base|
-      loader.on_load(base) do |klass, _abspath|
-        spec.apply_on(klass.name) unless reload_disabled?
-      end
-    end
   end
 
   def prepending(with = self.name, to:) = spec.prepending(with, to:)
@@ -74,8 +65,4 @@ module Hotpages::Extension
 
   def add_helper(added_helper = self.name) = including(added_helper, to: "Hotpages::Page")
   def add_helpers(*added_helpers) = added_helpers.each { add_helper(it) }
-
-  # Disable after reloading. For testing purpose.
-  def disable_reload = @reload_disabled = true
-  def reload_disabled? = !!@reload_disabled
 end

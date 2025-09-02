@@ -16,11 +16,15 @@ module Hotpages
     def eager_load = loader.eager_load
 
     def reload
-      loader.reload
+      loader.reload.tap do |_result|
+        Extension.setup
+      end
     rescue Zeitwerk::SetupRequired
       loader.setup
     ensure
-      loader.reload
+      loader.reload.tap do |_result|
+        Extension.setup
+      end
     end
 
     def teardown

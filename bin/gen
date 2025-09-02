@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
-require "#{__dir__}/../lib/hotpages"
+require "#{__dir__}/../site"
 
 Hotpages.extensions += [
   Hotpages::Extensions::AssetCacheBusting,
   Hotpages::Extensions::BrokenPageLinksChecking,
   Hotpages::Extensions::PrefixingPageLinks
 ]
-
-require "#{__dir__}/../site"
+Hotpages.reload
 
 Hotpages.site_generator.generate

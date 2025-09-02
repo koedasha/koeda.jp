@@ -1,6 +1,7 @@
 require "singleton"
 require "forwardable"
 require "pathname"
+require "zeitwerk"
 
 class Hotpages::Site
   include Singleton, Hotpages::Support::Hooks
@@ -28,7 +29,14 @@ class Hotpages::Site
   def initialize
     with_calling_hooks :initialize do
       @config = self.class.config
-      @loader = Loader.new(site: self)
+      @loader = Zeitwerk::Loader.new.tap do |loader|
+        loader.push_dir(self.pages_path, namespace: self.pages_namespace_module)
+        loader.push_dir(self.models_path)
+        loader.push_dir(self.helpers_path)
+        loader.push_dir(self.shared_path)
+        loader.collapse(self.root.join("*/concerns"))
+        loader.enable_reloading
+      end
     end
   end
 

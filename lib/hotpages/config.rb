@@ -21,11 +21,6 @@ class Hotpages::Config
           ),
           pages_namespace: "Pages",
           phantom_page_base_class_name: "Page",
-          generator: new(
-            # Url prefix for page URLs when generating static files.
-            # Set this when deploying the site to a subdirectory.
-            links_url_prefix: ""
-          )
         ),
         dev_server: new(
           port: 4000,
@@ -64,6 +59,9 @@ class Hotpages::Config
   private
 
   def define_attribute(name, value)
+    # Do not re-define
+    return if respond_to?(name)
+
     self.define_singleton_method(name) do
       instance_variable_get("@#{name}")
     end

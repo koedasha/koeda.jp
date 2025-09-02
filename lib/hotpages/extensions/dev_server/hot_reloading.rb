@@ -2,10 +2,12 @@ require "listen"
 require "json"
 
 # TODO: E2E Testing
-module Hotpages::Extensions::HotReloading
+module Hotpages::Extensions::DevServer::HotReloading
   extend Hotpages::Extension
 
-  prepending to: "Hotpages::DevServer"
+  spec do
+    it.prepend to: Hotpages::DevServer
+  end
 
   FILE_CHANGES_PATH = "/_file_changes"
   HOT_RELOADING_JS_PATH = "/_hot_reloading.js"

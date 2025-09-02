@@ -2,7 +2,13 @@
 require "bundler/setup"
 require "#{__dir__}/../site"
 
-dev_server = Hotpages.dev_server
+Hotpages.extensions += [
+  Hotpages::Extensions::DevServer::HotReloading,
+  Hotpages::Extensions::DevServer::TemplatePathAnnotation
+]
+Hotpages.reload
+
+dev_server = Hotpages::DevServer.new(site: Hotpages.site)
 trap("INT") { dev_server.stop }
 # dev_server.start(gem_development: true) # For gem developer
 dev_server.start

@@ -1,31 +1,23 @@
 require "fileutils"
 require "benchmark"
 
-class Hotpages::Site::Generator
+class Hotpages::SiteGenerator
   CSS_IMPORT_REGEXP = /@import\s+(?:url\()?["']?([^"')]+)["']?\)?/.freeze
 
   def initialize(site:)
     @site = site
-    @generating = false
   end
 
   def generate
-    self.generating = true
-
     FileUtils.rm_rf(site.dist_path) if Dir.exist?(site.dist_path)
 
     generate_pages
     generate_assets
-
-    self.generating = false
   end
-
-  def generating? = generating
 
   private
 
   attr_reader :site
-  attr_accessor :generating
 
   def generate_pages
     page_instances = Hotpages::Page.all

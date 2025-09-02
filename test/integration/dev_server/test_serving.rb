@@ -9,10 +9,6 @@ class TestServing < Minitest::Test
 
     @@port = 12345
     @@server_pid = fork do
-      Hotpages::Extensions::HotReloading.disable_reload
-      Hotpages::Extensions::TemplatePathAnnotation.disable_reload
-      Hotpages.reload
-
       server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port)
       trap("TERM") { server.stop }
       server.start
@@ -20,7 +16,7 @@ class TestServing < Minitest::Test
 
     # Generation process creates constants under Pages namespace, so do this after server process is forked.
     # This ensures that constants are properly initialized only within the DevServer process.
-    Hotpages.site.generate
+    Hotpages.site_generator.generate
 
     @@setup_done = true
 

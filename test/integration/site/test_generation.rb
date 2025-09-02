@@ -3,7 +3,18 @@ require "digest"
 
 class TestSiteGeneration < Minitest::Test
   def setup
-    Hotpages.site.generate
+    pid = fork do
+      Hotpages.extensions += [
+        Hotpages::Extensions::AssetCacheBusting,
+        Hotpages::Extensions::BrokenPageLinksChecking,
+        Hotpages::Extensions::PrefixingPageLinks
+      ]
+      Hotpages.reload
+      Hotpages.site.reload
+      Hotpages::SiteGenerator.new(site: Hotpages.site).generate
+    end
+
+    Process.wait(pid)
   end
 
   def test_site_generation
@@ -23,10 +34,10 @@ class TestSiteGeneration < Minitest::Test
       expected_file = File.join(expected_dist, rel_path)
       actual_file = File.join(actual_dist, rel_path)
 
-      expected_hash = Digest::SHA256.file(expected_file).hexdigest
-      actual_hash = Digest::SHA256.file(actual_file).hexdigest
+      expected_content = File.read(expected_file)
+      actual_content = File.read(actual_file)
 
-      assert_equal expected_hash, actual_hash, "File content not match: #{rel_path}"
+      assert_equal expected_content, actual_content, "File content not match: #{rel_path}"
     end
   end
 end

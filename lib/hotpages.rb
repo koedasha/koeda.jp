@@ -9,20 +9,22 @@ module Hotpages
   DEFAULT_EXTENSIONS = [
     Extensions::I18n,
     Extensions::Hotwire,
-    Extensions::PageMtime,
-    Extensions::HotReloading,
-    Extensions::TemplatePathAnnotation
+    Extensions::PageMtime
   ]
 
   class << self
     def eager_load = loader.eager_load
 
     def reload
-      loader.reload
+      loader.reload.tap do |_result|
+        Extension.setup
+      end
     rescue Zeitwerk::SetupRequired
       loader.setup
     ensure
-      loader.reload
+      loader.reload.tap do |_result|
+        Extension.setup
+      end
     end
 
     def teardown
@@ -35,14 +37,16 @@ module Hotpages
     # Extensions order is important, because initialization is performed in the order defined
     # and this affects prepended/included modules' order.
     def extensions = @extensions ||= DEFAULT_EXTENSIONS
+    def extensions=(extensions)
+      @extensions = extensions
+    end
 
     def config = @config ||= Config.defaults
 
     attr_accessor :site_class
     def site = @site ||= site_class.instance.tap(&:setup)
 
-    def dev_server
-      @dev_server ||= Hotpages::DevServer.new(site:)
-    end
+    def dev_server = @dev_server ||= DevServer.new(site:)
+    def site_generator = @site_generator ||= SiteGenerator.new(site:)
   end
 end

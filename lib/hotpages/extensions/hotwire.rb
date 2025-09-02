@@ -15,7 +15,7 @@ module Hotpages::Extensions::Hotwire
 
   def self.prepended(site_class)
     site_class.after_initialize do |site|
-      site.assets_paths << "#{__dir__}/hotwire"
+      site.assets_paths << "#{__dir__}/hotwire/assets"
     end
   end
 end

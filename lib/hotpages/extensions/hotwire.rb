@@ -6,16 +6,13 @@ module Hotpages::Extensions::Hotwire
     "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm"
   }
 
-  prepending to: "Hotpages::Site"
   add_helper "#{name}::TurboHelper"
 
   configure do |config|
     config.importmaps.merge!(IMPORTMAPS)
   end
 
-  def self.prepended(site_class)
-    site_class.after_initialize do |site|
-      site.assets_paths << "#{__dir__}/hotwire/assets"
-    end
+  Hotpages::Site.after_initialize do |site|
+    site.assets_paths << "#{__dir__}/hotwire/assets"
   end
 end

@@ -21,11 +21,6 @@ class Hotpages::Config
           ),
           pages_namespace: "Pages",
           phantom_page_base_class_name: "Page",
-          generator: new(
-            # Url prefix for page URLs when generating static files.
-            # Set this when deploying the site to a subdirectory.
-            links_url_prefix: ""
-          )
         ),
         dev_server: new(
           port: 4000,

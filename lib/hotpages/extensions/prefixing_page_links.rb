@@ -1,6 +1,14 @@
 module Hotpages::Extensions::PrefixingPageLinks
   extend Hotpages::Extension
 
+  configure do |config|
+    config.site.add(
+      # Url prefix for page URLs when generating static files.
+      # Set this when deploying the site to a subdirectory.
+      page_links_url_prefix: ""
+    )
+  end
+
   prepending to: "Hotpages::Helpers::UrlHelper"
 
   include Hotpages::Helpers::PageHelper
@@ -9,6 +17,6 @@ module Hotpages::Extensions::PrefixingPageLinks
     url = super
     return url unless url.start_with?("/")
 
-    File.join(config.site.generator.links_url_prefix, url)
+    File.join(config.site.page_links_url_prefix, url)
   end
 end

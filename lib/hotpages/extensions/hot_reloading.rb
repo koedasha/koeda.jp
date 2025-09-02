@@ -28,6 +28,7 @@ module Hotpages::Extensions::HotReloading
   def stop
     super
     file_change_streams.each { it.close }
+    file_change_streams.clear
   end
 
   private

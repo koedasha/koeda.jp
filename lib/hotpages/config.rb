@@ -35,11 +35,7 @@ class Hotpages::Config
     end
   end
 
-  def initialize(defaults)
-    defaults.each do |key, value|
-      define_attribute(key, value)
-    end
-  end
+  def initialize(...) = add(...)
 
   def add(**configs)
     configs.each do |key, value|

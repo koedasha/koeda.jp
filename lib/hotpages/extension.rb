@@ -1,3 +1,4 @@
+# TODO: Find more simple way to use prepend/include directly.
 module Hotpages::Extension
   using Hotpages::Support::StringInflections
 

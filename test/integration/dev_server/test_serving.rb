@@ -4,19 +4,15 @@ require "net/http"
 class TestServing < Minitest::Test
   @@setup_done = false
 
-  module RemoveHotReloadingScripts
-    def page_content(page) = page.render
-  end
-
   def setup
     return if @@setup_done
 
     @@port = 12345
     @@server_pid = fork do
+      Hotpages::Extensions::HotReloading.disable_reload
       Hotpages::Extensions::TemplatePathAnnotation.disable_reload
       Hotpages.reload
-      # In order to match the generated HTML content without HotReload script tags.
-      Hotpages::DevServer.prepend(RemoveHotReloadingScripts)
+
       server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port)
       trap("TERM") { server.stop }
       server.start

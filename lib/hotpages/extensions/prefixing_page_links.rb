@@ -5,9 +5,7 @@ module Hotpages::Extensions::PrefixingPageLinks
 
   include Hotpages::Helpers::PageHelper
 
-  private
-
-  def process_url(url, **options)
+  def process_url(url, _options = {})
     url = super
     return url unless url.start_with?("/")
 

@@ -12,7 +12,7 @@ module Hotpages::Helpers::UrlHelper
       [ nil, text_or_url ]
     end
 
-    options[:href] ||= process_url(url, **options)
+    options[:href] ||= process_url(url, options)
 
     if block_given?
       tag.a(options, &block)
@@ -21,8 +21,6 @@ module Hotpages::Helpers::UrlHelper
     end
   end
 
-  private
-
   # For override by extensions
-  def process_url(url, **_options) = url
+  def process_url(url, _options) = url
 end

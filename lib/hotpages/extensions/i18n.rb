@@ -117,18 +117,16 @@ module Hotpages::Extensions::I18n
   end
 
   module UrlHelper
-    private
+    def process_url(url, _options = {})
+      url = super
 
-    def prefix_page_url(url)
       return url unless url.start_with?("/")
 
-      url = if locale && !site.default_locale?(locale)
+      if locale && !site.default_locale?(locale)
         "/#{locale}#{url}"
       else
         url
       end
-
-      super(url)
     end
   end
 

@@ -2,7 +2,7 @@ module Hotpages::Extensions::BrokenPageLinksChecking
   extend Hotpages::Extension
 
   spec do
-    it.prepend self, to: Hotpages::Helpers::UrlHelper
+    it.prepend to: Hotpages::Helpers::UrlHelper
   end
 
   include Hotpages::Helpers::PageHelper

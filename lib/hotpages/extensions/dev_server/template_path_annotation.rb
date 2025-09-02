@@ -2,7 +2,7 @@ module Hotpages::Extensions::DevServer::TemplatePathAnnotation
   extend Hotpages::Extension
 
   spec do
-    it.prepend self, to: Hotpages::Template
+    it.prepend to: Hotpages::Template
   end
 
   def render_in(context, locals = {}, &block)

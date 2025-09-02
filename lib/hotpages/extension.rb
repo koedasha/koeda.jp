@@ -5,8 +5,8 @@ module Hotpages::Extension
     end
   end
 
-  def setup(config)
-    @spec_block.call(Spec.new(config))
+  def setup(config, extension_mod = self)
+    @spec_block.call(Spec.new(config, extension_mod))
   end
 
   private
@@ -16,18 +16,19 @@ module Hotpages::Extension
   end
 
   class Spec
-    def initialize(config)
+    def initialize(config, extension)
       @config = config
+      @extension = extension
     end
 
-    def prepend(mod, to:)
+    def prepend(mod = extension, to:)
       to.prepend(mod)
       if mod.const_defined?(:ClassMethods)
         to.singleton_class.prepend(mod::ClassMethods)
       end
     end
 
-    def include(mod, to:)
+    def include(mod = extension, to:)
       to.include(mod)
       if mod.const_defined?(:ClassMethods)
         to.extend(mod::ClassMethods)
@@ -40,7 +41,7 @@ module Hotpages::Extension
 
     private
 
-    attr_reader :config
+    attr_reader :config, :extension
   end
   private_constant :Spec
 end

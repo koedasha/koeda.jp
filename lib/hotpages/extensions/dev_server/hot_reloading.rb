@@ -6,7 +6,7 @@ module Hotpages::Extensions::DevServer::HotReloading
   extend Hotpages::Extension
 
   spec do
-    it.prepend self, to: Hotpages::DevServer
+    it.prepend to: Hotpages::DevServer
   end
 
   FILE_CHANGES_PATH = "/_file_changes"

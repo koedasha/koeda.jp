@@ -9,7 +9,7 @@ module Hotpages::Extensions::PrefixingPageLinks
         page_links_url_prefix: ""
       )
     end
-    it.prepend self, to: Hotpages::Helpers::UrlHelper
+    it.prepend to: Hotpages::Helpers::UrlHelper
   end
 
   include Hotpages::Helpers::PageHelper

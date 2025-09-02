@@ -2,7 +2,7 @@ module Hotpages::Extensions::AssetCacheBusting
   extend Hotpages::Extension
 
   spec do
-    it.prepend self, to: Hotpages::Helpers::AssetsHelper
+    it.prepend to: Hotpages::Helpers::AssetsHelper
   end
 
   def asset_path(asset_name, directory: nil)

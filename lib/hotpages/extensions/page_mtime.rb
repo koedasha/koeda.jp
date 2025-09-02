@@ -2,7 +2,7 @@ module Hotpages::Extensions::PageMtime
   extend Hotpages::Extension
 
   including "#{name}::Page", to: "Hotpages::Page"
-  including "#{name}::Template", to: "Hotpages::Page::Template"
+  including "#{name}::Template", to: "Hotpages::Template"
 
   module Page
     def last_modified_at

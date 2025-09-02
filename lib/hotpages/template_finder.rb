@@ -1,4 +1,4 @@
-class Hotpages::Page::Template::Finder
+class Hotpages::TemplateFinder
   PathData = Data.define(:base_path, :extension) do
     def self.from_absolute_path(absolute_path)
       fragments = absolute_path.split(".")
@@ -16,7 +16,7 @@ class Hotpages::Page::Template::Finder
 
   def find!(template_path)
     data = path_data_for(template_path)
-    Hotpages::Page::Template.new(data.extension, base_path: data.base_path)
+    Hotpages::Template.new(data.extension, base_path: data.base_path)
   end
 
   private

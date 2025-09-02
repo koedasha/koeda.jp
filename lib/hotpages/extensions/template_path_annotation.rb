@@ -1,7 +1,7 @@
 module Hotpages::Extensions::TemplatePathAnnotation
   extend Hotpages::Extension
 
-  prepending to: "Hotpages::Page::Template"
+  prepending to: "Hotpages::Template"
 
   def render_in(context, locals = {}, &block)
     content = super

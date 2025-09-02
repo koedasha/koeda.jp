@@ -4,7 +4,7 @@ class Hotpages::Page::RenderingContext
 
   def initialize(page)
     @page = page
-    @template_finder = Hotpages::Page::Template::Finder.new(page.base_path, page.site)
+    @template_finder = Hotpages::TemplateFinder.new(page.base_path, page.site)
     @cached_page_content = nil
     @captured_contents = {}
     @buf = ""

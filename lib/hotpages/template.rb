@@ -4,7 +4,7 @@ require "erubi/capture_block"
 Tilt.register(Tilt::PlainTemplate, "txt")
 Tilt.register(Tilt::PlainTemplate, "xml")
 
-class Hotpages::Page::Template
+class Hotpages::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }.freeze
 
   def initialize(extension, base_path: nil, directory: nil, &body)

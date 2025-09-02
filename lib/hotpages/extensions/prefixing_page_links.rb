@@ -1,15 +1,16 @@
 module Hotpages::Extensions::PrefixingPageLinks
   extend Hotpages::Extension
 
-  configure do |config|
-    config.site.add(
-      # Url prefix for page URLs when generating static files.
-      # Set this when deploying the site to a subdirectory.
-      page_links_url_prefix: ""
-    )
+  spec do
+    it.configure do |config|
+      config.site.add(
+        # Url prefix for page URLs when generating static files.
+        # Set this when deploying the site to a subdirectory.
+        page_links_url_prefix: ""
+      )
+    end
+    it.prepend self, to: Hotpages::Helpers::UrlHelper
   end
-
-  prepending to: "Hotpages::Helpers::UrlHelper"
 
   include Hotpages::Helpers::PageHelper
 

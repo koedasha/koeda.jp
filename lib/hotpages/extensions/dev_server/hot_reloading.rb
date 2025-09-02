@@ -5,7 +5,9 @@ require "json"
 module Hotpages::Extensions::DevServer::HotReloading
   extend Hotpages::Extension
 
-  prepending to: "Hotpages::DevServer"
+  spec do
+    it.prepend self, to: Hotpages::DevServer
+  end
 
   FILE_CHANGES_PATH = "/_file_changes"
   HOT_RELOADING_JS_PATH = "/_hot_reloading.js"

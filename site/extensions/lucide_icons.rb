@@ -3,7 +3,9 @@ require "rexml/document"
 module LucideIcons
   extend Hotpages::Extension
 
-  add_helper "#{name}::Helper"
+  spec do
+    it.add_helper Helper
+  end
 
   SPRITE_PATH = "#{__dir__}/lucide_icons/sprite.svg"
   SPRITE_XML = File.read(SPRITE_PATH)

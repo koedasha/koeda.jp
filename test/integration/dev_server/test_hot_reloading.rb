@@ -10,6 +10,7 @@ class TestHotReloading < Minitest::Test
     @@server_pid = fork do
       Hotpages.extensions << Hotpages::Extensions::DevServer::HotReloading
       Hotpages.reload
+      Hotpages.site.reload
 
       server = Hotpages::DevServer.new(site: Hotpages.site, port: @@port)
       trap("TERM") { server.stop }

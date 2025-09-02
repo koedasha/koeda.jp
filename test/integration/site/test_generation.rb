@@ -10,6 +10,7 @@ class TestSiteGeneration < Minitest::Test
         Hotpages::Extensions::PrefixingPageLinks
       ]
       Hotpages.reload
+      Hotpages.site.reload
       Hotpages::SiteGenerator.new(site: Hotpages.site).generate
     end
 

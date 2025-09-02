@@ -15,7 +15,7 @@ module Hotpages::Extension
         when :include
           base.include(with)
           if with.const_defined?(:ClassMethods, false)
-            base.extend(with)
+            base.extend(with::ClassMethods)
           end
         else
           raise "Unknown extension type: #{type}"

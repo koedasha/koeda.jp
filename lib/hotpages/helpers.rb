@@ -1,9 +1,10 @@
 module Hotpages::Helpers
   include(
-    TagHelper,
-    CaptureHelper,
-    UrlHelper,
     AssetsHelper,
-    MarkdownHelper
+    CaptureHelper,
+    MarkdownHelper,
+    PageHelper,
+    TagHelper,
+    UrlHelper
   )
 end

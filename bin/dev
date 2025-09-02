@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
+require "#{__dir__}/../lib/hotpages"
+
+Hotpages.extensions += [
+  Hotpages::Extensions::DevServer::HotReloading,
+  Hotpages::Extensions::DevServer::TemplatePathAnnotation
+]
+
 require "#{__dir__}/../site"
 
 dev_server = Hotpages.dev_server

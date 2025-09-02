@@ -3,7 +3,7 @@ require "json"
 module Hotpages::Helpers::AssetsHelper
   def asset_path(asset_name, directory: nil)
     asset = Hotpages::Asset.new(asset_name, directory:)
-    Hotpages.site.generating? ? asset.digested_url : asset.url
+    asset.url
   end
 
   def image_path(image_name)

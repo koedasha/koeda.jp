@@ -29,7 +29,6 @@ class Hotpages::Site
     with_calling_hooks :initialize do
       @config = self.class.config
       @loader = Loader.new(site: self)
-      @generator = Generator.new(site: self)
     end
   end
 
@@ -49,8 +48,6 @@ class Hotpages::Site
   ensure
     loader.reload
   end
-
-  delegate %i[ generate generating? ] => :generator
 
   def pages_namespace_module(ns_name = config.site.pages_namespace)
      Object.const_defined?(ns_name) ? Object.const_get(ns_name)
@@ -102,5 +99,5 @@ class Hotpages::Site
 
   private
 
-  attr_accessor :loader, :generator
+  attr_accessor :loader
 end

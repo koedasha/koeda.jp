@@ -2,7 +2,7 @@ require "listen"
 require "json"
 
 # TODO: E2E Testing
-module Hotpages::Extensions::HotReloading
+module Hotpages::Extensions::DevServer::HotReloading
   extend Hotpages::Extension
 
   prepending to: "Hotpages::DevServer"

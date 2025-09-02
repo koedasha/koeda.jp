@@ -3,7 +3,7 @@ require "digest"
 
 class TestSiteGeneration < Minitest::Test
   def setup
-    Hotpages.site.generate
+    Hotpages.site_generator.generate
   end
 
   def test_site_generation

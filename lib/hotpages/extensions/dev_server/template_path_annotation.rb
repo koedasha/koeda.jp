@@ -1,11 +1,11 @@
-module Hotpages::Extensions::TemplatePathAnnotation
+module Hotpages::Extensions::DevServer::TemplatePathAnnotation
   extend Hotpages::Extension
 
   prepending to: "Hotpages::Template"
 
   def render_in(context, locals = {}, &block)
     content = super
-    return content if !rendered_to_html? || Hotpages.site.generating?
+    return content if !rendered_to_html?
 
     <<~HTML.chomp
       <!-- BEGIN #{abs_name} -->

@@ -18,7 +18,7 @@ class Hotpages::Template
   end
 
   def render_file? = !base_path.nil?
-  def rendered_to_html? = extension.start_with?("html")
+  def rendered_to_html? = %w[ html htm ].include?(extensions.first)
   def render_in(context, locals = {}, &block) = tilt.render(context, locals, &block)
 
   private

@@ -16,7 +16,7 @@ module Hotpages::Page::Renderable
     # Page rendering flow starts from here
     self.rendering_context = Hotpages::Page::RenderingContext.new(self)
 
-    with_calling_hooks(:render) do
+    run_hooks(:render) do
       rendering_context.copy_page_instance_variables!
 
       # For capturing contents for rendering, render page first

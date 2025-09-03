@@ -50,7 +50,7 @@ module Hotpages::Support::Hooks
     end
   end
 
-  def with_calling_hooks(hook_name, &block)
+  def run_hooks(hook_name, &block)
     unless self.class.hooks[Type.before.key(hook_name)]
       raise "Hooks for `#{hook_name}` is not registered."
     end

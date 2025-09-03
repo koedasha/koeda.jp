@@ -27,7 +27,7 @@ class Hotpages::Site
   define_hook :initialize, only: :after
 
   def initialize
-    with_calling_hooks :initialize do
+    run_hooks :initialize do
       @config = self.class.config
       @loader = Zeitwerk::Loader.new.tap do |loader|
         loader.push_dir(self.pages_path, namespace: self.pages_namespace_module)

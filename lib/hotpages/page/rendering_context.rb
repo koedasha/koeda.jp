@@ -12,15 +12,18 @@ class Hotpages::Page::RenderingContext
 
   def buffer = @buf
 
-  # TODO: support ruby objects responds to `render_in`
-  def render(template_path, **locals, &block)
-    template = template_finder.find!(template_path)
+  def render(template_path_or_object, **locals, &block)
+    renderable = if template_path_or_object.respond_to?(:render_in)
+      template_path_or_object
+    else
+      template_finder.find!(template_path_or_object)
+    end
 
     # TODO: block ignored warnings
     if block_given?
-      template.render_in(self, locals, &block)
+      renderable.render_in(self, **locals, &block)
     else
-      template.render_in(self, locals) do |content_name = nil|
+      renderable.render_in(self, **locals) do |content_name = nil|
         if content_name
           captured_contents[content_name.to_sym]
         else

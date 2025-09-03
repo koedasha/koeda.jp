@@ -18,6 +18,6 @@ module Hotpages::Helpers::MarkdownHelper
     end.join
 
     template = Hotpages::Template.new("md.erb") { unindented_content }
-    template.render_in(rendering_context, locals)
+    template.render_in(rendering_context, **locals)
   end
 end

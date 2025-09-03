@@ -71,10 +71,7 @@ class Hotpages::DevServer
 
     content = File.read(asset_file_path)
 
-    ext = File.extname(req.path)
-    mime_type = WEBrick::HTTPUtils::DefaultMimeTypes[ext.sub(/^\./, "")] || "application/octet-stream"
-
-    res["Content-Type"] = mime_type
+    res["Content-Type"] = mime_type_from_path(req.path)
     res.body = content
   rescue Errno::ENOENT => e
     logger.error(e)
@@ -93,7 +90,7 @@ class Hotpages::DevServer
 
     return respond_with_not_found(req, res) unless page
 
-    res["Content-Type"] = "text/html"
+    res["Content-Type"] = mime_type_from_path(req.path, default: "text/html")
     res.body = page_content(page)
   rescue Exception => e
     logger.error(e)
@@ -130,6 +127,11 @@ class Hotpages::DevServer
     else
       backtrace
     end
+  end
+
+  def mime_type_from_path(path, default: "application/octet-stream")
+    ext = File.extname(path).delete_prefix(".")
+    WEBrick::HTTPUtils::DefaultMimeTypes[ext] || default
   end
 
   def respond_with_not_found(req, res)

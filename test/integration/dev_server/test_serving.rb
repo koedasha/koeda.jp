@@ -84,6 +84,13 @@ class TestServing < Minitest::Test
     assert_equal "404", res.code, "Should not serve /posts/1/bar without trailing slash"
   end
 
+  def test_serves_non_html
+    uri = URI("http://localhost:#{@@port}/sitemap.xml")
+    res = Net::HTTP.get_response(uri)
+    assert_equal "200", res.code
+    assert_equal "text/xml", res.header["Content-Type"]
+  end
+
   private
 
   def assert_page_content(expected_path, actual_content)

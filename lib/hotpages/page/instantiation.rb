@@ -42,7 +42,7 @@ module Hotpages::Page::Instantiation
     base_paths = paths.inject([]) do |result, path|
       next result unless path.start_with?(site.pages_path.to_s)
 
-    base_path = path.sub(site.pages_path.to_s, "").delete_prefix("/")
+      base_path = path.sub(site.pages_path.to_s, "").delete_prefix("/")
 
       next result if base_path =~ IGNORED_PATH_REGEXP
 

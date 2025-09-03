@@ -16,7 +16,7 @@ module Hotpages::Extensions::PrefixingPageLinks
 
   def process_url(url, _options = {})
     url = super
-    return url unless url.start_with?("/")
+    return url unless page_url?(url) && url.start_with?("/")
 
     File.join(config.site.page_links_url_prefix, url)
   end

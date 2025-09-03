@@ -1,4 +1,4 @@
-module Hotpages::Extensions::DevServer::TemplatePathAnnotation
+module Hotpages::Extensions::TemplatePathAnnotation
   extend Hotpages::Extension
 
   spec do

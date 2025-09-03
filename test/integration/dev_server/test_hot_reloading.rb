@@ -8,7 +8,7 @@ class TestHotReloading < Minitest::Test
 
     @@port = 12346
     @@server_pid = fork do
-      Hotpages.extensions << Hotpages::Extensions::DevServer::HotReloading
+      Hotpages.extensions << Hotpages::Extensions::HotReloading
       Hotpages.reload
       Hotpages.site.reload
 
@@ -33,7 +33,7 @@ class TestHotReloading < Minitest::Test
 
     # Initial request
     client_socket.write <<~REQ
-      GET #{Hotpages::Extensions::DevServer::HotReloading::FILE_CHANGES_PATH} HTTP/1.1\r
+      GET #{Hotpages::Extensions::HotReloading::FILE_CHANGES_PATH} HTTP/1.1\r
       Host: localhost:#{@@port}\r
       Accept: text/event-stream\r
       Cache-Control: no-cache\r

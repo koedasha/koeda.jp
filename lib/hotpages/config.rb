@@ -2,10 +2,11 @@ class Hotpages::Config
   class << self
     def defaults
       new(
-        importmaps: {},
         assets: new(
           prefix: "/assets/",
         ),
+        importmaps: {},
+        page_file_types: %w[ dtd htm html json md txt xhtml xml ],
         site: new(
           # The root path property is set by the framework. Can be overridden when defining the Site.
           root: nil,

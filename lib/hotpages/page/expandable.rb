@@ -12,7 +12,7 @@ module Hotpages::Page::Expandable
   module ClassMethods
     def segment_names = nil
 
-    def expand_instances_for(base_path, template_extension:)
+    def expand_instances_for(base_path, template_file_ext:)
       namespaces = self.name.split("::")
       namespaces.shift # Remove the first `Pages` namespace
 
@@ -30,7 +30,7 @@ module Hotpages::Page::Expandable
       end.compact.to_h
 
       # Not expanded
-      return [ new(base_path:, template_extension:) ] if segment_name_values.empty?
+      return [ new(base_path:, template_file_ext:) ] if segment_name_values.empty?
 
       segment_keys = segment_name_values.keys
       segment_values_product = segment_name_values.values.then do |values|
@@ -40,7 +40,7 @@ module Hotpages::Page::Expandable
       segment_values_product.map do |segment_values|
         segments = segment_keys.zip(segment_values).to_h
         name = segment_names.nil? ? nil : segment_values.last
-        new(base_path:, segments:, name:, template_extension:)
+        new(base_path:, segments:, name:, template_file_ext:)
       end
     end
   end
@@ -62,11 +62,13 @@ module Hotpages::Page::Expandable
   end
 
   def expanded_url(omit_html_ext: true, omit_index: true)
-    ext = if template_extension.nil?
+    ext = if template_file_ext.nil?
       "html"
     else
-      template_extension.split(".").first
+      template_file_ext.split(".").first
     end
+
+    raise "Unsupported file type: `#{ext}`" if ext && !config.page_file_types.include?(ext)
 
     url = [ expanded_base_path, ext ].compact.join(".")
 

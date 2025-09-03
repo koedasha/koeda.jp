@@ -1,16 +1,15 @@
 require "tilt"
 require "erubi/capture_block"
 
-Tilt.register(Tilt::PlainTemplate, "txt")
-Tilt.register(Tilt::PlainTemplate, "xml")
-
 class Hotpages::Template
   ERB_OPTIONS = { engine_class: Erubi::CaptureBlockEngine, bufvar: "@buf" }.freeze
 
-  def initialize(extension, base_path: nil, directory: nil, &body)
+  def initialize(extension, base_path: nil, directory: nil, template_names: nil, &body)
     @extension = extension || ""
     @base_path = base_path
     @directory = directory
+    # Optional template_names overrides computed templates from extension
+    @template_names = template_names
 
     @name = [ base_path, extension ].compact.join(".").chomp(".")
     @abs_name = File.join(*[ directory, @name ].compact)
@@ -23,7 +22,7 @@ class Hotpages::Template
 
   private
 
-  attr_reader :extension, :base_path, :directory, :name, :abs_name, :body
+  attr_reader :extension, :base_path, :directory, :template_names, :name, :abs_name, :body
 
   def extensions = @extensions ||= extension.split(".")
 
@@ -40,13 +39,19 @@ class Hotpages::Template
         {}
       end
 
+      options[:templates] = template_names if template_names && template_names.any?
+
       # TODO: Correctly handle registering pipelines
       Tilt.register_pipeline(extension, options)
       Tilt.new(abs_name, &block)
-    elsif extensions.include?("erb")
+    elsif extension == "erb"
       Tilt.new(abs_name, **ERB_OPTIONS, &block)
     else
-      Tilt.new(abs_name, &block)
+      if template_names && template_names.empty?
+        Tilt::PlainTemplate.new(abs_name, &block)
+      else
+        Tilt.new(abs_name, &block)
+      end
     end
   end
 end

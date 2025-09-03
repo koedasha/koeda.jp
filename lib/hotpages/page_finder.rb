@@ -78,9 +78,9 @@ class Hotpages::PageFinder
     non_rb_exts = files
       .map { |path| File.basename(path).split(".")[1..].join(".") }
       .reject { it == "rb" }
-    template_extension = non_rb_exts.empty? ? nil : non_rb_exts.first
+    template_file_ext = non_rb_exts.empty? ? nil : non_rb_exts.first
 
-    page = page_class.new(base_path:, segments:, name:, template_extension:)
+    page = page_class.new(base_path:, segments:, name:, template_file_ext:)
 
     return nil if page_class.phantom? && !page.template_file_exist?
 

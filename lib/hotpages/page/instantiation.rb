@@ -60,11 +60,11 @@ module Hotpages::Page::Instantiation
 
       raise "Multiple page templates found for #{base_path}: #{non_rb_exts.join(', ')}" if non_rb_exts.size > 1
 
-      from_base_path(base_path, template_extension: non_rb_exts.first) || []
+      from_base_path(base_path, template_file_ext: non_rb_exts.first) || []
     end
   end
 
-  def from_base_path(base_path, template_extension:)
+  def from_base_path(base_path, template_file_ext:)
     class_name = base_path.classify
     page_class_defined = site.pages_namespace_module.const_defined?(class_name, false) rescue false
     page_class =
@@ -75,7 +75,7 @@ module Hotpages::Page::Instantiation
       end
 
     if page_class.respond_to?(:expand_instances_for)
-      page_class.expand_instances_for(base_path, template_extension:)
+      page_class.expand_instances_for(base_path, template_file_ext:)
     else
       nil
     end

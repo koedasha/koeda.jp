@@ -13,6 +13,14 @@
     <lastmod>2025-09-03</lastmod>
   </url>
   <url>
+    <loc>https://example.com/misc/htm_extension</loc>
+    <lastmod>2025-09-03</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/ja/misc/htm_extension</loc>
+    <lastmod>2025-09-03</lastmod>
+  </url>
+  <url>
     <loc>https://example.com/misc/just</loc>
     <lastmod>2025-07-17</lastmod>
   </url>
@@ -59,6 +67,14 @@
   <url>
     <loc>https://example.com/ja/misc/page_link_patterns</loc>
     <lastmod>2025-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/misc/raw_markdown.md</loc>
+    <lastmod>2025-09-03</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/ja/misc/raw_markdown.md</loc>
+    <lastmod>2025-09-03</lastmod>
   </url>
   <url>
     <loc>https://example.com/misc/render_hooks</loc>

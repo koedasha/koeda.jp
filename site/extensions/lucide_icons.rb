@@ -23,10 +23,10 @@ module LucideIcons
   }
 
   class << self
-    def lucide_svg_paths_for(icon_name)
-      # Parsing xml is heavy, so cache result svg paths
-      @lucide_svg_paths ||= {}
-      @lucide_svg_paths[icon_name] ||= begin
+    def lucide_svg_drawing_for(icon_name)
+      # Parsing xml is heavy, so cache result svg drawings
+      @lucide_svg_drawings ||= {}
+      @lucide_svg_drawings[icon_name] ||= begin
         symbol = REXML::XPath.first(SPRITE_DOC, "//symbol[@id='#{icon_name}']")
         unless symbol
           raise "Lucide icon `#{icon_name}` was not found in sprite.svg"
@@ -40,7 +40,7 @@ module LucideIcons
   module Helper
     def lucide_tag(icon_name)
       tag.svg SVG_ATTRIBUTES do
-        LucideIcons.lucide_svg_paths_for(icon_name)
+        LucideIcons.lucide_svg_drawing_for(icon_name)
       end
     end
   end

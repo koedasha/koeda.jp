@@ -9,14 +9,14 @@ class Hotpages::Site
   using Hotpages::Support::StringInflections
 
   class << self
-    def inherited(base)
+    def inherited(subclass)
       Hotpages::Extension.setup
 
       super
 
-      Hotpages.site_class = base
+      Hotpages.site_class = subclass
 
-      base_class_location = Object.const_source_location(base.name).first
+      base_class_location = Object.const_source_location(subclass.name).first
       config.site.root = Pathname.new(base_class_location).join("../site")
     end
 

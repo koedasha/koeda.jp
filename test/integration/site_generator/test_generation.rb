@@ -1,7 +1,7 @@
 require "test_helper"
 require "digest"
 
-class TestSiteGeneration < Minitest::Test
+class TestGeneration < Minitest::Test
   def setup
     pid = fork do
       Hotpages.extensions += [

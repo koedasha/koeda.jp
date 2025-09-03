@@ -46,12 +46,10 @@ class Hotpages::Template
       Tilt.new(abs_name, &block)
     elsif extension == "erb"
       Tilt.new(abs_name, **ERB_OPTIONS, &block)
+    elsif template_names && template_names.empty?
+      Tilt::PlainTemplate.new(abs_name, &block)
     else
-      if template_names && template_names.empty?
-        Tilt::PlainTemplate.new(abs_name, &block)
-      else
-        Tilt.new(abs_name, &block)
-      end
+      Tilt.new(abs_name, &block)
     end
   end
 end

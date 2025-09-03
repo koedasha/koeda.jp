@@ -56,13 +56,13 @@ class Hotpages::DevServer
 
   def handle_request(req, res)
     if req.path.start_with?(assets_prefix)
-      handle_assets_request(req, res)
+      handle_asset_request(req, res)
     else
       handle_page_request(req, res)
     end
   end
 
-  def handle_assets_request(req, res)
+  def handle_asset_request(req, res)
     asset_file_path = site.assets.find do |base_path, file|
       file.delete_prefix(base_path.to_s + "/") == req.path.delete_prefix(assets_prefix)
     end&.last

@@ -5,8 +5,8 @@ module Hotpages::Extension
     end
   end
 
-  def setup(config, extension_mod = self)
-    @spec_block.call(Spec.new(config, extension_mod))
+  def setup(config, extension = self)
+    @spec_block.call(Setup.new(config, extension))
   end
 
   private
@@ -15,7 +15,7 @@ module Hotpages::Extension
     @spec_block = spec_block
   end
 
-  class Spec
+  class Setup
     def initialize(config, extension)
       @config = config
       @extension = extension
@@ -43,5 +43,5 @@ module Hotpages::Extension
 
     attr_reader :config, :extension
   end
-  private_constant :Spec
+  private_constant :Setup
 end

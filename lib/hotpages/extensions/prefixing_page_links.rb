@@ -5,7 +5,7 @@ module Hotpages::Extensions::PrefixingPageLinks
     it.configure do |config|
       config.site.add(
         # Url prefix for page URLs when generating static files.
-        # Set this when deploying the site to a subdirectory.
+        # When deploying the site to a subdirectory, set this along with `assets.prefix` config.
         page_links_url_prefix: ""
       )
     end

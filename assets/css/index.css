@@ -16,6 +16,13 @@ article#index {
       margin-bottom: 1rem;
       font-size: 4rem;
       font-weight: 200;
+      svg {
+        width: 90%;
+        max-width: 440px;
+        path {
+          fill: var(--foreground-color);
+        }
+      }
     }
 
     ul#businesses {

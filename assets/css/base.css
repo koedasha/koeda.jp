@@ -64,7 +64,14 @@ body {
 
     h1 {
       display: inline-block;
-      font-weight: 200;
+      svg {
+        display: inline-block;
+        max-width: 140px;
+        height: 30px;
+        path {
+          fill: var(--foreground-color);
+        }
+      }
     }
   }
 

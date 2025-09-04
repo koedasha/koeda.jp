@@ -1,7 +1,7 @@
 require "digest/sha1"
 
 class Hotpages::Asset
-  attr_reader :url
+  attr_reader :url, :absolute_location
 
   def initialize(location, url_prefix: Hotpages.config.assets.prefix, directory: nil)
     directory = directory || Hotpages.site.assets_path.to_s
@@ -23,9 +23,9 @@ class Hotpages::Asset
     "#{url}#{query_separator}v=#{digest}"
   end
 
-  private
+  def read_file = File.read(absolute_location)
 
-  attr_reader :absolute_location
+  private
 
   def external? = @external
   def force_relative? = @force_relative
@@ -35,7 +35,7 @@ class Hotpages::Asset
     @digest ||= begin
       return nil if external?
 
-      Digest::SHA1.hexdigest(File.read(absolute_location))[0, 8]
+      Digest::SHA1.hexdigest(read_file)[0, 8]
     end
   end
 end

@@ -18,8 +18,12 @@
   <% end %>
 
   <% if header? %>
-    <header class="gradient-text">
-      <h1><%= link_to site_name, "/" %></h1>
+    <header>
+      <h1>
+        <%= link_to "/" do %>
+          <%= inline_svg_tag("images/koeda-sha_logo.svg") %>
+        <% end %>
+      </h1>
     </header>
   <% end %>
 

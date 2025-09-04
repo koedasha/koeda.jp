@@ -1,4 +1,5 @@
 require "json"
+require "rexml/document"
 
 module Hotpages::Helpers::AssetsHelper
   def asset_path(asset_name, directory: nil)
@@ -13,6 +14,20 @@ module Hotpages::Helpers::AssetsHelper
   def image_tag(image_name, **options)
     options[:src] = image_path(image_name)
     tag.img options
+  end
+
+  def inline_svg_tag(svg_name, **options)
+    svg_asset = Hotpages::Asset.new(svg_name)
+    doc = REXML::Document.new(svg_asset.read_file)
+    svg = REXML::XPath.first(doc, "//svg")
+
+    raise "Failed to load svg definition: #{svg_asset.absolute_location}" unless svg
+
+    options.each do |k, v|
+      svg.attributes[k.to_s] = v
+    end
+
+    svg.to_s
   end
 
   def stylesheet_link_tag(stylesheet_name)

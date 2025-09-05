@@ -69,7 +69,12 @@ body {
         max-width: 140px;
         height: 30px;
         path {
-          fill: var(--foreground-color);
+          fill: url(#linearGradient2);
+        }
+        @media (prefers-color-scheme: dark) {
+          path {
+            fill: var(--foreground-color);
+          }
         }
       }
     }

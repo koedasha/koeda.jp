@@ -20,7 +20,12 @@ article#index {
         width: 90%;
         max-width: 440px;
         path {
-          fill: var(--foreground-color);
+          fill: url(#linearGradient2);
+        }
+        @media (prefers-color-scheme: dark) {
+          path {
+            fill: var(--foreground-color);
+          }
         }
       }
     }

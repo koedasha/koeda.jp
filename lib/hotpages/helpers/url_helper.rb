@@ -2,25 +2,18 @@ require "uri"
 
 module Hotpages::Helpers::UrlHelper
   def link_to(
-    text_or_url, url_or_nil = nil,
+    body = nil, url = nil,
     **options,
     &block
   )
-    text, url = if url_or_nil
-      [ text_or_url, url_or_nil ]
-    else
-      [ nil, text_or_url ]
-    end
+    url = body if url.nil?
 
-    options[:href] ||= process_url(url, options)
+    options[:href] ||= url
 
     if block_given?
       tag.a(options, &block)
     else
-      tag.a(options) { concat(text || url) }
+      tag.a(options) { concat(body || options[:href]) }
     end
   end
-
-  # For override by extensions
-  def process_url(url, _options) = url
 end

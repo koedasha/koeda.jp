@@ -7,11 +7,13 @@ module Hotpages::Extensions::BrokenPageLinksChecking
 
   include Hotpages::Helpers::PageHelper
 
-  def process_url(url, options = {})
+  def link_to(*args, **options, &block)
+    url = args.last
+
     if options.delete(:check_broken) != false && page_url?(url)
       raise "Broken page link detected: #{url}" if !page_exists?(url)
     end
 
-    super(url, options)
+    super(*args, **options, &block)
   end
 end

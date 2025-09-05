@@ -118,16 +118,14 @@ module Hotpages::Extensions::I18n
   end
 
   module UrlHelper
-    def process_url(url, _options = {})
-      url = super
+    def link_to(*args, **options, &block)
+      url = args.last
 
-      return url unless url.start_with?("/")
-
-      if locale && !site.default_locale?(locale)
-        "/#{locale}#{url}"
-      else
-        url
+      if url.start_with?("/") && locale && !site.default_locale?(locale)
+        options[:href] = "/#{locale}#{url}"
       end
+
+      super(*args, **options, &block)
     end
   end
 

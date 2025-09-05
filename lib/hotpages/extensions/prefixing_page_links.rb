@@ -1,3 +1,6 @@
+# TODO: prefixing asset path is required
+# css: SiteGenerator#generate_assets, modifying css import part
+# js, image: override asset_path helper function
 module Hotpages::Extensions::PrefixingPageLinks
   extend Hotpages::Extension
 
@@ -14,10 +17,13 @@ module Hotpages::Extensions::PrefixingPageLinks
 
   include Hotpages::Helpers::PageHelper
 
-  def process_url(url, _options = {})
-    url = super
-    return url unless page_url?(url) && url.start_with?("/")
+  def link_to(*args, **options, &block)
+    url = args.last
 
-    File.join(config.site.page_links_url_prefix, url)
+    if page_url?(url) && url.start_with?("/")
+      options[:href] = File.join(config.site.page_links_url_prefix, url)
+    end
+
+    super(*args, **options, &block)
   end
 end

@@ -52,16 +52,19 @@ article.devs {
   }
 
   #works {
+    & + p {
+      margin-bottom: -1rem;
+    }
     & + p + dl {
       dt, dd {
         margin: 0;
       }
       dt {
-        margin-top: 3rem;
+        margin-top: 4rem;
         font-size: 1.3rem;
         font-weight: 700;
         text-indent: 0;
-        line-height: 50px;
+        margin-bottom: .5rem;
         svg, span {
           font-weight: normal;
           font-size: .8rem;

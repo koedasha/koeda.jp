@@ -5,7 +5,7 @@
 
   --light-foreground-color: #0f100f;
   --light-paragraph-foreground-color: #494e48;
-  --dark-foreground-color: #fefcf6;
+  --dark-foreground-color: #f7f7f6;
   --light-background-color: var(--dark-foreground-color);
   --dark-background-color: var(--primary-gradient);
   --secondary-color: #bababa;

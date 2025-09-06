@@ -1,6 +1,6 @@
 article.devs {
   h2 {
-    margin: 5rem 0 5rem;
+    margin: 5rem 0 4rem;
     font-size: 3rem;
     display: flex;
     justify-content: center;
@@ -37,7 +37,7 @@ article.devs {
   }
 
   h3 {
-    margin: 3rem 0;
+    margin: 3rem 0 2rem;
     font-size: 2rem;
     display: flex;
     justify-content: center;

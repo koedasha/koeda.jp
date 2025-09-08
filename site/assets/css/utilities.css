@@ -24,8 +24,8 @@
 
 .underline {
   /* Workaround for chrome transparent underline */
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.12);
-  color: rgba(0,0,0,0.12);
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.06);
+  color: rgba(0,0,0,0.06);
 
   text-decoration: underline;
   text-decoration-thickness: 2px;

@@ -6,7 +6,7 @@ module Hotpages::Extensions::Hotwire
     "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3.2.2/+esm"
   }
 
-  spec do
+  extension do
     it.add_helper Hotpages::Extensions::Hotwire::TurboHelper
     it.configure do |config|
       config.importmaps.merge!(IMPORTMAPS)

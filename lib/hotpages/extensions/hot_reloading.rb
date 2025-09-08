@@ -5,7 +5,7 @@ require "json"
 module Hotpages::Extensions::HotReloading
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.prepend to: Hotpages::DevServer
   end
 

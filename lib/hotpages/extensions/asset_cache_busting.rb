@@ -2,7 +2,7 @@
 module Hotpages::Extensions::AssetCacheBusting
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.prepend to: Hotpages::Helpers::AssetsHelper
   end
 

@@ -1,7 +1,7 @@
 module Hotpages::Extensions::BrokenPageLinksChecking
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.prepend to: Hotpages::Helpers::UrlHelper
   end
 

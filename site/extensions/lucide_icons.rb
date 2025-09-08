@@ -3,7 +3,7 @@ require "rexml/document"
 module LucideIcons
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.add_helper Helper
   end
 

@@ -4,7 +4,7 @@
 module Hotpages::Extensions::PrefixingPageLinks
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.configure do |config|
       config.site.add(
         # Url prefix for page URLs when generating static files.

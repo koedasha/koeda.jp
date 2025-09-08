@@ -1,7 +1,7 @@
 module Hotpages::Extensions::PageMtime
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.include Page, to: Hotpages::Page
     it.include Template, to: Hotpages::Template
   end

@@ -3,7 +3,7 @@ require "fast_gettext"
 module Hotpages::Extensions::I18n
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.prepend Page, to: Hotpages::Page
     it.prepend PageFinder, to: Hotpages::PageFinder
     it.prepend Site, to: Hotpages::Site

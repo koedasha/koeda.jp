@@ -11,7 +11,7 @@ module Hotpages::Extension
 
   private
 
-  def spec(&spec_block)
+  def extension(&spec_block)
     @spec_block = spec_block
   end
 

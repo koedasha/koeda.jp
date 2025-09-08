@@ -1,7 +1,7 @@
 module Hotpages::Extensions::TemplatePathAnnotation
   extend Hotpages::Extension
 
-  spec do
+  extension do
     it.prepend to: Hotpages::Template
   end
 

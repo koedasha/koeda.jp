@@ -1,7 +1,7 @@
 @import "./css/reset.min.css?v=4db263f1";
 
 /* Global */
-@import "./css/base.css?v=af34691a";
+@import "./css/base.css?v=99f8e811";
 @import "./css/utilities.css?v=22bcecdb";
 @import "./css/docs.css?v=6b6522a4";
 
@@ -9,6 +9,6 @@
 @import "./css/locale_selector.css?v=0463d1e2";
 
 /* Pages */
-@import "./css/index.css?v=8ab26a49";
-@import "./css/apps.css?v=2fba7a9a";
-@import "./css/devs.css?v=81d35b1a";
+@import "./css/index.css?v=091fa741";
+@import "./css/apps.css?v=85be8e0e";
+@import "./css/devs.css?v=b895a570";

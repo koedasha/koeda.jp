@@ -1,14 +1,14 @@
 @import "./css/reset.min.css?v=4db263f1";
 
 /* Global */
-@import "./css/base.css?v=979b03f6";
-@import "./css/utilities.css?v=6d581140";
+@import "./css/base.css?v=af34691a";
+@import "./css/utilities.css?v=22bcecdb";
 @import "./css/docs.css?v=6b6522a4";
 
 /* Components */
 @import "./css/locale_selector.css?v=0463d1e2";
 
 /* Pages */
-@import "./css/index.css?v=1f807187";
+@import "./css/index.css?v=8ab26a49";
 @import "./css/apps.css?v=2fba7a9a";
 @import "./css/devs.css?v=81d35b1a";

@@ -1,6 +1,6 @@
 :root {
-  --light-primary-gradient: linear-gradient(to bottom right, rgb(57, 129, 125) 40%, rgb(184, 181, 95));
-  --dark-primary-gradient: linear-gradient(to bottom right, rgb(31, 56, 55) 50%, rgb(78, 77, 43));
+  --light-primary-gradient: linear-gradient(to bottom right, rgb(57, 129, 125) 40%, #cec948);
+  --dark-primary-gradient: linear-gradient(to bottom right, rgb(31, 56, 55) 50%, rgb(87, 85, 45));
   --primary-gradient: var(--light-primary-gradient);
 
   --light-foreground-color: #0f100f;

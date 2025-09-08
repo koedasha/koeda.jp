@@ -17,7 +17,8 @@ article#index {
       font-size: 4rem;
       font-weight: 200;
       svg {
-        width: 90%;
+        width: 80%;
+        margin-right: -14px;
         max-width: 440px;
         path {
           fill: url(#linearGradient2);
@@ -31,7 +32,7 @@ article#index {
     }
 
     ul#businesses {
-      font-size: 36px;
+      font-size: 32px;
       list-style: none;
       padding: 0;
       margin: 0;

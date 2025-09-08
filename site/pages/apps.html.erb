@@ -6,11 +6,11 @@
     <% apps.each do |app| %>
       <div class="app-col">
         <%= link_to "/apps/#{app.slug}/" do %>
-          <%= image_tag(app.image, alt: app.name_ja, class: "app-col__icon") %>
-          <h3 class="app-col__name">
+          <%= image_tag(app.image, alt: app.name_ja, class: "icon") %>
+          <h3 class="name">
             <%= app.name_ja %>
           </h3>
-          <div class="app-col__copy">
+          <div class="copy">
             <%= app.copy_ja %>
           </div>
         <% end %>

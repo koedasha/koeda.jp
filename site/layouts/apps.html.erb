@@ -2,7 +2,7 @@
   <nav class="app-nav">
     <h2>
       <%= link_to "/apps/#{app.slug}/" do %>
-        <%= image_tag(content_for(:app_image), alt: content_for(:app_name), class: "app-col__icon") %>
+        <%= image_tag(content_for(:app_image), alt: content_for(:app_name)) %>
         <%= content_for :app_name %>
       <% end %>
     </h2>

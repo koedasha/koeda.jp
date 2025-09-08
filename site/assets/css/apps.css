@@ -11,7 +11,7 @@
       margin-right: 0.5rem;
     }
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 200;
   }
 }
 
@@ -24,21 +24,20 @@
   padding: 1rem;
   width: calc(50% - 1rem);
 
-  .app-col__icon {
+  .icon {
     max-width: 8rem;
     height: auto;
   }
 
-  .app-col__name {
+  .name {
     margin: 1.4rem 0 1rem;
-    font-weight: bold;
     font-size: 1.2rem;
   }
-  &:hover .app-col__name {
+  &:hover .name {
     text-decoration: underline;
   }
 
-  .app-col__copy {
+  .copy {
     color: var(--secondary-color);
   }
 }

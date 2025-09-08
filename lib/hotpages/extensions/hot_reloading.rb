@@ -99,6 +99,8 @@ module Hotpages::Extensions::HotReloading
         broadcast_file_change(action: "reload:css", path: file_path_to_notify)
       when /\.js$/
         broadcast_file_change(action: "reload:js", path: file_path_to_notify)
+      else
+        broadcast_file_change(action: "reload:html")
       end
     else
       broadcast_file_change(action: "reload:html")

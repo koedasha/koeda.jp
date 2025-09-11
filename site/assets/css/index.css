@@ -17,7 +17,7 @@ article#index {
       font-size: 4rem;
       svg {
         width: 80%;
-        margin-right: -14px;
+        margin-right: -8px;
         max-width: 440px;
         path {
           fill: url(#linearGradient2);

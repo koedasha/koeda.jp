@@ -7,6 +7,8 @@
   <meta name="keywords" content="" />
   <meta name="description" content="<%= content_for?(:description) ? yield(:description) : site_description %>" />
   <title><%= content_for?(:title) ? "#{yield(:title)} | #{site_name}" : site_name %></title>
+  <link rel="icon" href="<%= asset_path("images/favicon.ico") %>" type="image/x-icon">
+  <link rel="apple-touch-icon" href="<%= asset_path("images/apple-touch-icon.png") %>">
   <%= javascript_importmap_tags %>
   <%= stylesheet_link_tag "site" %>
 </head>

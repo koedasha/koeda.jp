@@ -6,13 +6,13 @@ module Hotpages::Extension
   end
 
   def setup(config, extension = self)
-    @spec_block.call(Setup.new(config, extension))
+    @setup_block.call(Setup.new(config, extension))
   end
 
   private
 
-  def extension(&spec_block)
-    @spec_block = spec_block
+  def extension(&setup_block)
+    @setup_block = setup_block
   end
 
   class Setup

@@ -15,20 +15,20 @@ module Hotpages::Page::Expandable
     def segment_names = nil
 
     def expand_instances_for(base_path, template_file_ext:)
-      namespaces = self.name.split("::")
-      namespaces.shift # Remove the first `Pages` namespace
+      segment_names = self.name.split("::")
+      segment_names.shift # Remove the first `Pages` namespace
 
-      current_namespace = site.pages_namespace_module
-      segment_name_values = namespaces.map do |namespace|
-        current_namespace = segment_constant_under(current_namespace, namespace)
+      current_segment = site.pages_namespace_module
+      segment_name_values = segment_names.map do |segment_name|
+        current_segment = segment_constant_under(current_segment, segment_name)
 
-        next nil unless current_namespace.respond_to?(:segment_names)
+        next nil unless current_segment.respond_to?(:segment_names)
 
-        names = current_namespace.segment_names
+        names = current_segment.segment_names
 
         next nil if names.nil?
 
-        [ namespace.underscore.to_sym, names ]
+        [ segment_name.underscore.to_sym, names ]
       end.compact.to_h
 
       # Not expanded

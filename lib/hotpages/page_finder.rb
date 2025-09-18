@@ -1,5 +1,5 @@
 class Hotpages::PageFinder
-  include Hotpages::Page::Instantiation
+  include Hotpages::Segments
   using Hotpages::Support::StringInflections
 
   def initialize(site)
@@ -7,7 +7,7 @@ class Hotpages::PageFinder
   end
 
   # Generic finding logic for pages based on the requested path.
-  # TODO: Static O(1) finding logic for pages generation with instances cache
+  # TODO: Static O(1) finding logic utilizing instances cache for pages generation
   def find(requested_path)
     # Normalized as `foo/bar/index'
     page_path = normalize_path(requested_path)

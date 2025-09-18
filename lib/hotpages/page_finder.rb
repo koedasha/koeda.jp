@@ -1,7 +1,6 @@
 class Hotpages::PageFinder
+  include Hotpages::Page::Instantiation
   using Hotpages::Support::StringInflections
-
-  IGNORED_PATH_REGEXP = Hotpages::Page::Instantiation::IGNORED_PATH_REGEXP
 
   def initialize(site)
     @site = site
@@ -25,15 +24,15 @@ class Hotpages::PageFinder
 
     segment_names.zip(constant_names).each.with_index do |(segment_name, constant_name), index|
       # First, lookup specific class/module
-      if (segment_constant.const_defined?(constant_name, false) rescue false)
-        segment_constant = segment_constant.const_get(constant_name, false)
+      if const = segment_constant_under(segment_constant, constant_name)
+        segment_constant = const
         page_file_path += "/#{segment_name}"
       else
         # If specific class/module is not found, lookup segment names for expansion
         expandable_const_found = false
 
         segment_constant.constants(false).each do |const_name|
-          const = segment_constant.const_get(const_name, false)
+          const = segment_constant_under(segment_constant, const_name)
           next if !const.respond_to?(:segment_names) || !const.segment_names
 
           seg_names = const.segment_names.sort
@@ -49,28 +48,24 @@ class Hotpages::PageFinder
 
         if !expandable_const_found
           if index == segment_names.size - 1 # handle file
-            # Lookup generic *::Page class
-            if page_class = Hotpages::Page.page_subclass_under(segment_constant.name.split("::")[1..])
-              segment_constant = page_class
-              page_file_path += "/#{segment_name}"
-            else
-              return nil
-            end
+            # Lookup generic *::Page class, or phantome page class for ruby less pages
+            page_class = page_subclass_under(segment_constant.name.split("::")[1..])
+            segment_constant = page_class
+            page_file_path += "/#{segment_name}"
           else # handle directory
             segment_constant =
-              if segment_constant.const_defined?(constant_name, false)
-                segment_constant.const_get(constant_name, false)
-              else
-                segment_constant.const_set(constant_name, Module.new)
-              end
+              segment_constant_under(segment_constant, constant_name) ||
+              segment_constant.const_set(constant_name, Module.new)
             page_file_path += "/#{segment_name}"
           end
         end
       end
     end
 
-    # segment_constant must be a Class, not a Module
-    return nil unless segment_constant.is_a?(Class)
+    page_class = segment_constant
+
+    # page_class must be a Class, not a Module
+    return nil unless page_class.is_a?(Class)
 
     base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
 
@@ -83,9 +78,9 @@ class Hotpages::PageFinder
       .reject { it == "rb" }
     template_file_ext = non_rb_exts.empty? ? nil : non_rb_exts.first
 
-    page = segment_constant.new(base_path:, segments:, name:, template_file_ext:)
+    page = page_class.new(base_path:, segments:, name:, template_file_ext:)
 
-    return nil if segment_constant.phantom? && !page.template_file_exist?
+    return nil if page_class.phantom? && !page.template_file_exist?
 
     page_url = page.expanded_url(omit_html_ext: false, omit_index: false)
     if "#{page_path}#{extension}" == page_url ||

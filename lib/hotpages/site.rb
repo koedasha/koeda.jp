@@ -10,7 +10,10 @@ class Hotpages::Site
 
   class << self
     def inherited(subclass)
-      Hotpages::Extension.setup
+      Hotpages::Extension.setup(
+        extensions: Hotpages.extensions,
+        config: Hotpages.config
+      )
 
       super
 

@@ -17,13 +17,13 @@ module Hotpages
 
     def reload
       loader.reload.tap do |_result|
-        Extension.setup
+        Extension.setup(extensions:, config:)
       end
     rescue Zeitwerk::SetupRequired
       loader.setup
     ensure
       loader.reload.tap do |_result|
-        Extension.setup
+        Extension.setup(extensions:, config:)
       end
     end
 

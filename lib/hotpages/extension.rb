@@ -1,6 +1,6 @@
 module Hotpages::Extension
   class << self
-    def setup(extensions: Hotpages.extensions, config: Hotpages.config)
+    def setup(extensions:, config:)
       extensions.each { it.setup(config) }
     end
   end

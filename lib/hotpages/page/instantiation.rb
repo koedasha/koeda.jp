@@ -9,24 +9,37 @@ module Hotpages::Page::Instantiation
   end
 
   def page_subclass_under(
-    namespaces,
-    class_name: "Page",
+    namespace,
+    preferred_class_name: nil,
+    fallback_class_name: "Page",
     phantom_class_name: "Page_",
     root_namespace: site.pages_namespace_module,
-    phantom_base_class: site.phantom_page_base_class
+    page_base_class: site.page_base_class
   )
-    ns = namespaces.inject(root_namespace) do |ns, namespace|
-      ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
-                                            ns.const_set(namespace, Module.new)
+    ns = namespace.then do
+      break it if it.is_a?(Module)
+
+      namespaces =
+        case it
+        when String then it.classify.split("::")
+        when Array then it.map(&:classify)
+        end
+
+      namespaces.inject(root_namespace) do |ns, namespace|
+        ns.const_defined?(namespace, false) ? ns.const_get(namespace, false) :
+                                              ns.const_set(namespace, Module.new)
+      end
     end
 
-    if ns.const_defined?(class_name, false)
-      ns.const_get(class_name, false)
+    if preferred_class_name && (ns.const_defined?(preferred_class_name, false) rescue false)
+      ns.const_get(preferred_class_name, false)
+    elsif ns.const_defined?(fallback_class_name, false)
+      ns.const_get(fallback_class_name, false)
     else
       if ns.const_defined?(phantom_class_name, false)
         ns.const_get(phantom_class_name, false)
       else
-        phantom_page_class = Class.new(phantom_base_class) do
+        phantom_page_class = Class.new(page_base_class) do
           def self.phantom? = true
         end
         ns.const_set(phantom_class_name, phantom_page_class)
@@ -65,14 +78,8 @@ module Hotpages::Page::Instantiation
   end
 
   def from_base_path(base_path, template_file_ext:)
-    class_name = base_path.classify
-    page_class_defined = site.pages_namespace_module.const_defined?(class_name, false) rescue false
-    page_class =
-      if page_class_defined
-        site.pages_namespace_module.const_get(class_name, false)
-      else
-        page_subclass_under(class_name.split("::")[...-1])
-      end
+    segments = base_path.split("/")
+    page_class = page_subclass_under(segments[...-1], preferred_class_name: segments.last.classify)
 
     if page_class.respond_to?(:expand_instances_for)
       page_class.expand_instances_for(base_path, template_file_ext:)

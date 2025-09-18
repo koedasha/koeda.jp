@@ -21,7 +21,7 @@ class Hotpages::Config
             shared: "shared"
           ),
           pages_namespace: "Pages",
-          phantom_page_base_class_name: "Page",
+          page_base_class_name: "Page",
         ),
         dev_server: new(
           port: 4000,

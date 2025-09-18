@@ -62,7 +62,7 @@ class Hotpages::Site
                                     : Object.const_set(ns_name, Module.new)
   end
 
-  def phantom_page_base_class(class_name: config.site.phantom_page_base_class_name)
+  def page_base_class(class_name: config.site.page_base_class_name)
     class_name.constantize
   end
 

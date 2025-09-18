@@ -7,7 +7,7 @@ module Hotpages::Segments
 
   def page_subclass_under(
     namespace,
-    class_name: nil,
+    class_name = nil,
     fallback_class_name: "Page",
     phantom_class_name: "Page_"
   )

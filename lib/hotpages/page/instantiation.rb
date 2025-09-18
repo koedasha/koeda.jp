@@ -37,7 +37,7 @@ module Hotpages::Page::Instantiation
 
   def from_base_path(base_path, template_file_ext:)
     segments = base_path.split("/")
-    page_class = page_subclass_under(segments[...-1], class_name: segments.last.classify)
+    page_class = page_subclass_under(segments[...-1], segments.last.classify)
 
     if page_class.respond_to?(:expand_instances_for)
       page_class.expand_instances_for(base_path, template_file_ext:)

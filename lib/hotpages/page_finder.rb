@@ -24,10 +24,12 @@ class Hotpages::PageFinder
     segments = {}
 
     segment_names.zip(constant_names).each.with_index do |(segment_name, constant_name), index|
+      # First, lookup specific page class
       if (segment_constant.const_defined?(constant_name, false) rescue false)
         segment_constant = segment_constant.const_get(constant_name, false)
         page_file_path += "/#{segment_name}"
       else
+        # If specific page class is not found, lookup segment names for expansion
         expandable_const_found = false
 
         segment_constant.constants(false).each do |const_name|
@@ -46,9 +48,10 @@ class Hotpages::PageFinder
         end
 
         if !expandable_const_found
+          # Lookup generic *::Page class
           if index == segment_names.size - 1 # handle file
-            if phantom_page_class = Hotpages::Page.page_subclass_under(segment_constant.name.split("::")[1..])
-              segment_constant = phantom_page_class
+            if page_class = Hotpages::Page.page_subclass_under(segment_constant.name.split("::")[1..])
+              segment_constant = page_class
               page_file_path += "/#{segment_name}"
             else
               return nil

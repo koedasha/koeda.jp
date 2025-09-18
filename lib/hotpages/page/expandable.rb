@@ -10,6 +10,8 @@ module Hotpages::Page::Expandable
   end
 
   module ClassMethods
+    include Hotpages::Segments
+
     def segment_names = nil
 
     def expand_instances_for(base_path, template_file_ext:)
@@ -18,7 +20,7 @@ module Hotpages::Page::Expandable
 
       current_namespace = site.pages_namespace_module
       segment_name_values = namespaces.map do |namespace|
-        current_namespace = current_namespace.const_get(namespace, false)
+        current_namespace = segment_constant_under(current_namespace, namespace)
 
         next nil unless current_namespace.respond_to?(:segment_names)
 

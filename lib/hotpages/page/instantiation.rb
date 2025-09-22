@@ -18,6 +18,8 @@ module Hotpages::Page::Instantiation
     files_at_path = Dir.glob("#{page_path}.*")
     return nil if !File.file?(page_path) && files_at_path.empty?
 
+    class_name = class_name_for(page_path, prefix: "Page_")
+
     page_ruby = "#{page_path}.rb"
     generic_page_ruby = "#{File.dirname(page_path)}/_page.rb"
 
@@ -29,9 +31,11 @@ module Hotpages::Page::Instantiation
       nil
     end
 
-    Class.new(self).tap do
+    klass = Class.new(self).tap do
       it.class_eval(ruby_body) if ruby_body
     end
+
+    Object.const_set(class_name, klass)
   end
 
   private

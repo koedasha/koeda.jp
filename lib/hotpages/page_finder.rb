@@ -28,12 +28,14 @@ class Hotpages::PageFinder
 
     return nil if base_path =~ IGNORED_PATH_REGEXP
 
-    files = Dir.glob("#{page_path}.*")
-    files += [ page_path ] if File.file?(page_path)
-    non_rb_exts = files
-                  .map { |path| File.basename(path).split(".")[1..].join(".") }
-                  .reject { it == "rb" }
-    template_file_ext = non_rb_exts.empty? ? nil : non_rb_exts.first
+    template_file_ext = page_path.dirname.children.find do
+      !it.directory? &&
+        it.to_s.start_with?(page_path.to_s) &&
+        !it.to_s.end_with?(".rb")
+    end.then do
+      break nil unless it
+      it.basename.to_s.split(".")[1..].join(".")
+    end
 
     page = page_class.new(base_path:, segments:, name: page_name, template_file_ext:)
 
@@ -68,8 +70,7 @@ class Hotpages::PageFinder
     segment_names.each.with_index do |segment_name, index|
       is_last_segment = index == segment_names.size - 1
 
-      if current_path.join(segment_name).directory? ||
-         current_path.children(false).any? { it.basename.to_s.split(".").first == segment_name }
+      if current_path.children(false).any? { it.to_s.split(".").first == segment_name }
         current_path = current_path.join(segment_name)
       else
         expandable_const_found = false

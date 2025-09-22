@@ -49,7 +49,7 @@ class Hotpages::Page < Hotpages::PagePathComponent
   end
 
   def body
-    raise "No template file is found for #{self.class.name} at `/#{site.directory.pages}/#{base_path}`, "\
+    raise "No template file is found at #{self.class.name} at `/#{site.directory.pages}/#{[ base_path, template_file_ext ].compact.join(".")}`, "\
           "please provide body method or template file."
   end
   def body_type = "html.erb"

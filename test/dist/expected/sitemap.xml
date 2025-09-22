@@ -86,35 +86,35 @@
   </url>
   <url>
     <loc>https://example.com/posts/1/foo/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/posts/1/foo/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/posts/1/bar/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/posts/1/bar/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/one</loc>
-    <lastmod>2025-09-21</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/products/one</loc>
-    <lastmod>2025-09-21</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/two</loc>
-    <lastmod>2025-09-21</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/products/two</loc>
-    <lastmod>2025-09-21</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/about</loc>

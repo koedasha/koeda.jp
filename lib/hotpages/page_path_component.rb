@@ -1,7 +1,7 @@
 class Hotpages::PagePathComponent
   using Hotpages::Support::StringInflections
 
-  EXPANDABLE_NAME_REGEXP = /\A__(.+)__/.freeze
+  EXPANDABLE_NAME_REGEXP = /\A\[(.+)\]/.freeze
 
   class << self
     def site = Hotpages.site
@@ -20,7 +20,7 @@ class Hotpages::PagePathComponent
 
     # e.g.) foo/bar_baz => Page_Foo_BarBaz
     def class_name_for(path, prefix:)
-      prefix + path.to_s.delete_prefix(site.pages_path.to_s).classify.gsub("::", "_")
+      prefix + path.to_s.delete_prefix(site.pages_path.to_s).delete("[]").classify.gsub("::", "_")
     end
   end
 end

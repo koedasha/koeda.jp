@@ -8,15 +8,15 @@ module Hotpages::Page::Instantiation
     from_absolute_paths(all_page_files)
   end
 
-  # TODO: name and caching
   def subclass_at_path(page_path)
     page_path = remove_all_ext(absolute_path_of(page_path))
 
     directory = Hotpages::Directory.subclass_at_path(page_path)
     return nil if directory && directory.expandable?
 
-    files_at_path = Dir.glob("#{page_path}.*")
-    return nil if !File.file?(page_path) && files_at_path.empty?
+    return nil if Pathname.new(page_path).dirname.children.none? do
+      (it.to_s == page_path || it.to_s.start_with?("#{page_path}.")) && it.file?
+    end
 
     class_name = class_name_for(page_path, prefix: "Page_")
 

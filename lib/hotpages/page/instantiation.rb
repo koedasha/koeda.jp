@@ -13,7 +13,7 @@ module Hotpages::Page::Instantiation
     page_path = remove_all_ext(absolute_path_of(page_path))
 
     directory = Hotpages::Directory.subclass_at_path(page_path)
-    return nil if directory && directory.segment_names
+    return nil if directory && directory.expandable?
 
     files_at_path = Dir.glob("#{page_path}.*")
     return nil if !File.file?(page_path) && files_at_path.empty?

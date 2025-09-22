@@ -81,7 +81,7 @@ class Hotpages::PageFinder
             Directory.subclass_at_path(child_path)
           end
 
-          next unless const && const.segment_names
+          next unless const && const.expandable?
 
           seg_names = const.segment_names.sort
           if seg_names.bsearch { it.to_s >= segment_name }.to_s == segment_name

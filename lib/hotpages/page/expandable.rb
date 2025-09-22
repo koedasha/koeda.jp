@@ -16,17 +16,17 @@ module Hotpages::Page::Expandable
 
       segment_names_by_key = path_components.each_with_object({}).with_index do |(path_component, result), index|
         current_path = current_path.join(path_component)
-        expandable_const = if index == path_components.size - 1
+        const = if index == path_components.size - 1
           site.page_base_class.subclass_at_path(current_path)
         else
           Hotpages::Directory.subclass_at_path(current_path)
         end
 
-        next unless expandable_const && expandable_const.segment_names
+        next unless const && const.expandable?
 
         segment_key = path_component.match(EXPANDABLE_PATH_COMPONENT_REGEXP)[1].to_sym
 
-        result[segment_key] = expandable_const.segment_names
+        result[segment_key] = const.segment_names
       end
 
       # Not expanded

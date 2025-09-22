@@ -8,6 +8,7 @@ class Hotpages::PagePathComponent
     def config = Hotpages.config
 
     def segment_names = nil
+    def expandable? = !!segment_names
     def subclass_at_path(path) = nil
 
     private

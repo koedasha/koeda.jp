@@ -1,18 +1,12 @@
 require "forwardable"
 
-class Hotpages::Page
+class Hotpages::Page < Hotpages::PagePathComponent
   extend Forwardable, Instantiation
   include Hotpages::Support::Hooks
   include Expandable, Renderable
   include Hotpages::Helpers
 
   class << self
-    # Pages dynamically generated and not defined in Ruby files are considered Phantom pages
-    def phantom? = false
-
-    def site = Hotpages.site
-    def config = Hotpages.config
-
     def inherited(subclass)
       super
       subclass.layout_path = self.layout_path.dup if self.layout_path
@@ -55,7 +49,7 @@ class Hotpages::Page
   end
 
   def body
-    raise "No template file is found for #{self.class.name} at `/#{site.directory.pages}/#{base_path}`, "\
+    raise "No template file is found at #{self.class.name} at `/#{site.directory.pages}/#{[ base_path, template_file_ext ].compact.join(".")}`, "\
           "please provide body method or template file."
   end
   def body_type = "html.erb"

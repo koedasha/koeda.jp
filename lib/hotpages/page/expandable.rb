@@ -1,7 +1,7 @@
 module Hotpages::Page::Expandable
   using Hotpages::Support::StringInflections
 
-  EXPANDABLE_SEGMENT_REGEXP = /\A__(.+)__/.freeze
+  EXPANDABLE_PATH_COMPONENT_REGEXP = Hotpages::Page::EXPANDABLE_NAME_REGEXP
 
   class << self
     def included(base)
@@ -10,54 +10,53 @@ module Hotpages::Page::Expandable
   end
 
   module ClassMethods
-    include Hotpages::Segments
-
-    def segment_names = nil
-
     def expand_instances_for(base_path, template_file_ext:)
-      segment_names = self.name.split("::")
-      segment_names.shift # Remove the first `Pages` namespace
+      path_components = base_path.split("/")
+      current_path = site.pages_path
 
-      current_segment = site.pages_namespace_module
-      segment_name_values = segment_names.map do |segment_name|
-        current_segment = segment_constant_under(current_segment, segment_name)
+      segment_names_by_key = path_components.each_with_object({}).with_index do |(path_component, result), index|
+        current_path = current_path.join(path_component)
+        const = if index == path_components.size - 1
+          site.page_base_class.subclass_at_path(current_path)
+        else
+          Hotpages::Directory.subclass_at_path(current_path)
+        end
 
-        next nil unless current_segment.respond_to?(:segment_names)
+        next unless const && const.expandable?
 
-        names = current_segment.segment_names
+        segment_key = path_component.match(EXPANDABLE_PATH_COMPONENT_REGEXP)[1].to_sym
 
-        next nil if names.nil?
-
-        [ segment_name.underscore.to_sym, names ]
-      end.compact.to_h
+        result[segment_key] = const.segment_names
+      end
 
       # Not expanded
-      return [ new(base_path:, template_file_ext:) ] if segment_name_values.empty?
+      return [ new(base_path:, template_file_ext:) ] if segment_names_by_key.empty?
 
-      segment_keys = segment_name_values.keys
-      segment_values_product = segment_name_values.values.then do |values|
+      segment_keys = segment_names_by_key.keys
+      segment_values_product = segment_names_by_key.values.then do |values|
         values.first.product(*values[1..])
       end
 
       segment_values_product.map do |segment_values|
         segments = segment_keys.zip(segment_values).to_h
         name = segment_names.nil? ? nil : segment_values.last
+
         new(base_path:, segments:, name:, template_file_ext:)
       end
     end
   end
 
   def expanded_base_path
-    expanded_segments = base_path.split("/").map do |original_segment|
-      match = EXPANDABLE_SEGMENT_REGEXP.match(original_segment)
+    expanded_segments = base_path.split("/").map do |path_component|
+      match = EXPANDABLE_PATH_COMPONENT_REGEXP.match(path_component)
 
-      next original_segment unless match
+      next path_component unless match
 
       segment_key = match[1].to_sym
       segment_value = segments[segment_key] ||
-        raise("Segment `#{segment_key}` is not defined in segments: #{segments.inspect}")
+        raise("Segment `#{segment_key}` is not present in segments: #{segments.inspect}")
 
-      original_segment.sub(EXPANDABLE_SEGMENT_REGEXP, segment_value.to_s)
+      path_component.sub(EXPANDABLE_PATH_COMPONENT_REGEXP, segment_value.to_s)
     end
 
     File.join(*expanded_segments)

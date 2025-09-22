@@ -1,3 +1,1 @@
-class Pages::Index < Page
-  def header? = false
-end
+def header? = false

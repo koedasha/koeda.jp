@@ -6,11 +6,11 @@
   </url>
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2025-09-03</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/</loc>
-    <lastmod>2025-09-03</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/misc/htm_extension</loc>
@@ -78,43 +78,43 @@
   </url>
   <url>
     <loc>https://example.com/misc/render_hooks</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-09-21</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/misc/render_hooks</loc>
-    <lastmod>2025-08-25</lastmod>
+    <lastmod>2025-09-21</lastmod>
   </url>
   <url>
     <loc>https://example.com/posts/1/foo/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/posts/1/foo/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/posts/1/bar/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/posts/1/bar/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/one</loc>
-    <lastmod>2025-07-28</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/products/one</loc>
-    <lastmod>2025-07-28</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/two</loc>
-    <lastmod>2025-07-28</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/products/two</loc>
-    <lastmod>2025-07-28</lastmod>
+    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/products/about</loc>
@@ -125,20 +125,12 @@
     <lastmod>2025-07-30</lastmod>
   </url>
   <url>
-    <loc>https://example.com/products/</loc>
-    <lastmod>2025-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://example.com/ja/products/</loc>
-    <lastmod>2025-08-10</lastmod>
-  </url>
-  <url>
     <loc>https://example.com/products</loc>
-    <lastmod>2025-07-17</lastmod>
+    <lastmod>2025-09-21</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/products</loc>
-    <lastmod>2025-07-17</lastmod>
+    <lastmod>2025-09-21</lastmod>
   </url>
   <url>
     <loc>https://example.com/robot.txt</loc>

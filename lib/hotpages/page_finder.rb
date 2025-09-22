@@ -1,6 +1,10 @@
 class Hotpages::PageFinder
-  include Hotpages::Segments
   using Hotpages::Support::StringInflections
+
+  Directory = Hotpages::Directory
+  Page = Hotpages::Page
+  IGNORED_PATH_REGEXP = Page::Instantiation::IGNORED_PATH_REGEXP
+  EXPANDABLE_PATH_COMPONENT_REGEXP = Page::EXPANDABLE_NAME_REGEXP
 
   def initialize(site)
     @site = site
@@ -10,81 +14,34 @@ class Hotpages::PageFinder
   # TODO: Static O(1) finding logic utilizing instances cache for pages generation
   def find(requested_path)
     # Normalized as `foo/bar/index'
-    page_path = normalize_path(requested_path)
     extension = File.extname(requested_path)
     extension = ".html" if extension.empty? # Assume HTML if no extension is provided
+    requested_path = normalize_path(requested_path)
 
-    segment_names = page_path.split("/")
-    constant_names = page_path.classify.split("::")
+    page_path, page_name, segments = parse_requested_path(requested_path)
 
-    segment_constant = site.pages_namespace_module
-    page_file_path = site.pages_path.to_s
-    name = nil
-    segments = {}
+    return nil unless page_path
 
-    segment_names.zip(constant_names).each.with_index do |(segment_name, constant_name), index|
-      # First, lookup specific class/module
-      if const = segment_constant_under(segment_constant, constant_name)
-        segment_constant = const
-        page_file_path += "/#{segment_name}"
-      else
-        # If specific class/module is not found, lookup segment names for expansion
-        expandable_const_found = false
+    page_class = site.page_base_class.subclass_at_path(page_path)
 
-        segment_constant.constants(false).each do |const_name|
-          const = segment_constant_under(segment_constant, const_name)
-          next if !const.respond_to?(:segment_names) || !const.segment_names
-
-          seg_names = const.segment_names.sort
-          if seg_names.bsearch { it.to_s >= segment_name }.to_s == segment_name
-            segment_constant = const
-            page_file_path += "/__#{const_name.to_s.underscore}__"
-            name = segment_name
-            segments[const_name.to_s.underscore.to_sym] = segment_name
-            expandable_const_found = true
-            break
-          end
-        end
-
-        if !expandable_const_found
-          if index == segment_names.size - 1 # handle file
-            # Lookup generic *::Page class, or phantome page class for ruby less pages
-            page_class = page_subclass_under(segment_constant.name.split("::")[1..])
-            segment_constant = page_class
-            page_file_path += "/#{segment_name}"
-          else # handle directory
-            segment_constant =
-              segment_constant_under(segment_constant, constant_name) ||
-              segment_constant.const_set(constant_name, Module.new)
-            page_file_path += "/#{segment_name}"
-          end
-        end
-      end
-    end
-
-    page_class = segment_constant
-
-    # page_class must be a Class, not a Module
-    return nil unless page_class.is_a?(Class)
-
-    base_path = page_file_path.sub(site.pages_path.to_s, "").to_s.delete_prefix("/")
+    base_path = page_path.to_s.delete_prefix("#{site.pages_path}/")
 
     return nil if base_path =~ IGNORED_PATH_REGEXP
 
-    files = Dir.glob("#{page_file_path}.*")
-    files += [ page_file_path ] if File.file?(page_file_path)
-    non_rb_exts = files
-      .map { |path| File.basename(path).split(".")[1..].join(".") }
-      .reject { it == "rb" }
-    template_file_ext = non_rb_exts.empty? ? nil : non_rb_exts.first
+    template_file_ext = page_path.dirname.children.find do
+      !it.directory? &&
+        it.to_s.start_with?(page_path.to_s) &&
+        !it.to_s.end_with?(".rb")
+    end.then do
+      break nil unless it
+      it.basename.to_s.split(".")[1..].join(".")
+    end
 
-    page = page_class.new(base_path:, segments:, name:, template_file_ext:)
-
-    return nil if page_class.phantom? && !page.template_file_exist?
+    page = page_class.new(base_path:, segments:, name: page_name, template_file_ext:)
 
     page_url = page.expanded_url(omit_html_ext: false, omit_index: false)
-    if "#{page_path}#{extension}" == page_url ||
-        page_path == page_url # For paths without extension
+    if "#{requested_path}#{extension}" == page_url ||
+        requested_path == page_url # For paths without extension
       page
     else
       nil
@@ -100,5 +57,47 @@ class Hotpages::PageFinder
     path = "#{path}index" if path.end_with?("/")
     path = path.sub(%r{^/}, "") # Remove leading slash if present
     path
+  end
+
+  def parse_requested_path(requested_path)
+    current_path = site.pages_path
+    page_name = nil
+    segments = {}
+
+    segment_names = requested_path.split("/")
+    segment_names.each.with_index do |segment_name, index|
+      is_last_segment = index == segment_names.size - 1
+
+      if current_path.children(false).any? { it.to_s.split(".").first == segment_name }
+        current_path = current_path.join(segment_name)
+      else
+        expandable_const_found = false
+
+        current_path.each_child do |child_path|
+          const = if is_last_segment
+            site.page_base_class.subclass_at_path(child_path)
+          else
+            Directory.subclass_at_path(child_path)
+          end
+
+          next unless const && const.expandable?
+
+          seg_names = const.segment_names.sort
+          if seg_names.bsearch { it.to_s >= segment_name }.to_s == segment_name
+            path_component = child_path.basename.to_s
+            current_path = current_path.join(path_component).sub_ext("")
+            segment_key = path_component.match(EXPANDABLE_PATH_COMPONENT_REGEXP)[1].to_sym
+            segments[segment_key] = segment_name
+            page_name = segment_name
+            expandable_const_found = true
+            break
+          end
+        end
+
+        return [ nil, nil, {} ] unless expandable_const_found
+      end
+    end
+
+    [ current_path, page_name, segments ]
   end
 end

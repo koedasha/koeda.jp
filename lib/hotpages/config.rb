@@ -20,7 +20,6 @@ class Hotpages::Config
             assets: "assets",
             shared: "shared"
           ),
-          pages_namespace: "Pages",
           page_base_class_name: "Page",
         ),
         dev_server: new(
@@ -44,7 +43,7 @@ class Hotpages::Config
     hash = {}
 
     instance_variables.each do |var|
-      key = var.to_s.delete("@").to_sym
+      key = var.to_s.delete_prefix("@").to_sym
       value = instance_variable_get(var)
 
       if value.is_a?(self.class)

@@ -33,7 +33,6 @@ class Hotpages::Site
     run_hooks :initialize do
       @config = self.class.config
       @loader = Zeitwerk::Loader.new.tap do |loader|
-        loader.push_dir(self.pages_path, namespace: self.pages_namespace_module)
         loader.push_dir(self.models_path)
         loader.push_dir(self.helpers_path)
         loader.push_dir(self.shared_path)
@@ -58,11 +57,6 @@ class Hotpages::Site
     loader.setup
   ensure
     loader.reload
-  end
-
-  def pages_namespace_module(ns_name = config.site.pages_namespace)
-     Object.const_defined?(ns_name) ? Object.const_get(ns_name)
-                                    : Object.const_set(ns_name, Module.new)
   end
 
   def page_base_class(class_name: config.site.page_base_class_name)

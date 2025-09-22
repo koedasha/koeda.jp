@@ -1,3 +1,1 @@
-class Pages::Products::Page < ::Page
-  def subtitle = "Our Products"
-end
+def subtitle = "Our Products"

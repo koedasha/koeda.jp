@@ -1,9 +1,7 @@
-class Pages::Posts::Id::Slug::Page < Page
-  before_render :set_contents
+before_render :set_contents
 
-  private
+private
 
-  def set_contents
-    content_for :post_title, "Alice in Wonderland(#{segments[:id]}-#{segments[:slug]})"
-  end
+def set_contents
+  content_for :post_title, "Alice in Wonderland(#{segments[:id]}-#{segments[:slug]})"
 end

@@ -1,0 +1,18 @@
+class Hotpages::PagePathComponent
+  EXPANDABLE_NAME_REGEXP = /\A__(.+)__/.freeze
+
+  class << self
+    def site = Hotpages.site
+    def config = Hotpages.config
+
+    def segment_names = nil
+    def subclass_at_path(path) = nil
+
+    private
+
+    def absolute_path_of(path)
+      absolute_path = site.pages_path.to_s + path.to_s.delete_prefix(site.pages_path.to_s)
+      Pathname.new(absolute_path)
+    end
+  end
+end

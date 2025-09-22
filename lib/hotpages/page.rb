@@ -1,18 +1,12 @@
 require "forwardable"
 
-class Hotpages::Page
+class Hotpages::Page < Hotpages::PagePathComponent
   extend Forwardable, Instantiation
   include Hotpages::Support::Hooks
   include Expandable, Renderable
   include Hotpages::Helpers
 
   class << self
-    # Pages dynamically generated and not defined in Ruby files are considered Phantom pages
-    def phantom? = false
-
-    def site = Hotpages.site
-    def config = Hotpages.config
-
     def inherited(subclass)
       super
       subclass.layout_path = self.layout_path.dup if self.layout_path

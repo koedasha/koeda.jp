@@ -60,13 +60,11 @@ class Hotpages::PageFinder
   end
 
   def parse_requested_path(requested_path)
-    segment_names = requested_path.split("/")
-
     current_path = site.pages_path
     page_name = nil
     segments = {}
 
-    # Convert requested path to file system path
+    segment_names = requested_path.split("/")
     segment_names.each.with_index do |segment_name, index|
       is_last_segment = index == segment_names.size - 1
 

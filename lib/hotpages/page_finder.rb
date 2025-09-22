@@ -3,7 +3,6 @@ class Hotpages::PageFinder
 
   Directory = Hotpages::Directory
   Page = Hotpages::Page
-  IGNORED_PATH_REGEXP = Page::Instantiation::IGNORED_PATH_REGEXP
   EXPANDABLE_PATH_COMPONENT_REGEXP = Page::EXPANDABLE_NAME_REGEXP
 
   def initialize(site)
@@ -24,9 +23,9 @@ class Hotpages::PageFinder
 
     page_class = site.page_base_class.subclass_at_path(page_path)
 
-    base_path = page_path.to_s.delete_prefix("#{site.pages_path}/")
+    return nil unless page_class
 
-    return nil if base_path =~ IGNORED_PATH_REGEXP
+    base_path = page_path.to_s.delete_prefix("#{site.pages_path}/")
 
     template_file_ext = page_path.dirname.children.find do
       !it.directory? &&

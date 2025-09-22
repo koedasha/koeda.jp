@@ -1,6 +1,8 @@
 class Hotpages::Directory < Hotpages::PagePathComponent
   class << self
     def subclass_at_path(directory_path)
+      return nil if ignore_path?(directory_path)
+
       directory_path = absolute_path_of(directory_path)
       return nil unless File.directory?(directory_path)
 

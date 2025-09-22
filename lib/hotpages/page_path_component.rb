@@ -1,6 +1,7 @@
 class Hotpages::PagePathComponent
   using Hotpages::Support::StringInflections
 
+  IGNORE_PATH_REGEXP = /\/_[^_]/.freeze
   EXPANDABLE_NAME_REGEXP = /\A\[(.+)\]/.freeze
 
   class << self
@@ -30,6 +31,10 @@ class Hotpages::PagePathComponent
 
       Object.send(:remove_const, name) if Object.const_defined?(name)
       Object.const_set(name, klass)
+    end
+
+    def ignore_path?(path)
+      path.to_s =~ IGNORE_PATH_REGEXP
     end
   end
 end

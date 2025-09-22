@@ -1,14 +1,14 @@
 module Hotpages::Page::Instantiation
   using Hotpages::Support::StringInflections
 
-  IGNORED_PATH_REGEXP = /\/_[^_]/.freeze
-
   def all
     all_page_files = Dir.glob(site.pages_path.join("**/*"))
     from_absolute_paths(all_page_files)
   end
 
   def subclass_at_path(page_path)
+    return nil if ignore_path?(page_path)
+
     page_path = remove_all_ext(absolute_path_of(page_path))
 
     directory = Hotpages::Directory.subclass_at_path(page_path)
@@ -39,8 +39,6 @@ module Hotpages::Page::Instantiation
   def from_absolute_paths(paths)
     page_paths = paths.inject([]) do |result, path|
       next result unless path.start_with?(site.pages_path.to_s)
-
-      next result if path =~ IGNORED_PATH_REGEXP
 
       absolute_path = File.expand_path(path)
 

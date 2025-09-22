@@ -31,11 +31,7 @@ module Hotpages::Page::Instantiation
       nil
     end
 
-    klass = Class.new(self).tap do
-      it.class_eval(ruby_body) if ruby_body
-    end
-
-    Object.const_set(class_name, klass)
+    new_subclass(class_name, with_definition: ruby_body)
   end
 
   private

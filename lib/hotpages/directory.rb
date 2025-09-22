@@ -12,11 +12,7 @@ class Hotpages::Directory < Hotpages::PagePathComponent
         nil
       end
 
-      klass = Class.new(self).tap do
-        it.module_eval(directory_ruby_body) if directory_ruby_body
-      end
-
-      Object.const_set(class_name, klass)
+      new_subclass(class_name, with_definition: directory_ruby_body)
     end
   end
 end

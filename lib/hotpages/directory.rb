@@ -8,13 +8,13 @@ class Hotpages::Directory < Hotpages::PagePathComponent
 
       class_name = class_name_for(directory_path, prefix: "Directory_")
       directory_ruby = "#{directory_path}.rb"
-      directory_ruby_body = if File.file?(directory_ruby)
-        File.read(directory_ruby)
+      directory_ruby_mtime, directory_ruby_body = if File.file?(directory_ruby)
+        [ File.mtime(directory_ruby), File.read(directory_ruby) ]
       else
-        nil
+        [ nil, nil ]
       end
 
-      new_subclass(class_name, with_definition: directory_ruby_body)
+      new_subclass(class_name, with_definition: directory_ruby_body, version: directory_ruby_mtime)
     end
   end
 end

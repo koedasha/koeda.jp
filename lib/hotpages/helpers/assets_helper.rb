@@ -1,24 +1,8 @@
 require "json"
 
 module Hotpages::Helpers::AssetsHelper
-  module SVGStore
-    require "rexml/document"
-
-    module_function
-
-    def [](svg_name)
-      @svgs ||= {}
-      @svgs[svg_name] ||= begin
-        svg_asset = Hotpages::Asset.new(svg_name)
-        doc = REXML::Document.new(svg_asset.read_file)
-        REXML::XPath.first(doc, "//svg")
-      end
-    end
-  end
-  private_constant :SVGStore
-
-  def asset_path(asset_name, directory: nil)
-    asset = Hotpages::Asset.new(asset_name, directory:)
+  def asset_path(asset_path, directory: nil)
+    asset = Hotpages::Asset.new(asset_path, directory:)
     asset.url
   end
 
@@ -26,15 +10,19 @@ module Hotpages::Helpers::AssetsHelper
     asset_path(File.join("images", image_name))
   end
 
-  def image_tag(image_name, **options)
-    options[:src] = image_path(image_name)
+  def image_tag(image_path, **options)
+    options[:src] = image_path(image_path)
     tag.img options
   end
 
-  def inline_svg_tag(svg_name, **options)
-    svg = SVGStore[svg_name]
+  def inline_svg_tag(svg_path, **options)
+    svg_asset = Hotpages::Asset.new(svg_path)
+    svg = site.cache.fetch(svg_path, version: svg_asset.mtime) do
+      doc = REXML::Document.new(svg_asset.read_file)
+      REXML::XPath.first(doc, "//svg")
+    end
 
-    raise "Failed to load svg definition: #{svg_name}" unless svg
+    raise "Failed to load svg definition: #{svg_path}" unless svg
 
     options.each do |k, v|
       svg.attributes[k.to_s] = v

@@ -26,13 +26,15 @@ class Hotpages::PagePathComponent
       prefix + path.to_s.delete_prefix(site.pages_path.to_s + "/").delete(":").classify.gsub("::", "_")
     end
 
-    def new_subclass(name, with_definition:)
-      klass = Class.new(self).tap do
-        it.class_eval(with_definition) if with_definition
-      end
+    def new_subclass(name, with_definition:, version:)
+      site.cache.fetch(name, version:) do
+        klass = Class.new(self).tap do
+          it.class_eval(with_definition) if with_definition
+        end
 
-      Object.send(:remove_const, name) if Object.const_defined?(name)
-      Object.const_set(name, klass)
+        Object.send(:remove_const, name) if Object.const_defined?(name)
+        Object.const_set(name, klass)
+      end
     end
 
     def ignore_path?(path)

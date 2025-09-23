@@ -25,7 +25,8 @@ class Hotpages::Asset
     "#{url}#{query_separator}v=#{digest}"
   end
 
-  def read_file = File.read(abs_path)
+  def read_file = external? ? nil : File.read(abs_path)
+  def mtime = external? ? nil : File.mtime(abs_path)
 
   private
 

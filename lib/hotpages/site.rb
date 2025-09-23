@@ -59,6 +59,8 @@ class Hotpages::Site
     loader.reload
   end
 
+  def cache = @cache ||= Hotpages::Support::Cache::Store.new
+
   def page_base_class(class_name: config.site.page_base_class_name)
     class_name.constantize
   end

@@ -6,11 +6,9 @@
   </url>
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/ja/</loc>
-    <lastmod>2025-09-22</lastmod>
   </url>
   <url>
     <loc>https://example.com/misc/htm_extension</loc>
@@ -138,6 +136,6 @@
   </url>
   <url>
     <loc>https://example.com/sitemap.xml</loc>
-    <lastmod>2025-08-17</lastmod>
+    <lastmod>2025-09-23</lastmod>
   </url>
 </urlset>

@@ -38,7 +38,7 @@ class Hotpages::SiteGenerator
   )
     # Process CSSs
     site.assets(".css").each do |base_path, css_file|
-      dist_file = css_file.sub(base_path.to_s, dist.to_s)
+      dist_file = css_file.sub(base_path.to_s, dist.to_s.delete_suffix("/"))
       with_logging("ASSET(CSS)", dist_file) do
         content = File.read(css_file)
         # Add cache buster to @import URLs
@@ -55,7 +55,7 @@ class Hotpages::SiteGenerator
     # Copy other asset files as-is
     site.assets.each do |base_path, file|
       next if File.directory?(file) || file.end_with?(".css")
-      dist_file = file.sub(base_path.to_s, dist.to_s)
+      dist_file = file.sub(base_path.to_s, dist.to_s.delete_suffix("/"))
       with_logging("ASSET", dist_file) do
         FileUtils.mkdir_p(File.dirname(dist_file))
         FileUtils.cp(file, dist_file)

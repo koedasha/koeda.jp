@@ -1,20 +1,22 @@
 require "digest/sha1"
 
 class Hotpages::Asset
-  attr_reader :url, :absolute_location
+  attr_reader :url
 
   def initialize(location, url_prefix: Hotpages.config.assets.prefix, directory: nil)
-    directory = directory || Hotpages.site.assets_path.to_s
-    @external = location.start_with?("http://", "https://")
-    @force_relative = !@external && location.start_with?(".")
+    @location = location
+    @url_prefix = url_prefix
+    @directory = directory || Hotpages.site.assets_path.to_s
+    @external = !!URI(@location).host
+    relative_path = !external? && @location.start_with?("./")
     @url = if external?
-      location
-    elsif force_relative?
-      location.delete_prefix(directory.to_s)
+      @location
+    elsif relative_path
+      @location.delete_prefix(@directory.to_s)
     else
-      url_prefix + location.delete_prefix(directory.to_s)
+      url_prefix + @location.delete_prefix(@directory.to_s)
     end
-    @absolute_location = @external ? location : File.join(directory, location)
+    @abs_path = @external ? nil : File.join(@directory, @location)
   end
 
   def digested_url
@@ -23,12 +25,13 @@ class Hotpages::Asset
     "#{url}#{query_separator}v=#{digest}"
   end
 
-  def read_file = File.read(absolute_location)
+  def read_file = File.read(abs_path)
 
   private
 
+  attr_reader :abs_path
+
   def external? = @external
-  def force_relative? = @force_relative
   def query_separator = url.include?("?") ? "&" : "?"
 
   def digest

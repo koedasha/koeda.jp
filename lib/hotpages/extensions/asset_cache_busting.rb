@@ -1,4 +1,3 @@
-# TODO: Move SiteGenerator#generate_assets css digesting logic here
 module Hotpages::Extensions::AssetCacheBusting
   extend Hotpages::Extension
 

@@ -34,7 +34,7 @@ module Hotpages::Helpers::AssetsHelper
   def inline_svg_tag(svg_name, **options)
     svg = SVGStore[svg_name]
 
-    raise "Failed to load svg definition: #{svg_asset.absolute_location}" unless svg
+    raise "Failed to load svg definition: #{svg_name}" unless svg
 
     options.each do |k, v|
       svg.attributes[k.to_s] = v

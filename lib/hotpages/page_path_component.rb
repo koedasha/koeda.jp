@@ -21,9 +21,9 @@ class Hotpages::PagePathComponent
 
     # e.g.)
     # foo/bar_baz => Page_Foo_BarBaz
-    # foo/:bar/:baz => Page_Foo_Bar_Baz
+    # foo/:bar/:baz => Page_Foo__Bar__Baz
     def class_name_for(path, prefix:)
-      prefix + path.to_s.delete_prefix(site.pages_path.to_s + "/").delete(":").classify.gsub("::", "_")
+      prefix + path.to_s.delete_prefix(site.pages_path.to_s + "/").classify.gsub("::", "_").gsub(":", "_")
     end
 
     def new_subclass(name, with_definition:, version:)

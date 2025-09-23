@@ -17,13 +17,9 @@ class Hotpages::PageFinder
     extension = ".html" if extension.empty? # Assume HTML if no extension is provided
     requested_path = normalize_path(requested_path)
 
-    page_path, page_name, segments = parse_requested_path(requested_path)
+    page_path, page_class, page_name, segments = parse_requested_path(requested_path)
 
-    return nil unless page_path
-
-    page_class = site.page_base_class.subclass_at_path(page_path)
-
-    return nil unless page_class
+    return nil unless page_path && page_class
 
     base_path = page_path.to_s.delete_prefix("#{site.pages_path}/")
 
@@ -62,6 +58,7 @@ class Hotpages::PageFinder
     current_path = site.pages_path
     page_name = nil
     segments = {}
+    page_class = nil
 
     segment_names = requested_path.split("/")
     segment_names.each.with_index do |segment_name, index|
@@ -69,6 +66,7 @@ class Hotpages::PageFinder
 
       if current_path.children(false).any? { it.to_s.split(".").first == segment_name }
         current_path = current_path.join(segment_name)
+        page_class = site.page_base_class.subclass_at_path(current_path) if is_last_segment
       else
         expandable_const_found = false
 
@@ -83,11 +81,12 @@ class Hotpages::PageFinder
 
           seg_names = const.segment_names.sort
           if seg_names.bsearch { it.to_s >= segment_name }.to_s == segment_name
-            path_component = child_path.basename.to_s
-            current_path = current_path.join(path_component).sub_ext("")
+            path_component = child_path.basename.to_s.split(".").first # remove all ext
+            current_path = current_path.join(path_component)
             segment_key = path_component.match(EXPANDABLE_PATH_COMPONENT_REGEXP)[1].to_sym
             segments[segment_key] = segment_name
             page_name = segment_name
+            page_class = const if is_last_segment
             expandable_const_found = true
             break
           end
@@ -97,6 +96,6 @@ class Hotpages::PageFinder
       end
     end
 
-    [ current_path, page_name, segments ]
+    [ current_path, page_class, page_name, segments ]
   end
 end

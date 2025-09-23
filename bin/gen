@@ -4,8 +4,7 @@ require "#{__dir__}/../site"
 
 Hotpages.extensions += [
   Hotpages::Extensions::AssetCacheBusting,
-  Hotpages::Extensions::BrokenPageLinksChecking,
-  Hotpages::Extensions::PrefixingPageLinks
+  Hotpages::Extensions::BrokenPageLinksChecking
 ]
 Hotpages.reload
 

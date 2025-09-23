@@ -6,8 +6,7 @@ class TestGeneration < Minitest::Test
     pid = fork do
       Hotpages.extensions += [
         Hotpages::Extensions::AssetCacheBusting,
-        Hotpages::Extensions::BrokenPageLinksChecking,
-        Hotpages::Extensions::PrefixingPageLinks
+        Hotpages::Extensions::BrokenPageLinksChecking
       ]
       Hotpages.reload
       Hotpages.site.reload

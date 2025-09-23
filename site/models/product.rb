@@ -8,7 +8,7 @@ Product = Data.define(
       @products ||= [
         new(
           slug: "elapsed-times",
-          image: "elapsed-times.png",
+          image: "images/elapsed-times.png",
           name_ja: "時間計測タイマー",
           copy_ja: "「あれからどれくらいたったかな？」日常生活の中で時間を計測したいときに役立つタイマーアプリ。",
           desc_ja: <<~MD,
@@ -22,7 +22,7 @@ Product = Data.define(
           MD
           store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
           # screenshot_ja: "elapsed-times-screenshot-ja.png"
-          screenshot_ja: "ph.svg"
+          screenshot_ja: "images/ph.svg"
         )
       ]
     end

@@ -6,12 +6,8 @@ module Hotpages::Helpers::AssetsHelper
     asset.url
   end
 
-  def image_path(image_name)
-    asset_path(File.join("images", image_name))
-  end
-
   def image_tag(image_path, **options)
-    options[:src] = image_path(image_path)
+    options[:src] = asset_path(image_path)
     tag.img options
   end
 

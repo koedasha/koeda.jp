@@ -1,5 +1,4 @@
 require "#{__dir__}/lib/hotpages"
-require "tilt"
 require "kramdown"
 
 # TODO: loader setup for site specific extensions

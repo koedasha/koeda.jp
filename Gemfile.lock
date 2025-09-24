@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/koedasha/hotpages.git
-  revision: e317659a0b606b8823782ff56130a2671e565897
+  revision: 6744967554da880c38041115baaed4954d049fd2
   specs:
     hotpages (0.1.0)
       erubi (~> 1.13)

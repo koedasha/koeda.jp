@@ -24,5 +24,13 @@
       <dt><%= _ "お問合せ" %></dt>
       <dd><a href="mailto:info@koeda.jp">info@koeda.jp</a></dd>
     </dl>
+
+    <div class="hotpages">
+      <%= link_to "https://github.com/koedasha/koeda.jp", target: "_blank" do %>
+        <%= lucide_tag "github" %>
+      <% end %>
+      <br/>
+      Built with <%= link_to "Hotpages", "https://github.com/koedasha/hotpages", target: "_blank" %>
+    </div>
   </section>
 </article>

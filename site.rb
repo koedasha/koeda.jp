@@ -1,4 +1,4 @@
-require "#{__dir__}/lib/hotpages"
+require "hotpages"
 require "kramdown"
 
 # TODO: loader setup for site specific extensions

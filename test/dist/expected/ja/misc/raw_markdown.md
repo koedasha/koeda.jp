@@ -1,2 +1,0 @@
-# Test generating raw markdown
-with ERB

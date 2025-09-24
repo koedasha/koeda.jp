@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/koedasha/hotpages.git
+  revision: e317659a0b606b8823782ff56130a2671e565897
+  specs:
+    hotpages (0.1.0)
+      erubi (~> 1.13)
+      fast_gettext (~> 4.1)
+      listen (~> 3.9)
+      tilt (~> 2.6)
+      webrick (~> 1.9)
+      zeitwerk (~> 2.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,7 +63,6 @@ GEM
     racc (1.8.1)
     rack (3.2.0)
     rainbow (3.1.1)
-    rake (13.3.0)
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
@@ -103,16 +114,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  erubi
-  fast_gettext
+  hotpages!
   kramdown
-  listen
-  minitest
-  rake
   rubocop-rails-omakase
-  tilt
-  webrick
-  zeitwerk
 
 BUNDLED WITH
    2.7.2

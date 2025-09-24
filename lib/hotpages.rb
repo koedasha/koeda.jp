@@ -46,7 +46,6 @@ module Hotpages
     attr_accessor :site_class
     def site = @site ||= site_class.instance.tap(&:setup)
 
-    def dev_server = @dev_server ||= DevServer.new(site:)
     def site_generator = @site_generator ||= SiteGenerator.new(site:)
   end
 end

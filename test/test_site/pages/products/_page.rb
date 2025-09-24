@@ -1,1 +1,0 @@
-def subtitle = "Our Products"

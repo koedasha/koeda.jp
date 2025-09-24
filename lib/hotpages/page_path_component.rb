@@ -26,10 +26,10 @@ class Hotpages::PagePathComponent
       prefix + path.to_s.delete_prefix(site.pages_path.to_s + "/").classify.gsub("::", "_").gsub(":", "_")
     end
 
-    def new_subclass(name, with_definition:, version:)
+    def new_subclass(name, ruby_file:, version:)
       site.cache.fetch(name, version:) do
         klass = Class.new(self).tap do
-          it.class_eval(with_definition) if with_definition
+          it.class_eval(File.read(ruby_file)) if ruby_file
         end
 
         Object.send(:remove_const, name) if Object.const_defined?(name)

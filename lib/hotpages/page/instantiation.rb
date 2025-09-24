@@ -18,20 +18,19 @@ module Hotpages::Page::Instantiation
       (it.to_s == page_path || it.to_s.start_with?("#{page_path}.")) && it.file?
     end
 
-    class_name = class_name_for(page_path, prefix: "Page_")
-
     page_ruby = "#{page_path}.rb"
     generic_page_ruby = "#{File.dirname(page_path)}/_page.rb"
 
-    ruby_mtime, ruby_body = if File.file?(page_ruby)
-      [ File.mtime(page_ruby), File.read(page_ruby) ]
+    ruby_mtime, ruby_file = if File.file?(page_ruby)
+      [ File.mtime(page_ruby), page_ruby ]
     elsif File.file?(generic_page_ruby)
-      [ File.mtime(generic_page_ruby), File.read(generic_page_ruby) ]
+      [ File.mtime(generic_page_ruby), generic_page_ruby ]
     else
       [ nil, nil ]
     end
 
-    new_subclass(class_name, with_definition: ruby_body, version: ruby_mtime)
+    class_name = class_name_for(page_path, prefix: "Page_")
+    new_subclass(class_name, ruby_file:, version: ruby_mtime)
   end
 
   private

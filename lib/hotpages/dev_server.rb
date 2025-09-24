@@ -111,7 +111,7 @@ class Hotpages::DevServer
         <p><strong>Backtrace:</strong><br/>
           #{e.backtrace.map(&method(:render_backtrace_line)).join("\n")}
         </p>
-        <small><i>Customize editor links by <code>dev_server.backtrace_link_format</code> config</i></small>
+        <small><i>Customize editor links with <code>dev_server.backtrace_link_format</code> config</i></small>
       </body>
     HTML
   end

@@ -36,13 +36,13 @@ Product = Data.define(
 
   def terms(locale:)
     # TODO: localize
-    # "shared/apps/#{slug.gsub("-", "_")}/terms_#{locale}.md"
-    "shared/apps/#{slug.gsub("-", "_")}/terms_ja.md"
+    # "data/apps/#{slug.gsub("-", "_")}/terms_#{locale}.md"
+    "data/apps/#{slug.gsub("-", "_")}/terms_ja.md"
   end
 
   def privacy(locale:)
     # TODO: localize
-    # "shared/apps/#{slug.gsub("-", "_")}/privacy_#{locale}.md"
-    "shared/apps/#{slug.gsub("-", "_")}/privacy_ja.md"
+    # "data/apps/#{slug.gsub("-", "_")}/privacy_#{locale}.md"
+    "data/apps/#{slug.gsub("-", "_")}/privacy_ja.md"
   end
 end

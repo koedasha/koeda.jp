@@ -3,5 +3,8 @@
 source "https://rubygems.org"
 
 gem "hotpages", github: "koedasha/hotpages"
-gem "kramdown"
+
 gem "rubocop-rails-omakase", require: false
+
+gem "front_matter_parser"
+gem "kramdown"

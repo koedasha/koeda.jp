@@ -16,7 +16,30 @@
     </ul>
   </section>
 
+  <section class="news">
+    <h2>News</h2>
+    <ul>
+      <% news.each do %>
+        <li>
+          <time datetime="<%= it.date.to_s %>"><%= it.date %></time>
+          <%= link_to it.title, "/news/#{it.slug}" %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
   <section class="profile">
+    <dl>
+      <dt><%= _ "事業名" %></dt>
+      <dd><%= _ "こえだ舎（Koeda-sha）" %></dd>
+
+      <dt><%= _ "住所" %></dt>
+      <dd>〒150-0044 <%= _ "東京都渋谷区円山町5番3号" %></br><%= _ "MIEUX渋谷ビル8階" %></dd>
+
+      <dt><%= _ "お問合せ" %></dt>
+      <dd><a href="mailto:info@koeda.jp">info@koeda.jp</a></dd>
+    </dl>
+
     <ul class="social">
       <li>
         <%= link_to "https://www.instagram.com/koedasha/", target: "_blank" do %>
@@ -35,16 +58,6 @@
       </li>
     </ul>
 
-    <dl>
-      <dt><%= _ "事業名" %></dt>
-      <dd><%= _ "こえだ舎（Koeda-sha）" %></dd>
-
-      <dt><%= _ "住所" %></dt>
-      <dd>〒150-0044 <%= _ "東京都渋谷区円山町5番3号" %></br><%= _ "MIEUX渋谷ビル8階" %></dd>
-
-      <dt><%= _ "お問合せ" %></dt>
-      <dd><a href="mailto:info@koeda.jp">info@koeda.jp</a></dd>
-    </dl>
 
     <div class="hotpages">
       <%= link_to "https://github.com/koedasha/koeda.jp", target: "_blank" do %>

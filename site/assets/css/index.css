@@ -39,12 +39,20 @@ article#index {
 
       li {
         display: block;
-      }
 
-      li + li::before {
-        content: "&";
-        display: block;
-        font-size: 1.8rem;
+        svg {
+          vertical-align: middle;
+          width: 32px;
+          height: 32px;
+          path {
+            fill: url(#linearGradient2);
+          }
+          @media (prefers-color-scheme: dark) {
+            path {
+              fill: var(--foreground-color);
+            }
+          }
+        }
       }
     }
   }

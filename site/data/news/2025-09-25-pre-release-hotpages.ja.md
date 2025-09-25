@@ -3,7 +3,7 @@ date: 2025-09-25
 title: Hotpagesのプレリリース版を公開
 author: planeska
 ---
-このサイトを構築する過程でHTMLをDRYに書くために作った内部ライブラリを切り出して公開しました。
+このサイトを構築する過程でHTMLをDRYに書くために作った内部ライブラリ（静的サイトジェネレーター）を切り出して公開しました。
 
 - [Hotpages](https://github.com/koedasha/hotpages)
 

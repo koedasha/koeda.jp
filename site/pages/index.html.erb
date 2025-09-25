@@ -17,6 +17,29 @@
   </section>
 
   <section class="profile">
+    <ul class="social">
+      <li>
+        <%= link_to "https://www.instagram.com/koedasha/", target: "_blank" do %>
+          <%= lucide_tag "instagram" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "https://x.com/koedasha", target: "_blank" do %>
+          <%= lucide_tag "twitter" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "https://bsky.app/profile/koedasha.bsky.social", target: "_blank" do %>
+          Bsky
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "https://github.com/koedasha", target: "_blank" do %>
+          <%= lucide_tag "github" %>
+        <% end %>
+      </li>
+    </ul>
+
     <dl>
       <dt><%= _ "事業名" %></dt>
       <dd><%= _ "こえだ舎（Koeda-sha）" %></dd>
@@ -30,7 +53,7 @@
 
     <div class="hotpages">
       <%= link_to "https://github.com/koedasha/koeda.jp", target: "_blank" do %>
-        <%= lucide_tag "github" %>
+        Source Code
       <% end %>
       <br/>
       Built with <%= link_to "Hotpages", "https://github.com/koedasha/hotpages", target: "_blank" %>

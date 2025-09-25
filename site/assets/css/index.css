@@ -60,6 +60,25 @@ article#index {
   section.profile {
     margin-top: 9rem;
 
+    ul.social {
+      margin: 1rem 0;
+      list-style-type: none;
+
+      li {
+        margin: .2rem;
+        height: 24px;
+        vertical-align: middle;
+        display: inline-block;
+        a {
+          color: var(--secondary-color);
+          &:hover {
+            color: var(--foreground-color);
+          }
+          transition: color 0.3s ease, opacity 0.3s ease;
+        }
+      }
+    }
+
     dl {
       max-width: 24rem;
       font-size: .9em;

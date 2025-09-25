@@ -85,7 +85,6 @@ article#index {
       }
 
       a + br + a {
-        margin-top: .5rem;
         font-weight: 700;
         color: var(--foreground-color);
         letter-spacing: .05rem;

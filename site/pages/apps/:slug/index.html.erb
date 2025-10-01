@@ -1,9 +1,18 @@
 <article class="app">
   <%= image_tag app.screenshot_ja, alt: "#{app.name_ja} screen shot" %>
-  <div class="app__desc">
+  <div class="desc">
     <%= render_markdown app.desc_ja %>
   </div>
-  <ul class="app__links">
+  <div class="app-store-link">
+    <% if app.ios_url %>
+      <%= link_to image_tag("images/app-store-badge.svg", alt: "Download on the App Store"), app.ios_url, target: "_blank", rel: "nofollow noopener" %>
+    <% else %>
+      <div class="preparing">
+        <%= "ストア配信準備中" %>
+      </div>
+    <% end %>
+  </div>
+  <ul class="links">
     <li><%= link_to "利用規約", "./terms" %></li>
     <li><%= link_to "プライバシーポリシー", "./privacy" %></li>
   </ul>

@@ -48,12 +48,6 @@
 }
 
 .app {
-  .app__desc {
-    p {
-      margin-bottom: .6rem;
-    }
-  }
-
   img {
     width: 50%;
     height: auto;
@@ -67,14 +61,30 @@
     }
   }
 
-  .app__links {
+  .desc {
+    p {
+      margin-bottom: .6rem;
+    }
+  }
+
+  .app-store-link {
+    text-align: center;
+    .preparing {
+      margin: 2rem auto;
+      color: var(--secondary-color);
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .links {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: .7rem;
 
-    margin-top: 3rem;
+    margin: 3rem 0;
 
     list-style-type: none;
 

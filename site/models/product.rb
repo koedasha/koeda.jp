@@ -1,7 +1,8 @@
 # App
 Product = Data.define(
   :slug, :image, :ios_url,
-  :name_ja, :copy_ja, :desc_ja, :store_url_jp, :screenshot_ja
+  :name_ja, :copy_ja, :desc_ja, :store_url_jp, :screenshot_ja,
+  :data
 ) do
   class << self
     def all
@@ -22,7 +23,8 @@ Product = Data.define(
           グループにまとめた複数のタイマーでの同時計測やメモ機能、充実した通知機能により、さまざまな時間を測りたいシーンでお使いいただけます。
           MD
           store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
-          screenshot_ja: "images/elapsed-times/promo-1.ja.webp"
+          screenshot_ja: "images/elapsed-times/promo-1.ja.webp",
+          data: { product_ids: [ "ElapsedTimes.Plus" ] }
         )
       ]
     end

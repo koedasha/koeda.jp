@@ -56,7 +56,33 @@
 </a>    </h2>
   </nav>
   <main>
-    <article class="doc">
+    <script>(function changeLocaleToUserLanguage() {
+  const params = new URLSearchParams(window.location.search)
+  // Return if user has selected a locale
+  if (params.get("locale_selected")) return
+  // Return if already changed locale
+  if (params.get("locale_changed")) return
+
+  const currentLocale = "ja"
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith(currentLocale)) return
+
+  const availableLocales = ["ja","en"]
+  const matchedLocale = availableLocales.find(locale => userLang.startsWith(locale))
+  const path = window.location.pathname
+
+  if (matchedLocale) {
+    if (matchedLocale !== "ja") {
+      window.location.href = `/${matchedLocale}${path}?locale_changed=1`;
+    }
+  } else {
+    if ("ja" !== "en") {
+      window.location.href = `/en${path}?locale_changed=1`;
+    }
+  }
+})()
+</script>
+<article class="doc">
   <h1 id="section">プライバシーポリシー</h1>
 
 <p>こえだ舎（以下「当社」といいます。）は、当社が提供するアプリ「時間計測タイマー」（以下「本サービス」といいます。）における利用者の個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。</p>

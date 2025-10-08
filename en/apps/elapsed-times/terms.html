@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
   <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
-  <title>時間計測タイマー | こえだ舎</title>
+  <title>ElapsedTimes | こえだ舎</title>
   <link rel="icon" href="/assets/images/favicon.ico?v=8059d359" type="image/x-icon">
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=91dc4dae">
   <script type="importmap">{
@@ -51,109 +51,135 @@
       <nav class="app-nav">
     <h2>
       <a href="/en/apps/elapsed-times/">
-        <img alt="時間計測タイマー" src="/assets/images/elapsed-times/app-icon.png?v=7b2f8527"></img>
-        時間計測タイマー
+        <img alt="ElapsedTimes" src="/assets/images/elapsed-times/app-icon.png?v=7b2f8527"></img>
+        ElapsedTimes
 </a>    </h2>
   </nav>
   <main>
-    <article class="doc">
-  <h1 id="section">利用規約</h1>
+    <script>(function changeLocaleToUserLanguage() {
+  const params = new URLSearchParams(window.location.search)
+  // Return if user has selected a locale
+  if (params.get("locale_selected")) return
+  // Return if already changed locale
+  if (params.get("locale_changed")) return
 
-<p>本利用規約（以下「本規約」といいます。）は、こえだ舎（以下「当社」といいます。）が提供するアプリ「時間計測タイマー」（以下「本サービス」といいます。）の利用条件を定めるものです。本サービスをご利用いただく前に、本規約を必ずお読みください。本サービスをダウンロードし、利用された場合には、本規約に同意いただいたものとみなします。</p>
+  const currentLocale = "en"
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith(currentLocale)) return
 
-<h2 id="section-1">第1条（適用）</h2>
+  const availableLocales = ["ja","en"]
+  const matchedLocale = availableLocales.find(locale => userLang.startsWith(locale))
+  const path = window.location.pathname
+
+  if (matchedLocale) {
+    if (matchedLocale !== "ja") {
+      window.location.href = `/${matchedLocale}${path}?locale_changed=1`;
+    }
+  } else {
+    if ("ja" !== "en") {
+      window.location.href = `/en${path}?locale_changed=1`;
+    }
+  }
+})()
+</script>
+<article class="doc">
+  <h1 id="terms-of-use">Terms of Use</h1>
+
+<p>These Terms of Use (hereinafter referred to as "Terms") set forth the conditions for using the app "ElapsedTimes" (hereinafter referred to as "Service") provided by Koeda-sha. (hereinafter referred to as "Company"). Please read these Terms carefully before using the Service. By downloading and using the Service, you are deemed to have agreed to these Terms.</p>
+
+<h2 id="article-1-application">Article 1 (Application)</h2>
 
 <ol>
-  <li>本規約は、ユーザーと当社との間の本サービスの利用に関わる一切の関係に適用されるものとします。</li>
-  <li>当社は本サービスに関し、本規約のほか、ご利用にあたってのルール等、各種の定め（以下、「個別規定」といいます。）をすることがあります。これら個別規定はその名称のいかんに関わらず、本規約の一部を構成するものとします。</li>
-  <li>本規約の規定が前条の個別規定の規定と矛盾する場合には、個別規定において特段の定めなき限り、個別規定の規定が優先されるものとします。</li>
+  <li>These Terms apply to all relationships between the user and the Company regarding the use of the Service.</li>
+  <li>In addition to these Terms, the Company may establish various rules, etc., for the use of the Service (hereinafter referred to as "Individual Provisions"). Regardless of their name, these Individual Provisions shall constitute a part of these Terms.</li>
+  <li>In the event of any inconsistency between the provisions of these Terms and the Individual Provisions, the Individual Provisions shall prevail unless otherwise specifically stipulated.</li>
 </ol>
 
-<h2 id="section-2">第2条（利用環境）</h2>
+<h2 id="article-2-usage-environment">Article 2 (Usage Environment)</h2>
 
 <ol>
-  <li>利用者は、自らの責任と費用において、本サービスを利用するために必要なスマートフォン、通信機器、通信回線、OS等を準備し維持するものとします。</li>
-  <li>当社は、利用者の利用環境について一切の責任を負いません。</li>
+  <li>Users shall, at their own responsibility and expense, prepare and maintain the necessary smartphones, communication devices, communication lines, operating systems, etc., to use the Service.</li>
+  <li>The Company assumes no responsibility for the user's usage environment.</li>
 </ol>
 
-<h2 id="section-3">第3条（利用料金）</h2>
+<h2 id="article-3-usage-fees">Article 3 (Usage Fees)</h2>
 
 <ol>
-  <li>本サービスの基本機能は無料でご利用いただけます。</li>
-  <li>一度の課金（アプリ内課金）により、機能追加版のサービス（以下、「プラス版」といいます。）をご利用いただけます。</li>
-  <li>プラス版の課金はApp Storeを通じて行われ、決済に関する条件はAppleの定める規約に従います。</li>
-  <li>一度プラス版に課金いただいた利用者が同一Apple IDで再インストールする場合、購入履歴を復元することで追加料金なくプラス版の機能をご利用いただけます。</li>
+  <li>The basic features of the Service are available free of charge.</li>
+  <li>By making a one-time payment (in-app purchase), users can access additional features of the Service (hereinafter referred to as "Plus Version").</li>
+  <li>Payments for the Plus Version are made through the App Store, and the terms of payment are governed by Apple's regulations.</li>
+  <li>Users who have purchased the Plus Version can reinstall the app using the same Apple ID and restore their purchase history to access the Plus Version features without additional charges.</li>
 </ol>
 
-<h2 id="section-4">第4条（禁止事項）</h2>
+<h2 id="article-4-prohibited-actions">Article 4 (Prohibited Actions)</h2>
 
-<p>利用者は、本サービスの利用にあたり、以下の行為を行ってはなりません。</p>
+<p>Users shall not engage in the following actions when using the Service:</p>
 
 <ol>
-  <li>法令または公序良俗に違反する行為</li>
-  <li>犯罪行為に関連する行為</li>
-  <li>本サービスの内容等、本サービスに含まれる著作権、商標権ほか知的財産権を侵害する行為</li>
-  <li>当社、ほかのユーザー、またはその他第三者のサーバーまたはネットワークの機能を破壊したり、妨害したりする行為</li>
-  <li>本サービスによって得られた情報を商業的に利用する行為</li>
-  <li>当社のサービスの運営を妨害するおそれのある行為</li>
-  <li>不正アクセスをし、またはこれを試みる行為</li>
-  <li>他のユーザーに関する個人情報等を収集または蓄積する行為</li>
-  <li>不正な目的を持って本サービスを利用する行為</li>
-  <li>本サービスの他のユーザーまたはその他の第三者に不利益、損害、不快感を与える行為</li>
-  <li>他のユーザーに成りすます行為</li>
-  <li>当社が許諾しない本サービス上での宣伝、広告、勧誘、または営業行為</li>
-  <li>面識のない異性との出会いを目的とした行為</li>
-  <li>当社のサービスに関連して、反社会的勢力に対して直接または間接に利益を供与する行為</li>
-  <li>その他、当社が不適切と判断する行為</li>
+  <li>Actions that violate laws or public order and morals</li>
+  <li>Actions related to criminal activities</li>
+  <li>Actions that infringe copyrights, trademarks, or other intellectual property rights contained in the Service</li>
+  <li>Actions that destroy or interfere with the functionality of the Company's or third parties' servers or networks</li>
+  <li>Actions that use information obtained through the Service for commercial purposes</li>
+  <li>Actions that may interfere with the operation of the Company's services</li>
+  <li>Unauthorized access or attempts thereof</li>
+  <li>Collecting or storing personal information of other users</li>
+  <li>Using the Service for fraudulent purposes</li>
+  <li>Actions that cause disadvantage, damage, or discomfort to other users or third parties</li>
+  <li>Impersonating other users</li>
+  <li>Advertising, soliciting, or conducting business activities not authorized by the Company</li>
+  <li>Actions aimed at meeting unfamiliar individuals of the opposite sex</li>
+  <li>Providing benefits to anti-social forces in connection with the Company's services</li>
+  <li>Other actions deemed inappropriate by the Company</li>
 </ol>
 
-<h2 id="section-5">第5条（本サービスの提供の停止等）</h2>
+<h2 id="article-5-suspension-of-service-provision">Article 5 (Suspension of Service Provision)</h2>
 
-<p>当社は、以下のいずれかの事由があると判断した場合、ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。</p>
+<p>The Company may suspend or interrupt the provision of the Service, in whole or in part, without prior notice to the user if it determines any of the following:</p>
 
 <ol>
-  <li>本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
-  <li>地震、落雷、火災、停電または天災などの不可抗力により、本サービスの提供が困難となった場合</li>
-  <li>コンピュータまたは通信回線等が事故により停止した場合</li>
-  <li>その他、当社が本サービスの提供が困難と判断した場合</li>
-  <li>当社は、本サービスの提供の停止または中断により、ユーザーまたは第三者が被ったいかなる不利益または損害についても、一切の責任を負わないものとします。</li>
+  <li>Maintenance or updates of the computer system related to the Service</li>
+  <li>Difficulty in providing the Service due to force majeure such as earthquakes, lightning, fires, power outages, or natural disasters</li>
+  <li>Suspension of computers or communication lines due to accidents</li>
+  <li>Other cases where the Company deems it difficult to provide the Service</li>
+  <li>The Company assumes no responsibility for any disadvantages or damages incurred by users or third parties due to the suspension or interruption of the Service.</li>
 </ol>
 
-<h2 id="section-6">第6条（免責事項）</h2>
+<h2 id="article-6-disclaimer">Article 6 (Disclaimer)</h2>
 
 <ol>
-  <li>当社は、本サービスに事実上または法律上の瑕疵（安全性、信頼性、正確性、完全性、有効性、特定の目的への適合性、セキュリティなどに関する欠陥、エラーやバグ、権利侵害などを含みます。）がないことを明示的にも黙示的にも保証しておりません。</li>
-  <li>当社は、本サービスに起因してユーザーに生じたあらゆる損害について、当社の故意又は重過失による場合を除き、一切の責任を負いません。ただし、本サービスに関する当社とユーザーとの間の契約（本規約を含みます。）が消費者契約法に定める消費者契約となる場合、この免責規定は適用されません。</li>
-  <li>前項ただし書に定める場合であっても、当社は、当社の過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに生じた損害のうち特別な事情から生じた損害（当社またはユーザーが損害発生につき予見し、または予見し得た場合を含みます。）について一切の責任を負いません。また、当社の過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに生じた損害の賠償は、ユーザーから当該損害が発生した月に受領した利用料の額を上限とします。</li>
-  <li>当社は、本サービスに関して、ユーザーと他のユーザーまたは第三者との間において生じた取引、連絡または紛争等について一切責任を負いません。</li>
+  <li>The Company does not guarantee that the Service is free from defects, including safety, reliability, accuracy, completeness, effectiveness, fitness for a particular purpose, or security, either explicitly or implicitly.</li>
+  <li>The Company assumes no responsibility for any damages incurred by users due to the Service, except in cases of intentional or gross negligence by the Company. However, if the contract between the Company and the user regarding the Service (including these Terms) constitutes a consumer contract under the Consumer Contract Act, this disclaimer does not apply.</li>
+  <li>Even in the case specified in the preceding paragraph, the Company assumes no responsibility for damages arising from special circumstances, regardless of whether the Company or the user foresaw or could have foreseen such damages. The Company's liability for damages caused by negligence (excluding gross negligence) is limited to the amount of usage fees received from the user in the month the damages occurred.</li>
+  <li>The Company assumes no responsibility for any transactions, communications, or disputes between users and other users or third parties in connection with the Service.</li>
 </ol>
 
-<h2 id="section-7">第7条（知的財産権）</h2>
+<h2 id="article-7-intellectual-property-rights">Article 7 (Intellectual Property Rights)</h2>
 
-<p>本サービスに関する著作権、商標権、その他の知的財産権は、当社または正当な権利を有する第三者に帰属します。</p>
+<p>Copyrights, trademarks, and other intellectual property rights related to the Service belong to the Company or third parties with legitimate rights.</p>
 
-<h2 id="section-8">第8条（サービス内容の変更等）</h2>
+<h2 id="article-8-changes-to-service-content">Article 8 (Changes to Service Content)</h2>
 
-<p>当社は、ユーザーの事前の承諾を得ることなく、本サービスの内容を変更、追加または廃止することがあり、これにより生じる損害や不利益について一切責任を負いません。</p>
+<p>The Company may change, add, or discontinue the content of the Service without prior consent from the user and assumes no responsibility for any damages or disadvantages arising therefrom.</p>
 
-<h2 id="section-9">第9条（利用規約の変更）</h2>
+<h2 id="article-9-changes-to-terms-of-use">Article 9 (Changes to Terms of Use)</h2>
 
 <ol>
-  <li>当社は以下の場合には、ユーザーの個別の同意を要せず、本規約を変更することができるものとします。</li>
-  <li>本規約の変更がユーザーの一般の利益に適合するとき。</li>
-  <li>本規約の変更が本サービス利用契約の目的に反せず、かつ、変更の必要性、変更後の内容の相当性その他の変更に係る事情に照らして合理的なものであるとき。</li>
-  <li>当社はユーザーに対し、前項による本規約の変更にあたり、事前に、本規約を変更する旨及び変更後の本規約の内容並びにその効力発生時期を通知します。</li>
+  <li>The Company may change these Terms without obtaining individual consent from users in the following cases:</li>
+  <li>When the changes to these Terms are in the general interest of users.</li>
+  <li>When the changes to these Terms do not contradict the purpose of the Service usage agreement and are reasonable in light of the necessity of the changes, the appropriateness of the changed content, and other circumstances.</li>
+  <li>The Company shall notify users in advance of the changes to these Terms, the content of the changed Terms, and the effective date.</li>
 </ol>
 
-<h2 id="section-10">第10条（個人情報の取扱い）</h2>
+<h2 id="article-10-handling-of-personal-information">Article 10 (Handling of Personal Information)</h2>
 
-<p>当社は、本サービスの利用によって取得する個人情報については、当社「プライバシーポリシー」に従い適切に取り扱うものとします。</p>
+<p>The Company shall appropriately handle personal information obtained through the use of the Service in accordance with the Company's "Privacy Policy."</p>
 
-<h2 id="section-11">第11条（準拠法・裁判管轄）</h2>
+<h2 id="article-11-governing-law-and-jurisdiction">Article 11 (Governing Law and Jurisdiction)</h2>
 
 <ol>
-  <li>本規約の解釈・適用については、日本法を準拠法とします。</li>
-  <li>本サービスに関して紛争が生じた場合には、当社の所在地を管轄する日本の裁判所を専属的合意管轄とします。</li>
+  <li>The interpretation and application of these Terms shall be governed by Japanese law.</li>
+  <li>In the event of disputes arising in connection with the Service, the Japanese court having jurisdiction over the location of the Company's headquarters shall have exclusive jurisdiction.</li>
 </ol>
 
 </article>

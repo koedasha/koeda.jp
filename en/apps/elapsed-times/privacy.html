@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
   <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
-  <title>時間計測タイマー | こえだ舎</title>
+  <title>ElapsedTimes | こえだ舎</title>
   <link rel="icon" href="/assets/images/favicon.ico?v=8059d359" type="image/x-icon">
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=91dc4dae">
   <script type="importmap">{
@@ -51,65 +51,88 @@
       <nav class="app-nav">
     <h2>
       <a href="/en/apps/elapsed-times/">
-        <img alt="時間計測タイマー" src="/assets/images/elapsed-times/app-icon.png?v=7b2f8527"></img>
-        時間計測タイマー
+        <img alt="ElapsedTimes" src="/assets/images/elapsed-times/app-icon.png?v=7b2f8527"></img>
+        ElapsedTimes
 </a>    </h2>
   </nav>
   <main>
-    <article class="doc">
-  <h1 id="section">プライバシーポリシー</h1>
+    <script>(function changeLocaleToUserLanguage() {
+  const params = new URLSearchParams(window.location.search)
+  // Return if user has selected a locale
+  if (params.get("locale_selected")) return
+  // Return if already changed locale
+  if (params.get("locale_changed")) return
 
-<p>こえだ舎（以下「当社」といいます。）は、当社が提供するアプリ「時間計測タイマー」（以下「本サービス」といいます。）における利用者の個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。</p>
+  const currentLocale = "en"
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith(currentLocale)) return
 
-<h2 id="section-1">第1条（収集する情報）</h2>
+  const availableLocales = ["ja","en"]
+  const matchedLocale = availableLocales.find(locale => userLang.startsWith(locale))
+  const path = window.location.pathname
+
+  if (matchedLocale) {
+    if (matchedLocale !== "ja") {
+      window.location.href = `/${matchedLocale}${path}?locale_changed=1`;
+    }
+  } else {
+    if ("ja" !== "en") {
+      window.location.href = `/en${path}?locale_changed=1`;
+    }
+  }
+})()
+</script>
+<article class="doc">
+  <h1 id="privacy-policy">Privacy Policy</h1>
+
+<p>Koeda-sha. (hereinafter referred to as "we" or "our company") establishes the following privacy policy (hereinafter referred to as "this policy") regarding the handling of users' personal information in the app "ElapsedTimes" (hereinafter referred to as "this service") provided by us.</p>
+
+<h2 id="article-1-information-collected">Article 1 (Information Collected)</h2>
 
 <ol>
-  <li>本サービスの利用にあたり、当社が利用者の個人情報（氏名、住所、メールアドレス等）を直接取得することはありません。</li>
-  <li>本サービスは、アプリ内課金や利用状況の分析のため、以下の情報を収集する場合があります。
-    <ul>
-      <li>Appleが提供する決済情報（購入の有無、購入日時等。ただし当社はクレジットカード番号等の決済情報を取得しません）</li>
-      <li>アプリの利用状況やクラッシュログ等（Appleやアナリティクスサービスを通じて匿名的に収集される場合があります）</li>
-    </ul>
-  </li>
+  <li>We do not directly obtain users' personal information (such as name, address, email address, etc.) when using this service.</li>
+  <li>This service may collect the following information for in-app purchases and usage analysis:
+  - Payment information provided by Apple (e.g., purchase status, purchase date, etc.; however, we do not obtain credit card numbers or other payment details)
+  - App usage data and crash logs (which may be collected anonymously through Apple or analytics services)</li>
 </ol>
 
-<h2 id="section-2">第2条（利用目的）</h2>
+<h2 id="article-2-purpose-of-use">Article 2 (Purpose of Use)</h2>
 
-<p>当社は、収集した情報を以下の目的で利用します。</p>
+<p>We use the collected information for the following purposes:</p>
 
 <ol>
-  <li>本サービスの提供・運営のため</li>
-  <li>不具合や障害対応など品質向上のため</li>
-  <li>利用状況の把握・分析によるサービス改善のため</li>
-  <li>課金処理および購入履歴の確認のため</li>
+  <li>To provide and operate this service</li>
+  <li>To improve quality, such as addressing bugs and issues</li>
+  <li>To analyze usage and improve the service</li>
+  <li>To process payments and verify purchase history</li>
 </ol>
 
-<h2 id="section-3">第3条（第三者提供）</h2>
+<h2 id="article-3-provision-to-third-parties">Article 3 (Provision to Third Parties)</h2>
 
-<p>当社は、法令に基づく場合を除き、収集した情報を第三者に提供することはありません。</p>
+<p>We do not provide collected information to third parties except as required by law.</p>
 
-<h2 id="section-4">第4条（外部サービスの利用）</h2>
+<h2 id="article-4-use-of-external-services">Article 4 (Use of External Services)</h2>
 
-<p>本サービスでは、以下の外部サービスを利用する場合があります。</p>
+<p>This service may use the following external services:</p>
 
 <ul>
-  <li>Apple Inc.（App Store、アプリ内課金、クラッシュレポート等）</li>
-  <li>その他、利用状況把握のためのアナリティクスサービス</li>
+  <li>Apple Inc. (App Store, in-app purchases, crash reports, etc.)</li>
+  <li>Other analytics services for understanding usage</li>
 </ul>
 
-<p>各サービスのプライバシーポリシーに基づいて情報が取り扱われます。</p>
+<p>Information is handled in accordance with the privacy policies of each service.</p>
 
-<h2 id="section-5">第5条（情報の管理）</h2>
+<h2 id="article-5-information-management">Article 5 (Information Management)</h2>
 
-<p>当社は、利用者から取得した情報について、不正アクセス、紛失、改ざん、漏洩が生じないよう適切な管理に努めます。</p>
+<p>We strive to manage the information obtained from users appropriately to prevent unauthorized access, loss, alteration, or leakage.</p>
 
-<h2 id="section-6">第6条（プライバシーポリシーの変更）</h2>
+<h2 id="article-6-changes-to-the-privacy-policy">Article 6 (Changes to the Privacy Policy)</h2>
 
-<p>当社は、必要に応じて本ポリシーを変更することがあります。変更後の本ポリシーは、本サービス内または当社ウェブサイトに掲示した時点から効力を生じるものとします。</p>
+<p>We may revise this policy as necessary. The revised policy will take effect when posted within this service or on our website.</p>
 
-<h2 id="section-7">第7条（お問い合わせ）</h2>
+<h2 id="article-7-contact-information">Article 7 (Contact Information)</h2>
 
-<p>本ポリシーに関するお問い合わせは、以下の窓口までお願いいたします。</p>
+<p>For inquiries regarding this policy, please contact us at the following:</p>
 
 <p>info@koeda.jp</p>
 

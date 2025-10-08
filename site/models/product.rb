@@ -1,7 +1,7 @@
 # App
 Product = Data.define(
   :slug, :image, :ios_url,
-  :name_ja, :copy_ja, :desc_ja, :store_url_jp, :screenshot_ja,
+  :name_ja, :name_en, :copy_ja, :desc_ja, :store_url_jp, :screenshot_ja,
   :data
 ) do
   class << self
@@ -12,6 +12,7 @@ Product = Data.define(
           image: "images/elapsed-times/app-icon.png",
           ios_url: nil,
           name_ja: "時間計測タイマー",
+          name_en: "ElapsedTimes",
           copy_ja: "ワンタップで計測開始。日常生活の中で時間を計測したいときに役立つタイマーアプリ。",
           desc_ja: <<~MD,
           「あれからどれくらいたったかな？」
@@ -36,15 +37,18 @@ Product = Data.define(
     end
   end
 
-  def terms(locale:)
-    # TODO: localize
-    # "data/apps/#{slug.gsub("-", "_")}/terms_#{locale}.md"
-    "data/apps/#{slug.gsub("-", "_")}/terms_ja.md"
+  def name(locale:)
+    case locale
+    when "ja" then name_ja
+    when "en" then name_en
+    end
   end
 
-  def privacy(locale:)
-    # TODO: localize
-    # "data/apps/#{slug.gsub("-", "_")}/privacy_#{locale}.md"
-    "data/apps/#{slug.gsub("-", "_")}/privacy_ja.md"
+  def terms_path(locale:)
+    "data/apps/#{slug.gsub("-", "_")}/terms_#{locale}.md"
+  end
+
+  def privacy_path(locale:)
+    "data/apps/#{slug.gsub("-", "_")}/privacy_#{locale}.md"
   end
 end

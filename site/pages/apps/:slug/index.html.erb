@@ -7,7 +7,9 @@
   </div>
   <div class="app-store-link">
     <% if app.ios_url %>
-      <%= link_to image_tag("images/app-store-badge.svg", alt: "Download on the App Store"), app.ios_url, target: "_blank", rel: "nofollow noopener" %>
+      <%= link_to app.ios_url, target: "_blank", rel: "nofollow noopener" do %>
+        <%= image_tag("images/app-store-badge.svg", alt: "Download on the App Store") %>
+      <% end %>
     <% else %>
       <div class="preparing">
         <%= _ "ストア配信準備中" %>
@@ -15,7 +17,7 @@
     <% end %>
   </div>
   <div class="align-center">
-    <%= link_to _("バグ報告・お問い合せ"), app.inquiry_form_url, target: "_blank", class: "button" %>
+    <%= link_to _("バグ報告・お問い合せ"), app.inquiry_form_url, target: "_blank", rel: "nofollow noopener", class: "button" %>
   </div>
   <ul class="links">
     <li><%= link_to _("利用規約"), "./terms" %></li>

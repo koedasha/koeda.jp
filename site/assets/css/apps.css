@@ -63,6 +63,14 @@
 
   .app-store-link {
     text-align: center;
+    & > a {
+      img {
+        display: inline-block;
+        height: 3.4rem;
+        width: auto;
+        margin: 1rem 0;
+      }
+    }
     .preparing {
       margin: 2rem auto;
       color: var(--secondary-color);

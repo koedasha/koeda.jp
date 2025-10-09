@@ -12,7 +12,7 @@ Product = Data.define(
         new(
           slug: "elapsed-times",
           image: "images/elapsed-times/app-icon.png",
-          ios_url: nil,
+          ios_url: "https://apps.apple.com/app/elapsedtimes/id6752881453",
           inquiry_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSegCXkXlyD6rMpO-3c738bcnq-TL9ozYkS5TFehvHrGAWntCw/viewform?usp=header",
           name_ja: "時間計測タイマー",
           name_en: "ElapsedTimes",

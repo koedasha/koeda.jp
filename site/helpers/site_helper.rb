@@ -1,5 +1,5 @@
 module SiteHelper
-  def change_locale_to_user_language(
+  def change_locale_from_default_to_user_language(
     locales: site.locales,
     default_locale: site.default_locale,
     fallback_locale: "en",
@@ -7,7 +7,7 @@ module SiteHelper
   )
     tag.script do
       <<~JS
-        (function changeLocaleToUserLanguage() {
+        (function changeLocaleFromDefaultToUserLanguage() {
           const params = new URLSearchParams(window.location.search)
           // Return if user has selected a locale
           if (params.get("locale_selected")) return

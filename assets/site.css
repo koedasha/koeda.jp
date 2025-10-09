@@ -2,7 +2,7 @@
 
 /* Global */
 @import "./css/base.css?v=99f8e811";
-@import "./css/utilities.css?v=22bcecdb";
+@import "./css/utilities.css?v=ed2f4bb2";
 @import "./css/docs.css?v=6b6522a4";
 
 /* Components */
@@ -10,5 +10,5 @@
 
 /* Pages */
 @import "./css/index.css?v=c607c75f";
-@import "./css/apps.css?v=506c6407";
+@import "./css/apps.css?v=61625ef3";
 @import "./css/devs.css?v=b895a570";

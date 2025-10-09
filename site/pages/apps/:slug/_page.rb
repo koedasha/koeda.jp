@@ -2,6 +2,7 @@ layout :apps
 
 before_render :set_contents
 
+def header_logo_link_to_top? = false
 def app = Product.find_by_slug(segments[:slug])
 
 private

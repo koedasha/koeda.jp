@@ -1,19 +1,24 @@
+<%= change_locale_from_default_to_user_language %>
+
 <article class="app">
-  <%= image_tag app.screenshot_ja, alt: "#{app.name_ja} screen shot" %>
-  <div class="desc">
-    <%= render_markdown app.desc_ja %>
+  <%= image_tag app.screenshot_path(locale:), alt: "#{app.name(locale:)} screen shot" %>
+  <div class="doc">
+    <%= render_markdown app.desc(locale:) %>
   </div>
   <div class="app-store-link">
     <% if app.ios_url %>
       <%= link_to image_tag("images/app-store-badge.svg", alt: "Download on the App Store"), app.ios_url, target: "_blank", rel: "nofollow noopener" %>
     <% else %>
       <div class="preparing">
-        <%= "ストア配信準備中" %>
+        <%= _ "ストア配信準備中" %>
       </div>
     <% end %>
   </div>
+  <div class="align-center">
+    <%= link_to _("バグ報告・お問い合せ"), app.inquiry_form_url, target: "_blank", class: "button" %>
+  </div>
   <ul class="links">
-    <li><%= link_to "利用規約", "./terms" %></li>
-    <li><%= link_to "プライバシーポリシー", "./privacy" %></li>
+    <li><%= link_to _("利用規約"), "./terms" %></li>
+    <li><%= link_to _("プライバシーポリシー"), "./privacy" %></li>
   </ul>
 </article>

@@ -22,7 +22,11 @@
   <% if header? %>
     <header>
       <h1>
-        <%= link_to "/" do %>
+        <% if header_logo_link_to_top? %>
+          <%= link_to "/" do %>
+            <%= inline_svg_tag("images/koeda-sha_logo.svg") %>
+          <% end %>
+        <% else %>
           <%= inline_svg_tag("images/koeda-sha_logo.svg") %>
         <% end %>
       </h1>

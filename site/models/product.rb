@@ -18,11 +18,9 @@ Product = Data.define(
           name_en: "ElapsedTimes",
           copy_ja: "ワンタップで計測開始。日常生活の中で時間を計測したいときに役立つタイマーアプリ。",
           desc_ja: <<~MD,
-            アラームなのか、タイマーなのか。ただ時間を測りたいだけなのに選択肢が多くて面倒ではありませんか？
+            時間を測りたい、そう思ったらワンタップで計測開始。
 
-            時間計測タイマーは、時間を測りたいときに起動して開始ボタンをタップするだけの簡単操作。
-
-            設定した時間になると通知で知らせてくれます。便利なメモ機能や履歴機能も。
+            通知設定により複数のタイマーを同時進行。便利なメモ機能や履歴機能も。
 
             機能概要
             ======
@@ -42,9 +40,9 @@ Product = Data.define(
             * ダークモード対応
           MD
           desc_en: <<~MD,
-            ElapsedTimes app lets you simply start and measure times.
+            Measure time in one tap.
 
-            It notifies you when time’s up, with handy notes and history features.
+            Multiple timers, seamless notifications, and a simple way to record notes and history.
 
             Features overview
             ==============
@@ -64,8 +62,8 @@ Product = Data.define(
             * Compatible with dark mode
           MD
           store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
-          screenshot_ja: "images/elapsed-times/promo-1.ja.png",
-          screenshot_en: "images/elapsed-times/promo-1.en.png",
+          screenshot_ja: "images/elapsed-times/main.ja.png",
+          screenshot_en: "images/elapsed-times/main.en.png",
           data: { product_ids: [ "ElapsedTimes.Plus" ] }
         )
       ]

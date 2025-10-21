@@ -20,7 +20,9 @@ Product = Data.define(
           desc_ja: <<~MD,
             時間を測りたい、そう思ったらワンタップで計測開始。
 
-            通知設定により複数のタイマーを同時進行。便利なメモ機能や履歴機能も。
+            複数のカウントアップタイマーを同時進行。時間になったら通知でお知らせ。
+
+            便利なメモ機能や履歴機能も。
 
             機能概要
             ======
@@ -40,9 +42,11 @@ Product = Data.define(
             * ダークモード対応
           MD
           desc_en: <<~MD,
-            Measure time in one tap.
+            Need to time something? Just tap and go.
 
-            Multiple timers, seamless notifications, and a simple way to record notes and history.
+            Use multiple timers at once, get notified when they’re done,
+
+            and keep notes or check your past records easily.
 
             Features overview
             ==============

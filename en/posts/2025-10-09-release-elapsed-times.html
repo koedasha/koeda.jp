@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="keywords" content="" />
   <meta name="description" content="こえだ舎はアプリと開発サービスを提供しています" />
-  <title>時間計測タイマーをアプリストアで公開しました | こえだ舎</title>
+  <title>クリーンアーキテクチャを読んだ | こえだ舎</title>
   <link rel="icon" href="/assets/images/favicon.ico?v=8059d359" type="image/x-icon">
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=91dc4dae">
   <script type="importmap">{
@@ -28,11 +28,11 @@
 <body>
   <div id="locale-selector" class="no-user-select"><details><summary>
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">["<path d='m5 8 6 6'/>", "<path d='m4 14 6-6 2-3'/>", "<path d='M2 5h12'/>", "<path d='M7 2h1'/>", "<path d='m22 22-5-10-5 10'/>", "<path d='M14 18h6'/>"]</svg>
-    JA
-</summary><ul><li><a href="/en/news/2025-10-09-release-elapsed-times?locale_selected=1" class="">EN</a></li></ul></details></div>
+    EN
+</summary><ul><li><a href="/posts/2025-10-09-release-elapsed-times?locale_selected=1" class="">JA</a></li></ul></details></div>
     <header>
       <h1>
-          <a href="/">
+          <a href="/en/">
             <svg height='119.007' id='svg1' xmlns:svg='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 551.33069 119.007' width='551.33069' xmlns:xlink='http://www.w3.org/1999/xlink'>
   <defs id='defs1'>
     <linearGradient id='linearGradient1'>
@@ -50,16 +50,38 @@
 
     <main>
       
-<article class="news doc">
-  <h2>News</h2>
-  <h3>時間計測タイマーをアプリストアで公開しました</h3>
-  <time datetime="2025-10-09">2025-10-09</time>
+<article class="post doc">
+  <h2>Blog</h2>
+  <h3>クリーンアーキテクチャを読んだ</h3>
+  <time datetime="2025-10-29">2025-10-29</time>
   <div class="content">
-    <p>時間計測タイマーをアプリストアで公開しました。</p>
+    <p>ボブおじさんのクリーンアーキテクチャを読んだ。
+最近主にRailsの割と大きめのプロジェクトをやることが多くビジネスロジックの整理に課題を感じることがあり、アーキテクチャやSOLID、依存関係の整理についてよく考えていたのでちょうど良いタイミングだった。</p>
 
-<ul>
-  <li><a href="/apps/elapsed-times/">時間計測タイマー</a></li>
-</ul>
+<p>書籍では、構造化プログラミングからプログラミングパラダイムの解説で始まり、モジュール分割の原則（SOLID）、モジュール結合・依存の原則の解説、そしてそれらを活用した集大成としてあの有名な4層アーキテクチャの解説を迎える。本の構成としてもとてもよくできていて、一人で共感しながら楽しく読み進めることができた。</p>
+
+<p>他でもよく解説されているし本文にも書かれていることだけどクリーンアーキテクチャというのはボブおじさんがそれまでに提案された同様の階層型アーキテクチャの特徴をまとめた一提案であり、34章からも読み取れるように本書の内容の具体的な実践は個々の読者に委ねられていると考えて良さそう。</p>
+
+<p>特に強調されているのはビジネスロジックからなる「アプリケーション」をフレームワークやDBなどの詳細から独立させるということ。これは長らくウェブフレームワークを使ってきた自分にはとても新鮮な視点だった。「32章フレームワークは詳細」で言われているように、フレームワークがどれほど優れたものだとしても究極的にはその作者や会社の問題を解決するためのもので、自分の問題に合わせてくれることはない。フレームワークを使うことは「一方的な結婚」であるということは意識しておきたい。</p>
+
+<p>ビジネスロジックを何にも依存しない単純なオブジェクトで構成するのはとても良いと思った。これは、ORM等に縛られない柔軟な構成が可能なのでSOLIDなどの原則を適用したリファクタリングも容易そう。クラスやモジュールをどのように構成すべきかという指針が明確なのでAIとの相性も良さそう(これはあとあと検証していきたい)。</p>
+
+<p>ところで本書ではビジネスロジック層を中心とした階層型アーキテクチャについては語ってくれているのだけどビジネスロジック層自体をどう形作れば良いのかということは語られていない。なのでActiveRecordなどで活かすにはどうすると良いのだろう。この辺りはDDDの出番なのかなぁ。これもよくある解説だけど4層アーキテクチャそのものよりもSOLID原則やモジュール結合に関する原則の方を参考にすべしという意見もよくわかるし、実践するならその方向性かも。</p>
+
+<p>RailsだとMVCのMがビジネスロジックを扱うけど、ActiveRecordパターンであるがゆえにクリーンアーキテクチャが前提としているような単純なオブジェクトで構成することは難しい。そうすると、ARを単なるDBアクセス層として利用してビジネスロジックをPOROで構成するようなことが思いつくけど、そうするとRailsの高生産性要素の大部分を捨てることになりそう。</p>
+
+<p>RailsでARを使う限りは「リッチなドメインモデル」という言葉で表されるようなモデル層を作ることを心がけていくと良いのかなぁと思っている。
+参考） 37signalsブログの「Vanilla Rails is plenty」</p>
+
+<p>そして、</p>
+
+<blockquote>
+  <p>最も重要なのは、クリーンアーキテクチャについて語ることだ。チームと話をしよう。開発者のコミュニティと話をしよう。品質はみんなの問題だ。アーキテクチャの善し悪しについて、合意を得ることが重要である。</p>
+</blockquote>
+
+<p>とあとがきにあるように、チームでアーキテクチャについて話すことの重要さ。これは本当にそうだし、実践という意味では一番重要なことかもしれない。</p>
+
+<p>余談ですがボブおじさんはrantと言って、<a href="https://x.com/search?q=rant%20from%3Aunclebobmartin">特定のトピックについて短く語るシリーズをXにアップしてる</a>。これが結構面白い。</p>
 
   </div>
 </article>

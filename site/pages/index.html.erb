@@ -19,11 +19,13 @@
   <section class="news">
     <h2>News</h2>
     <ul>
-      <% news.each do %>
-        <li>
-          <time datetime="<%= it.date.to_s %>"><%= it.date %></time>
-          <%= link_to it.title, "/news/#{it.slug}" %>
-        </li>
+      <% news.each do |news| %>
+        <%= link_to "/news/#{news.slug}" do %>
+          <li>
+            <time datetime="<%= news.date.to_s %>"><%= news.date %></time>
+            <span><%= news.title %></span>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </section>

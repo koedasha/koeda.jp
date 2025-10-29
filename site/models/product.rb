@@ -2,7 +2,6 @@
 Product = Data.define(
   :slug, :image, :ios_url, :inquiry_form_url,
   :name_ja, :name_en, :copy_ja, :desc_ja, :desc_en,
-  :store_url_jp,
   :screenshot_ja, :screenshot_en,
   :data
 ) do
@@ -65,7 +64,6 @@ Product = Data.define(
 
             * Compatible with dark mode
           MD
-          store_url_jp: "https://apps.apple.com/jp/app/twitter/id333903271",
           screenshot_ja: "images/elapsed-times/main.ja.png",
           screenshot_en: "images/elapsed-times/main.en.png",
           data: { product_ids: [ "ElapsedTimes.Plus" ] }

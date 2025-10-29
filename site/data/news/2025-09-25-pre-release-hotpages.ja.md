@@ -1,7 +1,7 @@
 ---
 date: 2025-09-25
 title: Hotpagesのプレリリース版を公開
-author: planeska
+author: simaaaji
 ---
 このサイトを構築する過程でHTMLをDRYに書くために作った内部ライブラリ（静的サイトジェネレータ）を切り出して公開しました。
 

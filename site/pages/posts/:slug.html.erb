@@ -1,0 +1,10 @@
+<% content_for :title, post.title %>
+
+<article class="post doc">
+  <h2>Blog</h2>
+  <h3><%= post.title %></h3>
+  <time datetime="<%= post.date.to_s %>"><%= post.date %></time>
+  <div class="content">
+    <%= render_markdown(post.content) %>
+  </div>
+</article>

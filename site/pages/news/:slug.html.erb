@@ -1,9 +1,10 @@
 <% content_for :title, news.title %>
 
 <article class="news doc">
-  <h2>News: <%= news.title %></h2>
+  <h2>News</h2>
+  <h3><%= news.title %></h3>
   <time datetime="<%= news.date.to_s %>"><%= news.date %></time>
   <div class="content">
-    <%= render_markdown(news.body) %>
+    <%= render_markdown(news.content) %>
   </div>
 </article>

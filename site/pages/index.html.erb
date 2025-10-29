@@ -30,6 +30,20 @@
     </ul>
   </section>
 
+  <section class="blog">
+    <h2>Blog</h2>
+    <ul>
+      <% posts.each do |post| %>
+        <%= link_to "/posts/#{post.slug}" do %>
+          <li>
+            <time datetime="<%= post.date.to_s %>"><%= post.date %></time>
+            <span><%= post.title %></span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+
   <section class="profile">
     <dl>
       <dt><%= _ "事業名" %></dt>

@@ -18,6 +18,11 @@
     text-decoration: underline;
   }
 
+  pre {
+    max-width: 100%;
+    overflow: scroll;
+  }
+
   blockquote {
     font-style: italic;
     margin: 1.4rem 0;

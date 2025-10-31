@@ -3,7 +3,7 @@ date: 2025-10-30
 title: WEBrickでWebSocketとSSE
 author: simaaaji
 ---
-この個人事業のホームページを作る時にHTMLをDRYに書きたくて作った静的サイトジェネレータ、開発用サーバには Ruby実装で安定しているWEBRickを使っている。
+この個人事業のホームページを作る時にHTMLをDRYに書きたくて作った[静的サイトジェネレータ](https://github.com/koedasha/hotpages)、開発用サーバには Ruby実装で安定しているWEBRickを使っている。
 
 サーバにホットリロードの機能を実装しようとして、最終的にはブラウザが自動で繋ぎ直してくれるSSEを採用したんだけどその過程でWebSocketとSSEの実装方法を調べたので書いておきたい。
 

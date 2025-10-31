@@ -1,13 +1,28 @@
 .doc {
   h2 {
     margin: 2rem 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    margin: 2rem 0 1rem;
     font-size: 1.2rem;
   }
 
   p {
     color: var(--paragraph-foreground-color);
-    text-indent: 1em;
-    margin: 0.6rem 0;
+    margin: 1.4rem 0;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  blockquote {
+    font-style: italic;
+    margin: 1.4rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid var(--secondary-color);
   }
 
   ol, ul {

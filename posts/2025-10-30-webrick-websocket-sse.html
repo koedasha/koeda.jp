@@ -107,7 +107,7 @@ end
 
 <h3 id="sse">SSE</h3>
 
-<p>WEBrickはレスポンスのbodyにreadpartialに応答するオブジェクトを設定すると<a href="https://github.com/ruby/webrick/blob/master/lib/webrick/httpresponse.rb#L480">readpartialでデータを読み込んでクライアントに送るようになっている</a>。</p>
+<p>WEBrickはレスポンスのbodyにreadpartialに応答するオブジェクトを設定すると<a href="https://github.com/ruby/webrick/blob/master/lib/webrick/httpresponse.rb#L480">ループ中でreadpartialから逐一データを読み込んでクライアントに送るようになっている</a>。</p>
 
 <p>そこで、StringIOのreadpartialメソッドを改変してEOFErrorなどを発生させないようにしたオブジェクトを、SSE用のパスにリクエストが来た時にbodyに設定する。</p>
 

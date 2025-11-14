@@ -102,7 +102,7 @@ article#index {
       display: inline-block;
       --text-color: #aaa;
       color: var(--text-color);
-      vertical-align: middle;
+      vertical-align: bottom;
       svg {
         vertical-align: bottom;
         width: 1rem;

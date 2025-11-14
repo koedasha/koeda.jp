@@ -45,12 +45,10 @@
   </section>
 
   <section class="profile">
-    <div class="profile-link">
-      <%= link_to "https://www.wantedly.com/id/hara_koeda", target: "_blank" do %>
-        <%= _ "代表者プロフィール" %>
-        <%= lucide_tag "external-link" %>
-      <% end %>
-    </div>
+    <%= link_to "https://www.wantedly.com/id/hara_koeda", class: "profile-link", target: "_blank" do %>
+      <%= _ "代表者プロフィール" %>
+      <%= lucide_tag "external-link" %>
+    <% end %>
     <dl>
       <dt><%= _ "事業名" %></dt>
       <dd><%= _ "こえだ舎（Koeda-sha）" %></dd>

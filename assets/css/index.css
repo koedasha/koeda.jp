@@ -96,7 +96,27 @@ article#index {
   }
 
   section.profile {
-    margin-top: 5rem;
+    margin-top: 4rem;
+
+    .profile-link {
+      --text-color: #aaa;
+      a {
+        color: var(--text-color);
+        vertical-align: middle;
+        svg {
+          vertical-align: bottom;
+          width: 1rem;
+        }
+      }
+      font-size: .8rem;
+      padding: .5rem 1.4rem;
+      border-radius: 1rem;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+      width: fit-content;
+      background-color: var(--secondary-background-color);
+      font-weight: bolder;
+    }
 
     dl {
       max-width: 24rem;

@@ -1,0 +1,18 @@
+.profile-link {
+  display: inline-block;
+  --text-color: #aaa;
+  color: var(--text-color);
+  line-height: 1rem;
+  vertical-align: bottom;
+  svg {
+    vertical-align: middle;
+    width: 1rem;
+  }
+  font-size: .8rem;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  margin: 0 auto;
+  width: fit-content;
+  background-color: var(--secondary-background-color);
+  font-weight: bolder;
+}

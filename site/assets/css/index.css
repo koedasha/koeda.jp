@@ -99,23 +99,7 @@ article#index {
     margin-top: 4rem;
 
     .profile-link {
-      display: inline-block;
-      --text-color: #aaa;
-      color: var(--text-color);
-      vertical-align: middle;
-      line-height: 1em;
-      svg {
-        vertical-align: middle;
-        height: 1.2em;
-      }
-      font-size: .8rem;
-      padding: .7rem 1rem;
-      border-radius: 1rem;
-      margin: 0 auto;
-      margin-bottom: 2rem;
-      width: fit-content;
-      background-color: var(--secondary-background-color);
-      font-weight: bolder;
+      margin-bottom: 1.5rem;
     }
 
     dl {

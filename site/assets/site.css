@@ -1,3 +1,6 @@
+/* TODO: Add Cascading layers */
+/* @layer components; */
+
 @import "./css/reset.min.css";
 
 /* Global */
@@ -6,6 +9,7 @@
 @import "./css/docs.css";
 
 /* Components */
+@import "./css/components.css";
 @import "./css/locale_selector.css";
 
 /* Pages */
